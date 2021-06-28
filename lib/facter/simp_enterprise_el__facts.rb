@@ -176,47 +176,6 @@ Facter.add('simp_enterprise_el__facts') do
         Facter.warn(e) if Process::UID.eid.zero?
       end
 
-      begin
-        mountpoints = Facter.value('mountpoints')
-
-        mountpoints.each do |key, value|
-          # btrfs subvolumes are listed in findmnt output the same way as bind mounts
-          next if value['filesystem'] == 'btrfs'
-
-          fsroot = Facter::Core::Execution.execute("findmnt -n -o fsroot '#{key}'", on_fail: nil)&.chomp
-          next if fsroot.nil?
-          next if fsroot == '/'
-
-          retval['bind'] = {} if retval['bind'].nil?
-          retval['bind'][key] = fsroot
-        end
-
-        mountpoints.each do |key, value|
-          next if value['device'].nil?
-          next unless %r{^/dev/}.match?(value['device'])
-
-          device = value['device'].sub(%r{^/dev/}, '')
-
-          def removable(path)
-            File.read("#{path}/removable").chomp.to_i.positive?
-          end
-
-          if Dir.exist?("/sys/block/#{device}")
-            retval['removable'] = {} if retval['removable'].nil?
-            retval['removable'][key] = removable("/sys/block/#{device}")
-            next
-          end
-
-          Dir.glob("/sys/block/*/#{device}").each do |p|
-            retval['removable'] = {} if retval['removable'].nil?
-            retval['removable'][key] = removable(p.sub(%r{/#{device}$}, ''))
-            break
-          end
-        end
-      rescue => e
-        Facter.warn(e)
-      end
-
       retval
     rescue => e
       Facter.warn(e)

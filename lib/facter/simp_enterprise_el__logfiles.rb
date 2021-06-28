@@ -9,10 +9,15 @@ Facter.add('simp_enterprise_el__logfiles') do
     begin
       require 'find'
 
-      retval = []
+      retval = {}
 
       Find.find('/var/log') do |file|
-        retval << file if File.file?(file)
+        next unless File.file?(file)
+
+        sb = File::Stat.new(file)
+        retval[file] = {
+          'mode' => '0' + (sb.mode & 0o777).to_s(8),
+        }
       end
 
       retval

@@ -22,7 +22,7 @@
 
 ## Classes
 
-### `simp_enterprise_el`
+### <a name="simp_enterprise_el"></a>`simp_enterprise_el`
 
 Helper profile class for simp_enterprise_el_* modules
 
@@ -36,27 +36,31 @@ include simp_enterprise_el
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el` class.
+The following parameters are available in the `simp_enterprise_el` class:
 
-##### `kernel_parameters`
+* [`kernel_parameters`](#kernel_parameters)
+* [`services`](#services)
+* [`sysctl_flags`](#sysctl_flags)
 
-Data type: `Hash`
-
-kernel_parameter resources to manage
-
-##### `services`
+##### <a name="kernel_parameters"></a>`kernel_parameters`
 
 Data type: `Hash`
 
-Service resources to manage
+`kernel_parameter` resources to manage
 
-##### `sysctl_flags`
+##### <a name="services"></a>`services`
 
 Data type: `Hash`
 
+`service` resources to manage
 
+##### <a name="sysctl_flags"></a>`sysctl_flags`
 
-### `simp_enterprise_el::cron`
+Data type: `Hash`
+
+`sysctl` resources to manage
+
+### <a name="simp_enterprise_elcron"></a>`simp_enterprise_el::cron`
 
 Manage permissions on cron files/directories
 
@@ -70,9 +74,11 @@ include simp_enterprise_el::cron
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::cron` class.
+The following parameters are available in the `simp_enterprise_el::cron` class:
 
-##### `enforce`
+* [`enforce`](#enforce)
+
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Any`
 
@@ -80,7 +86,7 @@ When `false`, resources are set to `noop` for reporting
 
 Default value: ``false``
 
-### `simp_enterprise_el::disable_wifi`
+### <a name="simp_enterprise_eldisable_wifi"></a>`simp_enterprise_el::disable_wifi`
 
 Disable wireless interfaces
 
@@ -94,9 +100,12 @@ include simp_enterprise_el::disable_wifi
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::disable_wifi` class.
+The following parameters are available in the `simp_enterprise_el::disable_wifi` class:
 
-##### `interfaces`
+* [`interfaces`](#interfaces)
+* [`enforce`](#enforce)
+
+##### <a name="interfaces"></a>`interfaces`
 
 Data type: `Optional[Hash]`
 
@@ -104,7 +113,7 @@ Wireless interfaces
 
 Default value: `$facts['simp_enterprise_el__wifi']`
 
-##### `enforce`
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Boolean`
 
@@ -112,7 +121,7 @@ Enforce disabling wireless interfaces
 
 Default value: ``false``
 
-### `simp_enterprise_el::dotfiles`
+### <a name="simp_enterprise_eldotfiles"></a>`simp_enterprise_el::dotfiles`
 
 Manage problematic . files in users' home directories
 
@@ -126,9 +135,15 @@ include simp_enterprise_el::dotfiles
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::dotfiles` class.
+The following parameters are available in the `simp_enterprise_el::dotfiles` class:
 
-##### `remove_rhosts`
+* [`remove_rhosts`](#remove_rhosts)
+* [`remove_netrc`](#remove_netrc)
+* [`remove_forward`](#remove_forward)
+* [`dotfiles`](#dotfiles)
+* [`enforce`](#enforce)
+
+##### <a name="remove_rhosts"></a>`remove_rhosts`
 
 Data type: `Boolean`
 
@@ -136,7 +151,7 @@ Remove users' .rhosts files
 
 Default value: ``false``
 
-##### `remove_netrc`
+##### <a name="remove_netrc"></a>`remove_netrc`
 
 Data type: `Boolean`
 
@@ -144,7 +159,7 @@ Remove users' .netrc files
 
 Default value: ``false``
 
-##### `remove_forward`
+##### <a name="remove_forward"></a>`remove_forward`
 
 Data type: `Boolean`
 
@@ -152,7 +167,7 @@ Remove users' .forward files
 
 Default value: ``false``
 
-##### `dotfiles`
+##### <a name="dotfiles"></a>`dotfiles`
 
 Data type: `Optional[Hash]`
 
@@ -160,7 +175,7 @@ File resources to manage
 
 Default value: `('simp_enterprise_el__facts', 'dotfiles')`
 
-##### `enforce`
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Boolean`
 
@@ -168,7 +183,7 @@ When `false`, resources are set to `noop` for reporting
 
 Default value: ``false``
 
-### `simp_enterprise_el::groups`
+### <a name="simp_enterprise_elgroups"></a>`simp_enterprise_el::groups`
 
 Check for problems with local groups
 
@@ -182,9 +197,19 @@ include simp_enterprise_el::groups
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::groups` class.
+The following parameters are available in the `simp_enterprise_el::groups` class:
 
-##### `users`
+* [`users`](#users)
+* [`groups`](#groups)
+* [`empty_shadow`](#empty_shadow)
+* [`missing_groups`](#missing_groups)
+* [`add_missing`](#add_missing)
+* [`duplicate_groups`](#duplicate_groups)
+* [`duplicate_gids`](#duplicate_gids)
+* [`remove_dups`](#remove_dups)
+* [`ruby`](#ruby)
+
+##### <a name="users"></a>`users`
 
 Data type: `Optional[Array]`
 
@@ -192,7 +217,7 @@ List of local users
 
 Default value: `('simp_enterprise_el__facts', 'users')`
 
-##### `groups`
+##### <a name="groups"></a>`groups`
 
 Data type: `Optional[Array]`
 
@@ -200,7 +225,7 @@ List of local groups
 
 Default value: `('simp_enterprise_el__facts', 'groups')`
 
-##### `empty_shadow`
+##### <a name="empty_shadow"></a>`empty_shadow`
 
 Data type: `Boolean`
 
@@ -208,7 +233,7 @@ Enforce shadow group with empty member list
 
 Default value: ``false``
 
-##### `missing_groups`
+##### <a name="missing_groups"></a>`missing_groups`
 
 Data type: `Optional[Hash]`
 
@@ -216,7 +241,7 @@ Missing group resource list
 
 Default value: `('simp_enterprise_el__facts', 'missing_groups')`
 
-##### `add_missing`
+##### <a name="add_missing"></a>`add_missing`
 
 Data type: `Boolean`
 
@@ -224,7 +249,7 @@ Enforce missing group resources
 
 Default value: ``false``
 
-##### `duplicate_groups`
+##### <a name="duplicate_groups"></a>`duplicate_groups`
 
 Data type: `Optional[Hash]`
 
@@ -232,7 +257,7 @@ List of duplicated groups
 
 Default value: `('simp_enterprise_el__facts', 'dups', 'groupname')`
 
-##### `duplicate_gids`
+##### <a name="duplicate_gids"></a>`duplicate_gids`
 
 Data type: `Optional[Hash]`
 
@@ -240,7 +265,7 @@ List of duplicated gids
 
 Default value: `('simp_enterprise_el__facts', 'dups', 'gid')`
 
-##### `remove_dups`
+##### <a name="remove_dups"></a>`remove_dups`
 
 Data type: `Boolean`
 
@@ -248,7 +273,7 @@ Enforce removing duplicate groups or GIDs
 
 Default value: ``false``
 
-##### `ruby`
+##### <a name="ruby"></a>`ruby`
 
 Data type: `String`
 
@@ -256,7 +281,7 @@ Path to ruby executable
 
 Default value: `('/lib/.*$', '/bin/ruby')`
 
-### `simp_enterprise_el::grub`
+### <a name="simp_enterprise_elgrub"></a>`simp_enterprise_el::grub`
 
 Manage bootloader configuration file permissions
 
@@ -270,9 +295,13 @@ include simp_enterprise_el::grub
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::grub` class.
+The following parameters are available in the `simp_enterprise_el::grub` class:
 
-##### `files`
+* [`files`](#files)
+* [`enforce`](#enforce)
+* [`defaults`](#defaults)
+
+##### <a name="files"></a>`files`
 
 Data type: `Optional[Hash[Stdlib::Unixpath, Hash]]`
 
@@ -280,19 +309,19 @@ Files to manage
 
 Default value: `$facts['simp_enterprise_el__grub']`
 
-##### `enforce`
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce file permissions
 
-##### `defaults`
+##### <a name="defaults"></a>`defaults`
 
 Data type: `Hash`
 
 File permissions
 
-### `simp_enterprise_el::homes`
+### <a name="simp_enterprise_elhomes"></a>`simp_enterprise_el::homes`
 
 Manage users' home directories
 
@@ -306,17 +335,22 @@ include simp_enterprise_el::homes
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::homes` class.
+The following parameters are available in the `simp_enterprise_el::homes` class:
 
-##### `uid_min`
+* [`uid_min`](#uid_min)
+* [`homes`](#homes)
+* [`defaults`](#defaults)
+* [`enforce`](#enforce)
+
+##### <a name="uid_min"></a>`uid_min`
 
 Data type: `Integer[0]`
 
 Don't manage home directory if the owner UID is below this number
 
-Default value: `Integer($facts['uid_min'])`
+Default value: `Integer($facts['uid_min'].lest || { 1000 })`
 
-##### `homes`
+##### <a name="homes"></a>`homes`
 
 Data type: `Optional[Hash]`
 
@@ -324,7 +358,7 @@ Home directories to manage
 
 Default value: `('simp_enterprise_el__facts', 'homes')`
 
-##### `defaults`
+##### <a name="defaults"></a>`defaults`
 
 Data type: `Hash`
 
@@ -332,7 +366,7 @@ Defaults for all home directories
 
 Default value: `{ 'mode' => '0700' }`
 
-##### `enforce`
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Boolean`
 
@@ -340,7 +374,7 @@ When `false`, resources are set to `noop` for reporting
 
 Default value: ``false``
 
-### `simp_enterprise_el::legacy`
+### <a name="simp_enterprise_ellegacy"></a>`simp_enterprise_el::legacy`
 
 Remove legacy `+` entries in passwd, group, and shadow files
 
@@ -354,9 +388,13 @@ include simp_enterprise_el::legacy
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::legacy` class.
+The following parameters are available in the `simp_enterprise_el::legacy` class:
 
-##### `passwd`
+* [`passwd`](#passwd)
+* [`group`](#group)
+* [`shadow`](#shadow)
+
+##### <a name="passwd"></a>`passwd`
 
 Data type: `Boolean`
 
@@ -364,7 +402,7 @@ Manage /etc/passwd
 
 Default value: ``false``
 
-##### `group`
+##### <a name="group"></a>`group`
 
 Data type: `Boolean`
 
@@ -372,7 +410,7 @@ Manage /etc/group
 
 Default value: ``false``
 
-##### `shadow`
+##### <a name="shadow"></a>`shadow`
 
 Data type: `Boolean`
 
@@ -380,7 +418,7 @@ Manage /etc/shadow
 
 Default value: ``false``
 
-### `simp_enterprise_el::logfiles`
+### <a name="simp_enterprise_ellogfiles"></a>`simp_enterprise_el::logfiles`
 
 Manage permissions on log files
 
@@ -394,35 +432,40 @@ include simp_enterprise_el::logfiles
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::logfiles` class.
+The following parameters are available in the `simp_enterprise_el::logfiles` class:
 
-##### `enforce`
+* [`enforce`](#enforce)
+* [`ignore`](#ignore)
+* [`mode`](#mode)
+* [`files`](#files)
+
+##### <a name="enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce permissions
 
-##### `ignore`
+##### <a name="ignore"></a>`ignore`
 
 Data type: `Array`
 
 Array of regular expressions to ignore
 
-##### `mode`
+##### <a name="mode"></a>`mode`
 
-Data type: `Stdlib::Filemode`
+Data type: `Pattern[/\A[0-7]{1,4}\z/]`
 
-Permissions for all files
+Permissions for all files (as an octal string)
 
-##### `files`
+##### <a name="files"></a>`files`
 
-Data type: `Optional[Array[Stdlib::Unixpath]]`
+Data type: `Optional[Hash[Stdlib::Unixpath, Hash[String, String]]]`
 
 List of log files
 
 Default value: `$facts['simp_enterprise_el__logfiles']`
 
-### `simp_enterprise_el::mountpoints`
+### <a name="simp_enterprise_elmountpoints"></a>`simp_enterprise_el::mountpoints`
 
 Manage mount options
 
@@ -436,15 +479,19 @@ include simp_enterprise_el::mountpoints
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::mountpoints` class.
+The following parameters are available in the `simp_enterprise_el::mountpoints` class:
 
-##### `removable_options`
+* [`removable_options`](#removable_options)
+* [`removable`](#removable)
+* [`required_options`](#required_options)
+
+##### <a name="removable_options"></a>`removable_options`
 
 Data type: `Array[String]`
 
 Options to enforce on removable media
 
-##### `removable`
+##### <a name="removable"></a>`removable`
 
 Data type: `Optional[Hash[Stdlib::Unixpath, Boolean]]`
 
@@ -452,13 +499,13 @@ Hash of mountpoints and whether or not they are removable
 
 Default value: `('simp_enterprise_el__facts', 'removable')`
 
-##### `required_options`
+##### <a name="required_options"></a>`required_options`
 
 Data type: `Hash[Stdlib::Unixpath, Array[String]]`
 
 
 
-### `simp_enterprise_el::path`
+### <a name="simp_enterprise_elpath"></a>`simp_enterprise_el::path`
 
 PATH validation
 
@@ -470,7 +517,7 @@ PATH validation
 include simp_enterprise_el::path
 ```
 
-### `simp_enterprise_el::sshd`
+### <a name="simp_enterprise_elsshd"></a>`simp_enterprise_el::sshd`
 
 Manage sshd environment file
 
@@ -484,27 +531,31 @@ include simp_enterprise_el::sshd
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::sshd` class.
+The following parameters are available in the `simp_enterprise_el::sshd` class:
 
-##### `env_file`
+* [`env_file`](#env_file)
+* [`env`](#env)
+* [`env_exclude`](#env_exclude)
+
+##### <a name="env_file"></a>`env_file`
 
 Data type: `Stdlib::Unixpath`
 
 Path to environment file
 
-##### `env`
+##### <a name="env"></a>`env`
 
 Data type: `Hash[String[1], String]`
 
 Environment to include in environment file
 
-##### `env_exclude`
+##### <a name="env_exclude"></a>`env_exclude`
 
 Data type: `Array[String[1]]`
 
 Environment variables to exclude from environment file
 
-### `simp_enterprise_el::users`
+### <a name="simp_enterprise_elusers"></a>`simp_enterprise_el::users`
 
 Check for problems with local users
 
@@ -518,17 +569,35 @@ include simp_enterprise_el::users
 
 #### Parameters
 
-The following parameters are available in the `simp_enterprise_el::users` class.
+The following parameters are available in the `simp_enterprise_el::users` class:
 
-##### `uid_min`
+* [`uid_min`](#uid_min)
+* [`users`](#users)
+* [`groups`](#groups)
+* [`empty_shadow`](#empty_shadow)
+* [`to_lock`](#to_lock)
+* [`lock`](#lock)
+* [`to_expire`](#to_expire)
+* [`expire`](#expire)
+* [`remove_uid_0`](#remove_uid_0)
+* [`duplicate_users`](#duplicate_users)
+* [`duplicate_uids`](#duplicate_uids)
+* [`remove_dups`](#remove_dups)
+* [`ruby`](#ruby)
+* [`force_shadow`](#force_shadow)
+* [`nologin_shell`](#nologin_shell)
+* [`sa_nologin`](#sa_nologin)
+* [`sa_exclude`](#sa_exclude)
+
+##### <a name="uid_min"></a>`uid_min`
 
 Data type: `Integer[0]`
 
 For users under this number, any required group resources will be added with `system => true`
 
-Default value: `Integer($facts['uid_min'])`
+Default value: `Integer($facts['uid_min'].lest || { 1000 })`
 
-##### `users`
+##### <a name="users"></a>`users`
 
 Data type: `Optional[Array]`
 
@@ -536,7 +605,7 @@ List of local users
 
 Default value: `('simp_enterprise_el__facts', 'users')`
 
-##### `groups`
+##### <a name="groups"></a>`groups`
 
 Data type: `Optional[Array]`
 
@@ -544,13 +613,13 @@ List of local groups
 
 Default value: `('simp_enterprise_el__facts', 'groups')`
 
-##### `empty_shadow`
+##### <a name="empty_shadow"></a>`empty_shadow`
 
 Data type: `Boolean`
 
 Enforce group change for users with `shadow` as their primary group
 
-##### `to_lock`
+##### <a name="to_lock"></a>`to_lock`
 
 Data type: `Optional[Array]`
 
@@ -558,13 +627,13 @@ List of local users that should be locked
 
 Default value: `('simp_enterprise_el__facts', 'lock')`
 
-##### `lock`
+##### <a name="lock"></a>`lock`
 
 Data type: `Boolean`
 
 Enforce locking `to_lock` list
 
-##### `to_expire`
+##### <a name="to_expire"></a>`to_expire`
 
 Data type: `Optional[Array]`
 
@@ -572,19 +641,19 @@ List of local users that should have a password change forced
 
 Default value: `('simp_enterprise_el__facts', 'expire')`
 
-##### `expire`
+##### <a name="expire"></a>`expire`
 
 Data type: `Boolean`
 
 Enforce expiring passwords of users in the `to_expire` list
 
-##### `remove_uid_0`
+##### <a name="remove_uid_0"></a>`remove_uid_0`
 
 Data type: `Boolean`
 
 Remove any users other than `root` with UID 0
 
-##### `duplicate_users`
+##### <a name="duplicate_users"></a>`duplicate_users`
 
 Data type: `Optional[Hash]`
 
@@ -592,7 +661,7 @@ List of duplicated usernames
 
 Default value: `('simp_enterprise_el__facts', 'dups', 'username')`
 
-##### `duplicate_uids`
+##### <a name="duplicate_uids"></a>`duplicate_uids`
 
 Data type: `Optional[Hash]`
 
@@ -600,13 +669,13 @@ List of duplicated UIDs
 
 Default value: `('simp_enterprise_el__facts', 'dups', 'uid')`
 
-##### `remove_dups`
+##### <a name="remove_dups"></a>`remove_dups`
 
 Data type: `Boolean`
 
 Enforce removing duplicate usernames or UIDs
 
-##### `ruby`
+##### <a name="ruby"></a>`ruby`
 
 Data type: `String`
 
@@ -614,25 +683,25 @@ Path to ruby executable
 
 Default value: `('/lib/.*$', '/bin/ruby')`
 
-##### `force_shadow`
+##### <a name="force_shadow"></a>`force_shadow`
 
 Data type: `Boolean`
 
 Set any user with a password in `/etc/passwd` to `x`
 
-##### `nologin_shell`
+##### <a name="nologin_shell"></a>`nologin_shell`
 
 Data type: `String`
 
 Shell to use for accounts with no shell access
 
-##### `sa_nologin`
+##### <a name="sa_nologin"></a>`sa_nologin`
 
 Data type: `Boolean`
 
 Enforce /sbin/nologin as the login shell for system accounts
 
-##### `sa_exclude`
+##### <a name="sa_exclude"></a>`sa_exclude`
 
 Data type: `Array`
 

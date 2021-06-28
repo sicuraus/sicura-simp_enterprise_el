@@ -6,6 +6,9 @@ lookup_options:
   simp_enterprise_el::services:
     merge:
       strategy: deep
+  simp_enterprise_el::files:
+    merge:
+      strategy: deep
   simp_enterprise_el::sysctl_flags:
     merge:
       strategy: deep
@@ -33,6 +36,7 @@ lookup_options:
 
 simp_enterprise_el::kernel_parameters: {}
 simp_enterprise_el::services: {}
+simp_enterprise_el::files: {}
 simp_enterprise_el::sysctl_flags: {}
 
 simp_enterprise_el::sshd::env_file: '/etc/sysconfig/sshd'
