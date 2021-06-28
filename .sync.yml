@@ -1,0 +1,66 @@
+---
+.gitlab-ci.yml:
+  custom:
+    ruby_versions:
+      2.5.7:
+        tags:
+          - docker
+      2.4.5:
+        tags:
+          - docker
+    custom_stages:
+      - beaker
+    custom_jobs:
+      scelint:
+        stage: syntax
+        image: ruby:2.5.7
+        script:
+          - bundle exec scelint
+        tags:
+          - docker
+      yamllint:
+        stage: syntax
+        image: python:alpine
+        script:
+          - 'pip install yamllint && yamllint .'
+        before_script: []
+        cache:
+          paths: []
+        tags:
+          - docker
+      beaker:
+        stage: beaker
+        script:
+          - bundle install --with system_tests --jobs $(nproc)
+          - bundle exec rake beaker:default
+        tags:
+          - beaker
+.travis.yml:
+  delete: true
+.rubocop.yml:
+  profiles:
+    strict:
+      configs:
+        AllCops:
+          TargetRubyVersion: '2.4'
+          Exclude:
+            - 'dist/**/*'
+Gemfile:
+  optional:
+    ':lint':
+      - gem: 'scelint'
+        git: 'https://github.com/silug/rubygem-simp-scelint.git'
+    ':development':
+      - gem: pry
+      - gem: pry-byebug
+    ':system_tests':
+      - gem: beaker
+      - gem: beaker-rspec
+      - gem: beaker-puppet_install_helper
+      - gem: beaker-module_install_helper
+      - gem: simp-beaker-helpers
+appveyor.yml:
+  delete: true
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+  hiera_config: 'spec/hiera.yaml'

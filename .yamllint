@@ -1,0 +1,10 @@
+---
+extends: default
+rules:
+  line-length:
+    max: 140
+ignore: |
+  /spec/fixtures/
+  /.gitlab-ci.yml
+  /.rubocop.yml
+  /vendor/

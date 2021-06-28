@@ -1,0 +1,71 @@
+---
+lookup_options:
+  simp_enterprise_el::kernel_parameters:
+    merge:
+      strategy: deep
+  simp_enterprise_el::services:
+    merge:
+      strategy: deep
+  simp_enterprise_el::sysctl_flags:
+    merge:
+      strategy: deep
+  simp_enterprise_el::sshd::env:
+    merge:
+      strategy: hash
+  simp_enterprise_el::sshd::env_exclude:
+    merge:
+      strategy: unique
+  simp_enterprise_el::users::sa_exclude:
+    merge:
+      strategy: unique
+  simp_enterprise_el::mountpoints::required_options:
+    merge:
+      strategy: deep
+  simp_enterprise_el::mountpoints::removable_options:
+    merge:
+      strategy: unique
+  simp_enterprise_el::logfiles::ignore:
+    merge:
+      strategy: unique
+  simp_enterprise_el::grub::defaults:
+    merge:
+      strategy: deep
+
+simp_enterprise_el::kernel_parameters: {}
+simp_enterprise_el::services: {}
+simp_enterprise_el::sysctl_flags: {}
+
+simp_enterprise_el::sshd::env_file: '/etc/sysconfig/sshd'
+simp_enterprise_el::sshd::env: {}
+simp_enterprise_el::sshd::env_exclude: []
+
+simp_enterprise_el::users::empty_shadow: false
+simp_enterprise_el::users::lock: false
+simp_enterprise_el::users::expire: false
+simp_enterprise_el::users::remove_uid_0: false
+simp_enterprise_el::users::remove_dups: false
+simp_enterprise_el::users::force_shadow: false
+simp_enterprise_el::users::sa_nologin: false
+
+simp_enterprise_el::users::nologin_shell: '/sbin/nologin'
+
+simp_enterprise_el::users::sa_exclude:
+  - root
+  - sync
+  - shutdown
+  - halt
+
+simp_enterprise_el::mountpoints::required_options: {}
+simp_enterprise_el::mountpoints::removable_options: []
+
+simp_enterprise_el::logfiles::enforce: false
+simp_enterprise_el::logfiles::ignore:
+  - '/lastlog$'
+  - '/[buw]tmp$'
+simp_enterprise_el::logfiles::mode: '0600'
+
+simp_enterprise_el::grub::defaults:
+  owner: 'root'
+  group: 'root'
+  mode: '0600'
+simp_enterprise_el::grub::enforce: false
