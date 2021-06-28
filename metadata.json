@@ -1,6 +1,6 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -9,10 +9,6 @@
     {
       "name": "puppetlabs-stdlib",
       "version_requirement": ">= 4.25.0 < 8.0.0"
-    },
-    {
-      "name": "onyxpoint-simp_enterprise_el_cis",
-      "version_requirement": ">= 0.2.0 < 1.0.0"
     },
     {
       "name": "simp-simplib",
