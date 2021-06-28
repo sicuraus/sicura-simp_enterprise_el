@@ -55,8 +55,14 @@ class simp_enterprise_el (
   }
 
   $sysctl_flags.each |$key, $value| {
-    sysctl { $key:
-      * => $value,
+    if defined(Sysctl[$key]) {
+      Sysctl <| title == $key |> {
+        * => $value,
+      }
+    } else {
+      sysctl { $key:
+        * => $value,
+      }
     }
   }
 
