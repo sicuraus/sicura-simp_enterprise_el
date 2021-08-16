@@ -1,6 +1,6 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -8,7 +8,7 @@
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 4.25.0 < 8.0.0"
+      "version_requirement": ">= 5.0.0 < 8.0.0"
     },
     {
       "name": "simp-simplib",
@@ -57,7 +57,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.0.0 < 8.0.0"
+      "version_requirement": ">= 6.0.0 < 8.0.0"
     }
   ],
   "pdk-version": "2.1.0",

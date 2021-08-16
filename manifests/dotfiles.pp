@@ -40,8 +40,8 @@ class simp_enterprise_el::dotfiles (
       default => $defaults
     }
 
-    file { $key:
-      * => $value + $overrides,
+    simp_enterprise_el::resource::file { $key:
+      params => $value + $overrides,
     }
   }
 }

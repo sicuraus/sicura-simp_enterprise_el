@@ -20,8 +20,8 @@ class simp_enterprise_el::homes (
 
   $homes.lest || { {} }.each |$key, $value| {
     unless $value['owner'] < $uid_min {
-      file { $key:
-        * => $_defaults + $value,
+      simp_enterprise_el::resource::file { $key:
+        params => $_defaults + $value,
       }
     }
   }

@@ -16,6 +16,7 @@ Facter.add('simp_enterprise_el__grub') do
         '/boot/grub2/grubenv',
       ].each do |file|
         next unless File.exist?(file)
+        next if File.symlink?(file)
 
         retval[file] = {
           'ensure' => Dir.exist?(file) ? 'directory' : 'file',

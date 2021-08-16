@@ -12,25 +12,27 @@ class simp_enterprise_el::cron (
     default => { 'noop' => true },
   }
 
-  file { [
+  simp_enterprise_el::resource::file { [
     '/etc/cron.hourly',
     '/etc/cron.daily',
     '/etc/cron.weekly',
     '/etc/cron.monthly',
     '/etc/cron.d',
   ]:
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
-    *      => $noop,
+    params => {
+      'ensure' => 'directory',
+      'owner'  => 'root',
+      'group'  => 'root',
+      'mode'   => '0700',
+    } + $noop,
   }
 
-  file { '/etc/crontab':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0600',
-    *      => $noop,
+  simp_enterprise_el::resource::file { '/etc/crontab':
+    params => {
+      'ensure' => 'file',
+      'owner'  => 'root',
+      'group'  => 'root',
+      'mode'   => '0600',
+    } + $noop,
   }
 }

@@ -1,3 +1,15 @@
+<%- | Boolean                        $warn_to_stderr,
+      Simplib::Syslog::LowerPriority $log_facility,
+| -%>
+sanitize_path_warn() {
+<% if $warn_to_stderr { -%>
+    stderr='-s'
+<% } else { -%>
+    stderr=''
+<% } -%>
+    logger $stderr -p <%= $log_facility %> "PATH error: $*"
+}
+
 sanitize_path() {
     local oldIFS=$IFS
     local IFS=':'
@@ -9,12 +21,12 @@ sanitize_path() {
     local dir
     for dir in "${path[@]}" ; do
         if [[ ! "$dir" =~ ^/ ]] ; then
-            echo "$dir is a relative directory" >&2
+            sanitize_path_warn "$dir is a relative directory"
             continue
         fi
 
         if [ ! -d "$dir" ] ; then
-            echo "$dir is not a directory"
+            sanitize_path_warn "$dir is not a directory"
             continue
         fi
 
@@ -23,21 +35,21 @@ sanitize_path() {
 
         if [ "$owner" -ne "$UID" ] ; then
             if [ "$UID" -eq 0 ] ; then
-                echo "$dir is not owned by root" >&2
+                sanitize_path_warn "$dir is not owned by root"
                 continue
             elif [ "$owner" -ne 0 ] ; then
-                echo "$dir is owned by another user" >&2
+                sanitize_path_warn "$dir is owned by another user"
                 continue
             fi
         fi
 
         if [ $[ $perms & 020 ] -ne 0 -a "$UID" -eq 0 ] ; then
-            echo "$dir is group writable" >&2
+            sanitize_path_warn "$dir is group writable"
             continue
         fi
 
         if [ $[ $perms & 02 ] -ne 0 ] ; then
-            echo "$dir is world writable" >&2
+            sanitize_path_warn "$dir is world writable"
             continue
         fi
 

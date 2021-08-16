@@ -17,8 +17,8 @@ class simp_enterprise_el::grub (
   }
 
   $files.lest || { {} }.each |$key, $value| {
-    file { $key:
-      * => $defaults + $value + $noop,
+    simp_enterprise_el::resource::file { $key:
+      params => $defaults + $value + $noop,
     }
   }
 }
