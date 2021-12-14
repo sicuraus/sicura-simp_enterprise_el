@@ -1,4 +1,7 @@
-# @param sa_exclude List of system accounts allowed to have an login shell
+# @summary Check for `nullok` in PAM stack
+#
+# @param system_auth_nullok Check for `nullok` in `system-auth`
+# @param password_auth_nullok Check for `nullok` in `password-auth`
 #
 # @example
 #   include simp_enterprise_el::pam

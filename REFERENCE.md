@@ -17,17 +17,23 @@
 * [`simp_enterprise_el::legacy`](#simp_enterprise_ellegacy): Remove legacy `+` entries in passwd, group, and shadow files
 * [`simp_enterprise_el::logfiles`](#simp_enterprise_ellogfiles): Manage permissions on log files
 * [`simp_enterprise_el::mountpoints`](#simp_enterprise_elmountpoints): Manage mount options
-* [`simp_enterprise_el::pam`](#simp_enterprise_elpam)
+* [`simp_enterprise_el::pam`](#simp_enterprise_elpam): Check for `nullok` in PAM stack
 * [`simp_enterprise_el::path`](#simp_enterprise_elpath): PATH validation
 * [`simp_enterprise_el::resolv`](#simp_enterprise_elresolv): resolv.conf validation
+* [`simp_enterprise_el::ssh_host_files`](#simp_enterprise_elssh_host_files): Manage ssh host key files
 * [`simp_enterprise_el::sshd`](#simp_enterprise_elsshd): Manage sshd environment file
 * [`simp_enterprise_el::users`](#simp_enterprise_elusers): Check for problems with local users
 
 ### Defined types
 
 * [`simp_enterprise_el::resource::file`](#simp_enterprise_elresourcefile): Optionally manage or override file resources
+* [`simp_enterprise_el::resource::file_line`](#simp_enterprise_elresourcefile_line): Optionally manage or override file_line resources
+* [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_elresourceini_setting): Optionally manage or override ini_setting resources
 * [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_elresourcekernel_parameter): Optionally manage or override kernel_parameter resources
+* [`simp_enterprise_el::resource::package`](#simp_enterprise_elresourcepackage): Optionally manage or override package resources
 * [`simp_enterprise_el::resource::service`](#simp_enterprise_elresourceservice): Optionally manage or override service resources
+* [`simp_enterprise_el::resource::shellvars`](#simp_enterprise_elresourceshellvars): Optionally manage or override shellvar resources
+* [`simp_enterprise_el::resource::ssh_config`](#simp_enterprise_elresourcessh_config): Optionally manage or override ssh_config resources
 * [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_elresourcesysctl): Optionally manage or override sysctl resources
 
 ## Classes
@@ -48,90 +54,195 @@ include simp_enterprise_el
 
 The following parameters are available in the `simp_enterprise_el` class:
 
-* [`kernel_parameters`](#kernel_parameters)
-* [`services`](#services)
-* [`sysctl_flags`](#sysctl_flags)
 * [`files`](#files)
-* [`kernel_parameter_defaults`](#kernel_parameter_defaults)
-* [`service_defaults`](#service_defaults)
-* [`sysctl_flag_defaults`](#sysctl_flag_defaults)
 * [`file_defaults`](#file_defaults)
-* [`kernel_parameter_overrides`](#kernel_parameter_overrides)
-* [`service_overrides`](#service_overrides)
-* [`sysctl_flag_overrides`](#sysctl_flag_overrides)
 * [`file_overrides`](#file_overrides)
-
-##### <a name="kernel_parameters"></a>`kernel_parameters`
-
-Data type: `Hash`
-
-`kernel_parameter` resources to manage
-
-##### <a name="services"></a>`services`
-
-Data type: `Hash`
-
-`service` resources to manage
-
-##### <a name="sysctl_flags"></a>`sysctl_flags`
-
-Data type: `Hash`
-
-`sysctl` resources to manage
+* [`file_lines`](#file_lines)
+* [`file_line_defaults`](#file_line_defaults)
+* [`file_line_overrides`](#file_line_overrides)
+* [`ini_settings`](#ini_settings)
+* [`ini_setting_defaults`](#ini_setting_defaults)
+* [`ini_setting_overrides`](#ini_setting_overrides)
+* [`kernel_parameters`](#kernel_parameters)
+* [`kernel_parameter_defaults`](#kernel_parameter_defaults)
+* [`kernel_parameter_overrides`](#kernel_parameter_overrides)
+* [`packages`](#packages)
+* [`package_defaults`](#package_defaults)
+* [`package_overrides`](#package_overrides)
+* [`services`](#services)
+* [`service_defaults`](#service_defaults)
+* [`service_overrides`](#service_overrides)
+* [`shellvars`](#shellvars)
+* [`shellvars_defaults`](#shellvars_defaults)
+* [`shellvars_overrides`](#shellvars_overrides)
+* [`ssh_configs`](#ssh_configs)
+* [`ssh_config_defaults`](#ssh_config_defaults)
+* [`ssh_config_overrides`](#ssh_config_overrides)
+* [`sysctl_flags`](#sysctl_flags)
+* [`sysctl_flag_defaults`](#sysctl_flag_defaults)
+* [`sysctl_flag_overrides`](#sysctl_flag_overrides)
 
 ##### <a name="files"></a>`files`
 
 Data type: `Hash`
 
-a list of files to manage
-
-##### <a name="kernel_parameter_defaults"></a>`kernel_parameter_defaults`
-
-Data type: `Hash`
-
-
-
-##### <a name="service_defaults"></a>`service_defaults`
-
-Data type: `Hash`
-
-
-
-##### <a name="sysctl_flag_defaults"></a>`sysctl_flag_defaults`
-
-Data type: `Hash`
-
-
+`file` resources to manage.  See [the simp_enterprise_el::resource::file defined type](#simp_enterprise_elresourcefile).
 
 ##### <a name="file_defaults"></a>`file_defaults`
 
 Data type: `Hash`
 
-
-
-##### <a name="kernel_parameter_overrides"></a>`kernel_parameter_overrides`
-
-Data type: `Hash`
-
-
-
-##### <a name="service_overrides"></a>`service_overrides`
-
-Data type: `Hash`
-
-
-
-##### <a name="sysctl_flag_overrides"></a>`sysctl_flag_overrides`
-
-Data type: `Hash`
-
-
+Default attributes for managed `file` resources
 
 ##### <a name="file_overrides"></a>`file_overrides`
 
 Data type: `Hash`
 
+Attributes to override for all managed `file` resources
 
+##### <a name="file_lines"></a>`file_lines`
+
+Data type: `Hash`
+
+`file_line` resources to manage.  See [the simp_enterprise_el::resource::file_line defined type](#simp_enterprise_elresourcefile_line).
+
+##### <a name="file_line_defaults"></a>`file_line_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `file_line` resources
+
+##### <a name="file_line_overrides"></a>`file_line_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `file_line` resources
+
+##### <a name="ini_settings"></a>`ini_settings`
+
+Data type: `Hash`
+
+`ini_setting` resources to manage.  See [the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
+
+##### <a name="ini_setting_defaults"></a>`ini_setting_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `ini_setting` resources
+
+##### <a name="ini_setting_overrides"></a>`ini_setting_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `ini_setting` resources
+
+##### <a name="kernel_parameters"></a>`kernel_parameters`
+
+Data type: `Hash`
+
+`kernel_parameter` resources to manage.  See [the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
+
+##### <a name="kernel_parameter_defaults"></a>`kernel_parameter_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `kernel_parameter` resources
+
+##### <a name="kernel_parameter_overrides"></a>`kernel_parameter_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `kernel_parameter` resources
+
+##### <a name="packages"></a>`packages`
+
+Data type: `Hash`
+
+`package` resources to manage.  See [the simp_enterprise_el::resource::package defined type](#simp_enterprise_elresourcepackage).
+
+##### <a name="package_defaults"></a>`package_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `package` resources
+
+##### <a name="package_overrides"></a>`package_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `package` resources
+
+##### <a name="services"></a>`services`
+
+Data type: `Hash`
+
+`service` resources to manage.  See [the simp_enterprise_el::resource::service defined type](#simp_enterprise_elresourceservice).
+
+##### <a name="service_defaults"></a>`service_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `service` resources
+
+##### <a name="service_overrides"></a>`service_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `service` resources
+
+##### <a name="shellvars"></a>`shellvars`
+
+Data type: `Hash`
+
+`shellvar` resources to manage.  See [the simp_enterprise_el::resource::shellvars defined type](#simp_enterprise_elresourceshellvars).
+
+##### <a name="shellvars_defaults"></a>`shellvars_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `shellvar` resources
+
+##### <a name="shellvars_overrides"></a>`shellvars_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `shellvar` resources
+
+##### <a name="ssh_configs"></a>`ssh_configs`
+
+Data type: `Hash`
+
+`ssh_config` resources to manage.  See [the simp_enterprise_el::resource::ssh_config defined type](#simp_enterprise_elresourcessh_config).
+
+##### <a name="ssh_config_defaults"></a>`ssh_config_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `ssh_config` resources
+
+##### <a name="ssh_config_overrides"></a>`ssh_config_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `ssh_config` resources
+
+##### <a name="sysctl_flags"></a>`sysctl_flags`
+
+Data type: `Hash`
+
+`sysctl` resources to manage.  See [the simp_enterprise_el::resource::sysctl defined type](#simp_enterprise_elresourcesysctl).
+
+##### <a name="sysctl_flag_defaults"></a>`sysctl_flag_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `sysctl` resources
+
+##### <a name="sysctl_flag_overrides"></a>`sysctl_flag_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `sysctl` resources
 
 ### <a name="simp_enterprise_elcron"></a>`simp_enterprise_el::cron`
 
@@ -592,11 +703,17 @@ include simp_enterprise_el::mountpoints
 
 The following parameters are available in the `simp_enterprise_el::mountpoints` class:
 
+* [`required_options`](#required_options)
 * [`removable_options`](#removable_options)
 * [`removable`](#removable)
-* [`required_options`](#required_options)
 * [`nfs_mount`](#nfs_mount)
 * [`nfs_mount_options`](#nfs_mount_options)
+
+##### <a name="required_options"></a>`required_options`
+
+Data type: `Hash[Stdlib::Unixpath, Array[String]]`
+
+Options to enforce on all mountpoints
 
 ##### <a name="removable_options"></a>`removable_options`
 
@@ -612,17 +729,11 @@ Hash of mountpoints and whether or not they are removable
 
 Default value: `('simp_enterprise_el__mounts', 'removable')`
 
-##### <a name="required_options"></a>`required_options`
-
-Data type: `Hash[Stdlib::Unixpath, Array[String]]`
-
-
-
 ##### <a name="nfs_mount"></a>`nfs_mount`
 
 Data type: `Optional[Hash[Stdlib::Unixpath,Array[String]]]`
 
-
+Hash of NFS mountpoints
 
 Default value: `('simp_enterprise_el__mounts', 'nfs_mount')`
 
@@ -630,13 +741,13 @@ Default value: `('simp_enterprise_el__mounts', 'nfs_mount')`
 
 Data type: `Optional[Array[String]]`
 
-
+Options to enforce on NFS mountpoints
 
 Default value: `[]`
 
 ### <a name="simp_enterprise_elpam"></a>`simp_enterprise_el::pam`
 
-The simp_enterprise_el::pam class.
+Check for `nullok` in PAM stack
 
 #### Examples
 
@@ -650,19 +761,14 @@ include simp_enterprise_el::pam
 
 The following parameters are available in the `simp_enterprise_el::pam` class:
 
-* [`sa_exclude`](#sa_exclude)
 * [`system_auth_nullok`](#system_auth_nullok)
 * [`password_auth_nullok`](#password_auth_nullok)
-
-##### <a name="sa_exclude"></a>`sa_exclude`
-
-List of system accounts allowed to have an login shell
 
 ##### <a name="system_auth_nullok"></a>`system_auth_nullok`
 
 Data type: `Optional[Boolean]`
 
-
+Check for `nullok` in `system-auth`
 
 Default value: `('simp_enterprise_el__pam', 'system-auth_nullok')`
 
@@ -670,7 +776,7 @@ Default value: `('simp_enterprise_el__pam', 'system-auth_nullok')`
 
 Data type: `Optional[Boolean]`
 
-
+Check for `nullok` in `password-auth`
 
 Default value: `('simp_enterprise_el__pam', 'password-auth_nullok')`
 
@@ -690,20 +796,20 @@ include simp_enterprise_el::path
 
 The following parameters are available in the `simp_enterprise_el::path` class:
 
-* [`warn_to_stderr`](#warn_to_stderr)
 * [`log_facility`](#log_facility)
-
-##### <a name="warn_to_stderr"></a>`warn_to_stderr`
-
-Data type: `Boolean`
-
-
+* [`warn_to_stderr`](#warn_to_stderr)
 
 ##### <a name="log_facility"></a>`log_facility`
 
 Data type: `Simplib::Syslog::LowerPriority`
 
+Log facility to use for PATH validation warnings
 
+##### <a name="warn_to_stderr"></a>`warn_to_stderr`
+
+Data type: `Boolean`
+
+Also send warnings to STDERR
 
 ### <a name="simp_enterprise_elresolv"></a>`simp_enterprise_el::resolv`
 
@@ -721,24 +827,14 @@ include simp_enterprise_el::resolv
 
 The following parameters are available in the `simp_enterprise_el::resolv` class:
 
-* [`report_resolv_entries`](#report_resolv_entries)
-* [`nameserver_count`](#nameserver_count)
 * [`min_num_nameservers`](#min_num_nameservers)
 * [`nameservers`](#nameservers)
-
-##### <a name="report_resolv_entries"></a>`report_resolv_entries`
-
-if true, check if the number of nameservers is less than the minimum number of nameservers specified
-
-##### <a name="nameserver_count"></a>`nameserver_count`
-
-number of nameservers found in resolv.conf
 
 ##### <a name="min_num_nameservers"></a>`min_num_nameservers`
 
 Data type: `Integer[0,3]`
 
-
+If resolv.conf is configured with less nameservers than this parameter specifies, notify the user
 
 Default value: `0`
 
@@ -746,9 +842,98 @@ Default value: `0`
 
 Data type: `Optional[Array[String]]`
 
-
+System nameservers
 
 Default value: `('simp_enterprise_el__resolv', 'nameservers')`
+
+### <a name="simp_enterprise_elssh_host_files"></a>`simp_enterprise_el::ssh_host_files`
+
+Manage ssh host key files
+
+#### Examples
+
+##### 
+
+```puppet
+include simp_enterprise_el::ssh_host_files
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::ssh_host_files` class:
+
+* [`ssh_host_keys`](#ssh_host_keys)
+* [`ssh_host_key_mode`](#ssh_host_key_mode)
+* [`ssh_host_key_owner`](#ssh_host_key_owner)
+* [`ssh_host_key_group`](#ssh_host_key_group)
+* [`ssh_host_pub_keys`](#ssh_host_pub_keys)
+* [`ssh_host_pub_key_mode`](#ssh_host_pub_key_mode)
+* [`ssh_host_pub_key_owner`](#ssh_host_pub_key_owner)
+* [`ssh_host_pub_key_group`](#ssh_host_pub_key_group)
+
+##### <a name="ssh_host_keys"></a>`ssh_host_keys`
+
+Data type: `Optional[Array[Stdlib::Unixpath]]`
+
+Hash of system ssh private key files
+
+Default value: `('simp_enterprise_el__ssh_host_files', 'ssh_host_key_files')`
+
+##### <a name="ssh_host_key_mode"></a>`ssh_host_key_mode`
+
+Data type: `Stdlib::Filemode`
+
+the mode for all /etc/ssh/ssh_host_*_key files
+
+Default value: `'u-x,g-wx,o-rwx'`
+
+##### <a name="ssh_host_key_owner"></a>`ssh_host_key_owner`
+
+Data type: `String`
+
+the owner for all /etc/ssh/ssh_host_*_key files
+
+Default value: `'root'`
+
+##### <a name="ssh_host_key_group"></a>`ssh_host_key_group`
+
+Data type: `String`
+
+the group for all /etc/ssh/ssh_host_*_key files
+
+Default value: `'root'`
+
+##### <a name="ssh_host_pub_keys"></a>`ssh_host_pub_keys`
+
+Data type: `Optional[Array[Stdlib::Unixpath]]`
+
+Hash of system ssh pub key files
+
+Default value: `('simp_enterprise_el__ssh_host_files', 'ssh_host_pub_files')`
+
+##### <a name="ssh_host_pub_key_mode"></a>`ssh_host_pub_key_mode`
+
+Data type: `Stdlib::Filemode`
+
+the mode for all /etc/ssh/ssh_host_*_key.pub files
+
+Default value: `'u-x,go-wx'`
+
+##### <a name="ssh_host_pub_key_owner"></a>`ssh_host_pub_key_owner`
+
+Data type: `String`
+
+the owner for all /etc/ssh/ssh_host_*_key.pub files
+
+Default value: `'root'`
+
+##### <a name="ssh_host_pub_key_group"></a>`ssh_host_pub_key_group`
+
+Data type: `String`
+
+the group for all /etc/ssh/ssh_host_*_key.pub files
+
+Default value: `'root'`
 
 ### <a name="simp_enterprise_elsshd"></a>`simp_enterprise_el::sshd`
 
@@ -951,12 +1136,125 @@ Optionally manage or override file resources
 ##### 
 
 ```puppet
-simp_enterprise_el::resource::file { 'namevar': }
+simp_enterprise_el::resource::file { '/etc/crontab':
+  params => {
+    'ensure' => 'file',
+    'owner'  => 'root',
+    'group'  => 'root',
+    'mode'   => '0600',
+  },
+}
 ```
 
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::file` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourcefile_line"></a>`simp_enterprise_el::resource::file_line`
+
+WARNING: Do not use this feature unless there is no other option
+         For example, if you need to edit a line in a config file
+         ensure there is not currently a module to modify that config
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::file_line { 'add_line_to_unamanaged_file':
+  ensure => present,
+  path   => '/tmp/testfile',
+  line   => 'newline1 = foo',
+  match  => '^newline1\ =',
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::file_line` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourceini_setting"></a>`simp_enterprise_el::resource::ini_setting`
+
+Optionally manage or override ini_setting resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
+   params => {
+     ensure => present,
+     path              => '/etc/systemd/coredump.conf',
+     section           => 'Coredump',
+     key_val_separator => '=',
+     setting           => 'Storage',
+     value             => 'none'
+   }
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::ini_setting` defined type:
 
 * [`params`](#params)
 * [`override`](#override)
@@ -996,12 +1294,66 @@ Optionally manage or override kernel_parameter resources
 ##### 
 
 ```puppet
-simp_enterprise_el::resource::kernel_parameter { 'namevar': }
+simp_enterprise_el::resource::kernel_parameter { 'consoleblank':
+  params => {
+    'ensure' => 'present',
+    'value'  => '0',
+  },
+}
 ```
 
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::kernel_parameter` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourcepackage"></a>`simp_enterprise_el::resource::package`
+
+Optionally manage or override package resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::package { 'telnet':
+  params {
+    'ensure' => 'absent',
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::package` defined type:
 
 * [`params`](#params)
 * [`override`](#override)
@@ -1041,12 +1393,119 @@ Optionally manage or override service resources
 ##### 
 
 ```puppet
-simp_enterprise_el::resource::service { 'namevar': }
+simp_enterprise_el::resource::service { 'rsyncd':
+  params => {
+    'ensure' => 'stopped',
+    'enable' => false,
+  },
+}
 ```
 
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::service` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourceshellvars"></a>`simp_enterprise_el::resource::shellvars`
+
+Optionally manage or override shellvar resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::shellvar { 'GRUB_CMDLINE_LINUX':
+   params => {
+     ensure       => present,
+     target       => "/etc/default/grub",
+     value        => ["quiet", "cgroup_enable=memory"],
+     array_append => true,
+   }
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::shellvars` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourcessh_config"></a>`simp_enterprise_el::resource::ssh_config`
+
+Optionally manage or override ssh_config resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::ssh_config { 'ForwardAgent':
+   params => {
+     ensure => present,
+     value  => 'yes'
+   }
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::ssh_config` defined type:
 
 * [`params`](#params)
 * [`override`](#override)
@@ -1086,7 +1545,12 @@ Optionally manage or override sysctl resources
 ##### 
 
 ```puppet
-simp_enterprise_el::resource::sysctl { 'namevar': }
+simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
+  params => {
+    'ensure' => 'present',
+    'value'  => '1',
+  },
+}
 ```
 
 #### Parameters

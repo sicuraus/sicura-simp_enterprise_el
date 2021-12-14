@@ -11,11 +11,28 @@ class simp_enterprise_el::sshd (
   Hash[String[1], String] $env,
   Array[String[1]]        $env_exclude,
 ) {
-  file { $env_file:
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0640',
-    content => (['# Managed by Puppet'] + $env.map |$k, $v| { unless $k in $env_exclude { "${k}='${v}'" } }).join("\n"),
+  # The original implementation of this class used a `file` resource with the content
+  # set to the contents of `$env` minus anything in `$env_exclude`.  As a result, any
+  # unmanaged value was removed.
+  #
+  # Using the `shellvar` resource, we need to explicitly set any excluded value to
+  # `ensure => absent`.
+  #
+  # To iterate over `$env_exclude`, we convert it into a hash where each element is
+  # the key and the value is set to `undef`.  That is merged with `$env`.
+  ($env_exclude.reduce({}) |$memo, $key| { $memo + { $key => undef } } + $env).each |$k, $v| {
+    $ensure = $k in $env_exclude ? {
+      true => 'absent',
+      default => 'present',
+    }
+
+    simp_enterprise_el::resource::shellvars { "${env_file}-${k}":
+      params => {
+        ensure   => $ensure,
+        target   => $env_file,
+        variable => $k,
+        value    => $v,
+      },
+    }
   }
 }

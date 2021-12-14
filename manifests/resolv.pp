@@ -1,14 +1,13 @@
 # @summary resolv.conf validation
 # 
-# @param report_resolv_entries if true, check if the number of nameservers is less than the minimum number of nameservers specified
-# @min_num_nameservers if resolv.conf is configured with less nameservers than this parameter specifies, notify the user
-# @param nameserver_count number of nameservers found in resolv.conf
+# @param min_num_nameservers If resolv.conf is configured with less nameservers than this parameter specifies, notify the user
+# @param nameservers System nameservers
 #
 # @example
 #   include simp_enterprise_el::resolv
 class simp_enterprise_el::resolv(
-  Integer[0,3]  $min_num_nameservers = 0,
-  Optional[Array[String]]       $nameservers         = $facts.dig('simp_enterprise_el__resolv', 'nameservers'),
+  Integer[0,3]            $min_num_nameservers = 0,
+  Optional[Array[String]] $nameservers         = $facts.dig('simp_enterprise_el__resolv', 'nameservers'),
 ) {
   if $nameservers.lest || { [] }.unique.length < $min_num_nameservers {
     notify { "This host has less than ${min_num_nameservers} nameservers configured in resolv.conf":}

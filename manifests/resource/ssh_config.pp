@@ -1,4 +1,4 @@
-# @summary Optionally manage or override kernel_parameter resources
+# @summary Optionally manage or override ssh_config resources
 #
 # @param params Resource attributes
 # @param override
@@ -7,13 +7,13 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-#   simp_enterprise_el::resource::kernel_parameter { 'consoleblank':
-#     params => {
-#       'ensure' => 'present',
-#       'value'  => '0',
-#     },
+#   simp_enterprise_el::resource::ssh_config { 'ForwardAgent':
+#      params => {
+#        ensure => present,
+#        value  => 'yes'
+#      }
 #   }
-define simp_enterprise_el::resource::kernel_parameter (
+define simp_enterprise_el::resource::ssh_config (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],
   Optional[Boolean] $ignore   = $params['ignore'],
@@ -27,14 +27,14 @@ define simp_enterprise_el::resource::kernel_parameter (
   }
 
   unless $ignore {
-    if defined(Kernel_parameter[$title]) {
+    if defined(Ssh_config[$title]) {
       if $_override {
-        Kernel_parameter <| title == $title |> {
+        Ssh_config <| title == $title |> {
           * => $_params,
         }
       }
     } else {
-      kernel_parameter { $title:
+      ssh_config { $title:
         * => $_params,
       }
     }

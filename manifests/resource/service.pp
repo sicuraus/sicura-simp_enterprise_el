@@ -7,7 +7,12 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-#   simp_enterprise_el::resource::service { 'namevar': }
+#   simp_enterprise_el::resource::service { 'rsyncd':
+#     params => {
+#       'ensure' => 'stopped',
+#       'enable' => false,
+#     },
+#   }
 define simp_enterprise_el::resource::service (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],

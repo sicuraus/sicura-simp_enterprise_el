@@ -7,7 +7,14 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-#   simp_enterprise_el::resource::file { 'namevar': }
+#   simp_enterprise_el::resource::file { '/etc/crontab':
+#     params => {
+#       'ensure' => 'file',
+#       'owner'  => 'root',
+#       'group'  => 'root',
+#       'mode'   => '0600',
+#     },
+#   }
 define simp_enterprise_el::resource::file (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],

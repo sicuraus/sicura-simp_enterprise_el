@@ -1,7 +1,10 @@
 # @summary Manage mount options
 #
+# @param required_options Options to enforce on all mountpoints
 # @param removable_options Options to enforce on removable media
 # @param removable Hash of mountpoints and whether or not they are removable
+# @param nfs_mount Hash of NFS mountpoints
+# @param nfs_mount_options Options to enforce on NFS mountpoints
 #
 # @example
 #   include simp_enterprise_el::mountpoints

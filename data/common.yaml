@@ -25,23 +25,41 @@ lookup_options:
     merge:
       strategy: deep
 
-simp_enterprise_el::kernel_parameters: {}
-simp_enterprise_el::services: {}
 simp_enterprise_el::files: {}
-simp_enterprise_el::sysctl_flags: {}
-simp_enterprise_el::ini_settings: {}
-
-simp_enterprise_el::kernel_parameter_defaults: {}
-simp_enterprise_el::service_defaults: {}
 simp_enterprise_el::file_defaults: {}
-simp_enterprise_el::sysctl_flag_defaults: {}
-simp_enterprise_el::ini_setting_defaults: {}
-
-simp_enterprise_el::kernel_parameter_overrides: {}
-simp_enterprise_el::service_overrides: {}
 simp_enterprise_el::file_overrides: {}
-simp_enterprise_el::sysctl_flag_overrides: {}
+
+simp_enterprise_el::file_lines: {}
+simp_enterprise_el::file_line_defaults: {}
+simp_enterprise_el::file_line_overrides: {}
+
+simp_enterprise_el::ini_settings: {}
+simp_enterprise_el::ini_setting_defaults: {}
 simp_enterprise_el::ini_setting_overrides: {}
+
+simp_enterprise_el::kernel_parameters: {}
+simp_enterprise_el::kernel_parameter_defaults: {}
+simp_enterprise_el::kernel_parameter_overrides: {}
+
+simp_enterprise_el::packages: {}
+simp_enterprise_el::package_defaults: {}
+simp_enterprise_el::package_overrides: {}
+
+simp_enterprise_el::services: {}
+simp_enterprise_el::service_defaults: {}
+simp_enterprise_el::service_overrides: {}
+
+simp_enterprise_el::shellvars: {}
+simp_enterprise_el::shellvars_defaults: {}
+simp_enterprise_el::shellvars_overrides: {}
+
+simp_enterprise_el::ssh_configs: {}
+simp_enterprise_el::ssh_config_defaults: {}
+simp_enterprise_el::ssh_config_overrides: {}
+
+simp_enterprise_el::sysctl_flags: {}
+simp_enterprise_el::sysctl_flag_defaults: {}
+simp_enterprise_el::sysctl_flag_overrides: {}
 
 simp_enterprise_el::sshd::env_file: '/etc/sysconfig/sshd'
 simp_enterprise_el::sshd::env: {}

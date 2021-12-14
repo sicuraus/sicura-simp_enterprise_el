@@ -7,7 +7,12 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-#   simp_enterprise_el::resource::sysctl { 'namevar': }
+#   simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
+#     params => {
+#       'ensure' => 'present',
+#       'value'  => '1',
+#     },
+#   }
 define simp_enterprise_el::resource::sysctl (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],

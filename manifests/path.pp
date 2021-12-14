@@ -1,10 +1,13 @@
 # @summary PATH validation
 #
+# @param log_facility Log facility to use for PATH validation warnings
+# @param warn_to_stderr Also send warnings to STDERR
+#
 # @example
 #   include simp_enterprise_el::path
 class simp_enterprise_el::path (
-  Boolean                        $warn_to_stderr,
   Simplib::Syslog::LowerPriority $log_facility,
+  Boolean                        $warn_to_stderr,
 ) {
   file { "/etc/profile.d/${module_name}_path.sh":
     ensure  => file,

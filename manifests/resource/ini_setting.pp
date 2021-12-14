@@ -7,16 +7,16 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-# simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
-#    params => {
-#      ensure => present,
-#      path              => '/etc/systemd/coredump.conf',
-#      section           => 'Coredump',
-#      key_val_separator => '=',
-#      setting           => 'Storage',
-#      value             => 'none'
-#    }
-# }
+#   simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
+#      params => {
+#        ensure => present,
+#        path              => '/etc/systemd/coredump.conf',
+#        section           => 'Coredump',
+#        key_val_separator => '=',
+#        setting           => 'Storage',
+#        value             => 'none'
+#      }
+#   }
 define simp_enterprise_el::resource::ini_setting (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],
