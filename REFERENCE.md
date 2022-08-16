@@ -14,6 +14,7 @@
 * [`simp_enterprise_el::groups`](#simp_enterprise_elgroups): Check for problems with local groups
 * [`simp_enterprise_el::grub`](#simp_enterprise_elgrub): Manage bootloader configuration file permissions
 * [`simp_enterprise_el::homes`](#simp_enterprise_elhomes): Manage users' home directories
+* [`simp_enterprise_el::keytabs`](#simp_enterprise_elkeytabs): Remove all keytab files under /etc
 * [`simp_enterprise_el::legacy`](#simp_enterprise_ellegacy): Remove legacy `+` entries in passwd, group, and shadow files
 * [`simp_enterprise_el::logfiles`](#simp_enterprise_ellogfiles): Manage permissions on log files
 * [`simp_enterprise_el::mountpoints`](#simp_enterprise_elmountpoints): Manage mount options
@@ -29,6 +30,7 @@
 * [`simp_enterprise_el::resource::file`](#simp_enterprise_elresourcefile): Optionally manage or override file resources
 * [`simp_enterprise_el::resource::file_line`](#simp_enterprise_elresourcefile_line): Optionally manage or override file_line resources
 * [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_elresourceini_setting): Optionally manage or override ini_setting resources
+* [`simp_enterprise_el::resource::ini_subsetting`](#simp_enterprise_elresourceini_subsetting): Optionally manage or override ini_subsetting resources
 * [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_elresourcekernel_parameter): Optionally manage or override kernel_parameter resources
 * [`simp_enterprise_el::resource::package`](#simp_enterprise_elresourcepackage): Optionally manage or override package resources
 * [`simp_enterprise_el::resource::service`](#simp_enterprise_elresourceservice): Optionally manage or override service resources
@@ -63,6 +65,9 @@ The following parameters are available in the `simp_enterprise_el` class:
 * [`ini_settings`](#ini_settings)
 * [`ini_setting_defaults`](#ini_setting_defaults)
 * [`ini_setting_overrides`](#ini_setting_overrides)
+* [`ini_subsettings`](#ini_subsettings)
+* [`ini_subsetting_defaults`](#ini_subsetting_defaults)
+* [`ini_subsetting_overrides`](#ini_subsetting_overrides)
 * [`kernel_parameters`](#kernel_parameters)
 * [`kernel_parameter_defaults`](#kernel_parameter_defaults)
 * [`kernel_parameter_overrides`](#kernel_parameter_overrides)
@@ -135,6 +140,24 @@ Default attributes for managed `ini_setting` resources
 Data type: `Hash`
 
 Attributes to override for all managed `ini_setting` resources
+
+##### <a name="ini_subsettings"></a>`ini_subsettings`
+
+Data type: `Hash`
+
+`ini_subsetting` resources to manage.  See [the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
+
+##### <a name="ini_subsetting_defaults"></a>`ini_subsetting_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `ini_subsetting` resources
+
+##### <a name="ini_subsetting_overrides"></a>`ini_subsetting_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `ini_subsetting` resources
 
 ##### <a name="kernel_parameters"></a>`kernel_parameters`
 
@@ -595,6 +618,57 @@ Data type: `Boolean`
 When `false`, resources are set to `noop` for reporting
 
 Default value: ``false``
+
+### <a name="simp_enterprise_elkeytabs"></a>`simp_enterprise_el::keytabs`
+
+Remove all keytab files under /etc
+
+#### Examples
+
+##### 
+
+```puppet
+include simp_enterprise_el::keytabs
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::keytabs` class:
+
+* [`enforce`](#enforce)
+* [`ignore`](#ignore)
+* [`defaults`](#defaults)
+* [`files`](#files)
+
+##### <a name="enforce"></a>`enforce`
+
+Data type: `Boolean`
+
+Enforce removal
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Array[Stdlib::Unixpath]]`
+
+Array of keytab files
+
+Default value: `[]`
+
+##### <a name="defaults"></a>`defaults`
+
+Data type: `Hash`
+
+Hash of default file parameters to perform on keytab files
+
+Default value: `{ ensure => 'absent' }`
+
+##### <a name="files"></a>`files`
+
+Data type: `Optional[Array[Stdlib::Unixpath]]`
+
+List of keytabs files
+
+Default value: `$facts['simp_enterprise_el__keytabs']`
 
 ### <a name="simp_enterprise_ellegacy"></a>`simp_enterprise_el::legacy`
 
@@ -1255,6 +1329,60 @@ simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::ini_setting` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourceini_subsetting"></a>`simp_enterprise_el::resource::ini_subsetting`
+
+Optionally manage or override ini_subsetting resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::ini_subsetting { 'Coredump_Storage':
+   params => {
+     ensure => present,
+     path              => '/etc/systemd/coredump.conf',
+     section           => 'Coredump',
+     key_val_separator => '=',
+     setting           => 'Storage',
+     value             => 'none'
+   }
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::ini_subsetting` defined type:
 
 * [`params`](#params)
 * [`override`](#override)

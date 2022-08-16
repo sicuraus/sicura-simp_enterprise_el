@@ -37,9 +37,15 @@ simp_enterprise_el::ini_settings: {}
 simp_enterprise_el::ini_setting_defaults: {}
 simp_enterprise_el::ini_setting_overrides: {}
 
+simp_enterprise_el::ini_subsettings: {}
+simp_enterprise_el::ini_subsetting_defaults: {}
+simp_enterprise_el::ini_subsetting_overrides: {}
+
 simp_enterprise_el::kernel_parameters: {}
 simp_enterprise_el::kernel_parameter_defaults: {}
 simp_enterprise_el::kernel_parameter_overrides: {}
+
+simp_enterprise_el::keytabs::enforce: false
 
 simp_enterprise_el::packages: {}
 simp_enterprise_el::package_defaults: {}

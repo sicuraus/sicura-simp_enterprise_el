@@ -12,6 +12,10 @@
 # @param ini_setting_defaults Default attributes for managed `ini_setting` resources
 # @param ini_setting_overrides Attributes to override for all managed `ini_setting` resources
 #
+# @param ini_subsettings `ini_subsetting` resources to manage.  See [the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
+# @param ini_subsetting_defaults Default attributes for managed `ini_subsetting` resources
+# @param ini_subsetting_overrides Attributes to override for all managed `ini_subsetting` resources
+#
 # @param kernel_parameters `kernel_parameter` resources to manage.  See [the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
 # @param kernel_parameter_defaults Default attributes for managed `kernel_parameter` resources
 # @param kernel_parameter_overrides Attributes to override for all managed `kernel_parameter` resources
@@ -48,6 +52,9 @@ class simp_enterprise_el (
   Hash $ini_settings,
   Hash $ini_setting_defaults,
   Hash $ini_setting_overrides,
+  Hash $ini_subsettings,
+  Hash $ini_subsetting_defaults,
+  Hash $ini_subsetting_overrides,
   Hash $kernel_parameters,
   Hash $kernel_parameter_defaults,
   Hash $kernel_parameter_overrides,
@@ -94,6 +101,12 @@ class simp_enterprise_el (
   $ini_settings.each |$key, $value| {
     simp_enterprise_el::resource::ini_setting { $key:
       params => $ini_setting_defaults + $value + $ini_setting_overrides,
+    }
+  }
+
+  $ini_subsettings.each |$key, $value| {
+    simp_enterprise_el::resource::ini_subsetting { $key:
+      params => $ini_subsetting_defaults + $value + $ini_subsetting_overrides,
     }
   }
 
