@@ -22,24 +22,24 @@ class simp_enterprise_el::ssh_host_files (
   String                            $ssh_host_pub_key_owner = 'root',
   String                            $ssh_host_pub_key_group = 'root',
 ) {
-  $ssh_host_keys.lest || {{}}.each | $host_key | {
+  $ssh_host_keys.lest || {{} }.each | $host_key | {
     simp_enterprise_el::resource::file { $host_key:
       params => {
         ensure => 'file',
         mode   => $ssh_host_key_mode,
         owner  => $ssh_host_key_owner,
-        group  => $ssh_host_key_group
-      }
+        group  => $ssh_host_key_group,
+      },
     }
   }
-  $ssh_host_pub_keys.lest || {{}}.each | $host_key | {
+  $ssh_host_pub_keys.lest || {{} }.each | $host_key | {
     simp_enterprise_el::resource::file { $host_key:
       params => {
         ensure => 'file',
         mode   => $ssh_host_pub_key_mode,
         owner  => $ssh_host_pub_key_owner,
-        group  => $ssh_host_pub_key_group
-      }
+        group  => $ssh_host_pub_key_group,
+      },
     }
   }
 }

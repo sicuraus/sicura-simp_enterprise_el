@@ -10,19 +10,15 @@
 class simp_enterprise_el::keytabs (
   Boolean                           $enforce,
   Hash                              $defaults = { ensure => 'absent' },
-  Optional[Array[Stdlib::Unixpath]] $ignore = [],
-  Optional[Array[Stdlib::Unixpath]] $files = $facts['simp_enterprise_el__keytabs'],
+  Array[Stdlib::Unixpath]           $ignore   = [],
+  Optional[Array[Stdlib::Unixpath]] $files    = $facts['simp_enterprise_el__keytabs'],
 ) {
-
   $_defaults = $enforce ? {
     true    => $defaults,
     default => $defaults + { 'noop' => true }
   }
 
-  $_filtered_files = $files ? {
-    nil => [],
-    default => $files.delete($ignore)
-  }
+  $_filtered_files = $files.lest || {[] }.delete($ignore)
 
   $_filtered_files.each |$file| {
     simp_enterprise_el::resource::file { $file:

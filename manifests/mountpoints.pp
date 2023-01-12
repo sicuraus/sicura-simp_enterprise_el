@@ -9,11 +9,11 @@
 # @example
 #   include simp_enterprise_el::mountpoints
 class simp_enterprise_el::mountpoints (
-  Hash[Stdlib::Unixpath, Array[String]]            $required_options,
-  Array[String]                                    $removable_options,
-  Optional[Hash[Stdlib::Unixpath, Boolean]]        $removable = $facts.dig('simp_enterprise_el__mounts', 'removable'),
-  Optional[Hash[Stdlib::Unixpath,Array[String]]]   $nfs_mount = $facts.dig('simp_enterprise_el__mounts', 'nfs_mount'),
-  Optional[Array[String]]                          $nfs_mount_options = [],
+  Hash[Stdlib::Unixpath, Array[String]]          $required_options,
+  Array[String]                                  $removable_options,
+  Optional[Hash[Stdlib::Unixpath, Boolean]]      $removable = $facts.dig('simp_enterprise_el__mounts', 'removable'),
+  Optional[Hash[Stdlib::Unixpath,Array[String]]] $nfs_mount = $facts.dig('simp_enterprise_el__mounts', 'nfs_mount'),
+  Array[String]                                  $nfs_mount_options = [],
 ) {
   $required_options.each |$fs, $options| {
     if $facts['mountpoints'][$fs] == undef {
@@ -47,7 +47,7 @@ class simp_enterprise_el::mountpoints (
     }
   }
 
-  $removable.lest || { {} }.reduce([]) |$memo, $value| {
+  $removable.lest || {{} }.reduce([]) |$memo, $value| {
     if $value[1] {
       $memo + [$value[0]]
     } else {
@@ -68,16 +68,14 @@ class simp_enterprise_el::mountpoints (
   }
 
   unless $nfs_mount_options == [] {
-      $_nfs_mount.each |$mountpoint, $options| {
-      if defined(Nfs::Client::Mount[$mountpoint])
-      {
+    $_nfs_mount.each |$mountpoint, $options| {
+      if defined(Nfs::Client::Mount[$mountpoint]) {
         $_new_options = unique($options + $nfs_mount_options)
         # We can only manage this resource safely if it is already defined in the catalog
         Nfs::Client::Mount <| title == $mountpoint |> {
           options => $_new_options.join(',')
         }
-      }
-      elsif !member($options, $nfs_mount_options) {
+      } elsif !member($options, $nfs_mount_options) {
         exec { "/bin/mount -o remount,${nfs_mount_options.join(',')} '${mountpoint}'": }
       }
     }

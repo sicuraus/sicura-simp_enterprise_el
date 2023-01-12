@@ -14,9 +14,11 @@ class simp_enterprise_el::path (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp("${module_name}/path.sh.epp", {
-      'warn_to_stderr' => $warn_to_stderr,
-      'log_facility'   => $log_facility,
-    }),
+    content => epp("${module_name}/path.sh.epp",
+      {
+        'warn_to_stderr' => $warn_to_stderr,
+        'log_facility'   => $log_facility,
+      },
+    ),
   }
 }

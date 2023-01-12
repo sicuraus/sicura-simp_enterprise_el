@@ -37,6 +37,7 @@
 * [`simp_enterprise_el::resource::shellvars`](#simp_enterprise_elresourceshellvars): Optionally manage or override shellvar resources
 * [`simp_enterprise_el::resource::ssh_config`](#simp_enterprise_elresourcessh_config): Optionally manage or override ssh_config resources
 * [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_elresourcesysctl): Optionally manage or override sysctl resources
+* [`simp_enterprise_el::resource::user`](#simp_enterprise_elresourceuser): Optionally manage or override user resources
 
 ## Classes
 
@@ -86,6 +87,9 @@ The following parameters are available in the `simp_enterprise_el` class:
 * [`sysctl_flags`](#sysctl_flags)
 * [`sysctl_flag_defaults`](#sysctl_flag_defaults)
 * [`sysctl_flag_overrides`](#sysctl_flag_overrides)
+* [`managed_users`](#managed_users)
+* [`managed_user_defaults`](#managed_user_defaults)
+* [`managed_user_overrides`](#managed_user_overrides)
 
 ##### <a name="files"></a>`files`
 
@@ -127,7 +131,8 @@ Attributes to override for all managed `file_line` resources
 
 Data type: `Hash`
 
-`ini_setting` resources to manage.  See [the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
+`ini_setting` resources to manage.  See
+[the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
 
 ##### <a name="ini_setting_defaults"></a>`ini_setting_defaults`
 
@@ -145,7 +150,8 @@ Attributes to override for all managed `ini_setting` resources
 
 Data type: `Hash`
 
-`ini_subsetting` resources to manage.  See [the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
+`ini_subsetting` resources to manage.  See
+[the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
 
 ##### <a name="ini_subsetting_defaults"></a>`ini_subsetting_defaults`
 
@@ -163,7 +169,8 @@ Attributes to override for all managed `ini_subsetting` resources
 
 Data type: `Hash`
 
-`kernel_parameter` resources to manage.  See [the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
+`kernel_parameter` resources to manage.  See
+[the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
 
 ##### <a name="kernel_parameter_defaults"></a>`kernel_parameter_defaults`
 
@@ -235,7 +242,8 @@ Attributes to override for all managed `shellvar` resources
 
 Data type: `Hash`
 
-`ssh_config` resources to manage.  See [the simp_enterprise_el::resource::ssh_config defined type](#simp_enterprise_elresourcessh_config).
+`ssh_config` resources to manage.  See
+[the simp_enterprise_el::resource::ssh_config defined type](#simp_enterprise_elresourcessh_config).
 
 ##### <a name="ssh_config_defaults"></a>`ssh_config_defaults`
 
@@ -267,6 +275,24 @@ Data type: `Hash`
 
 Attributes to override for all managed `sysctl` resources
 
+##### <a name="managed_users"></a>`managed_users`
+
+Data type: `Hash`
+
+`user` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_elresourceuser).
+
+##### <a name="managed_user_defaults"></a>`managed_user_defaults`
+
+Data type: `Hash`
+
+Default attributs for the managed `user` resources
+
+##### <a name="managed_user_overrides"></a>`managed_user_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `user` resources
+
 ### <a name="simp_enterprise_elcron"></a>`simp_enterprise_el::cron`
 
 Manage permissions on cron files/directories
@@ -284,14 +310,38 @@ include simp_enterprise_el::cron
 The following parameters are available in the `simp_enterprise_el::cron` class:
 
 * [`enforce`](#enforce)
+* [`crontab`](#crontab)
+* [`cron_dirs`](#cron_dirs)
 
 ##### <a name="enforce"></a>`enforce`
 
-Data type: `Any`
+Data type: `Boolean`
 
 When `false`, resources are set to `noop` for reporting
 
 Default value: ``false``
+
+##### <a name="crontab"></a>`crontab`
+
+Data type: `Stdlib::Unixpath`
+
+Path to crontab file
+
+Default value: `'/etc/crontab'`
+
+##### <a name="cron_dirs"></a>`cron_dirs`
+
+Data type: `Array`
+
+Paths to cron directories
+
+Default value: `[
+    '/etc/cron.hourly',
+    '/etc/cron.daily',
+    '/etc/cron.weekly',
+    '/etc/cron.monthly',
+    '/etc/cron.d',
+  ]`
 
 ### <a name="simp_enterprise_eldconf"></a>`simp_enterprise_el::dconf`
 
@@ -648,7 +698,7 @@ Enforce removal
 
 ##### <a name="ignore"></a>`ignore`
 
-Data type: `Optional[Array[Stdlib::Unixpath]]`
+Data type: `Array[Stdlib::Unixpath]`
 
 Array of keytab files
 
@@ -813,7 +863,7 @@ Default value: `('simp_enterprise_el__mounts', 'nfs_mount')`
 
 ##### <a name="nfs_mount_options"></a>`nfs_mount_options`
 
-Data type: `Optional[Array[String]]`
+Data type: `Array[String]`
 
 Options to enforce on NFS mountpoints
 
@@ -1684,6 +1734,57 @@ simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::sysctl` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourceuser"></a>`simp_enterprise_el::resource::user`
+
+Optionally manage or override user resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::user { 'foo':
+  params => {
+    ensure => 'present',
+    uid    => 1001,
+    gid    => 1001,
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::user` defined type:
 
 * [`params`](#params)
 * [`override`](#override)

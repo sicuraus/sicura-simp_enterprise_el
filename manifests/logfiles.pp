@@ -13,7 +13,7 @@ class simp_enterprise_el::logfiles (
   Pattern[/\A[0-7]{1,4}\z/]                              $mode,
   Optional[Hash[Stdlib::Unixpath, Hash[String, String]]] $files = $facts['simp_enterprise_el__logfiles'],
 ) {
-  $files.lest || { {} }.reduce({}) |$memo, $value| {
+  $files.lest || { {} }.reduce({}) |$memo, $value| { # lint:ignore:manifest_whitespace_opening_brace_before
     if $ignore.any |$pattern| { $value[0] =~ Regexp.new($pattern) } {
       $memo
     } else {

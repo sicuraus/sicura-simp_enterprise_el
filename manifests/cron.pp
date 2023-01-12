@@ -1,24 +1,28 @@
 # @summary Manage permissions on cron files/directories
 #
 # @param enforce When `false`, resources are set to `noop` for reporting
+# @param crontab Path to crontab file
+# @param cron_dirs Paths to cron directories
 #
 # @example
 #   include simp_enterprise_el::cron
 class simp_enterprise_el::cron (
-  $enforce = false,
+  Boolean          $enforce   = false,
+  Stdlib::Unixpath $crontab   = '/etc/crontab',
+  Array            $cron_dirs = [
+    '/etc/cron.hourly',
+    '/etc/cron.daily',
+    '/etc/cron.weekly',
+    '/etc/cron.monthly',
+    '/etc/cron.d',
+  ],
 ) {
   $noop = $enforce ? {
     true    => {},
     default => { 'noop' => true },
   }
 
-  simp_enterprise_el::resource::file { [
-    '/etc/cron.hourly',
-    '/etc/cron.daily',
-    '/etc/cron.weekly',
-    '/etc/cron.monthly',
-    '/etc/cron.d',
-  ]:
+  simp_enterprise_el::resource::file { $cron_dirs:
     params => {
       'ensure' => 'directory',
       'owner'  => 'root',
@@ -27,7 +31,7 @@ class simp_enterprise_el::cron (
     } + $noop,
   }
 
-  simp_enterprise_el::resource::file { '/etc/crontab':
+  simp_enterprise_el::resource::file { $crontab:
     params => {
       'ensure' => 'file',
       'owner'  => 'root',

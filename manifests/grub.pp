@@ -16,7 +16,7 @@ class simp_enterprise_el::grub (
     default => { 'noop' => true },
   }
 
-  $files.lest || { {} }.each |$key, $value| {
+  $files.lest || {{} }.each |$key, $value| {
     simp_enterprise_el::resource::file { $key:
       params => $defaults + $value + $noop,
     }

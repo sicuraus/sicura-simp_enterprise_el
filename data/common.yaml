@@ -71,6 +71,10 @@ simp_enterprise_el::sshd::env_file: '/etc/sysconfig/sshd'
 simp_enterprise_el::sshd::env: {}
 simp_enterprise_el::sshd::env_exclude: []
 
+simp_enterprise_el::managed_users: {}
+simp_enterprise_el::managed_user_defaults: {}
+simp_enterprise_el::managed_user_overrides: {}
+
 simp_enterprise_el::users::empty_shadow: false
 simp_enterprise_el::users::lock: false
 simp_enterprise_el::users::expire: false

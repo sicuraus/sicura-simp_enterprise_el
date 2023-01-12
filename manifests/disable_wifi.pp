@@ -20,7 +20,7 @@ class simp_enterprise_el::disable_wifi (
     *      => $noop,
   }
 
-  $interfaces.lest || { {} }.each |$key, $value| {
+  $interfaces.lest || {{} }.each |$key, $value| {
     if $value.dig('radio', 'on') {
       # Disable the wireless radio
       exec { "/bin/sh -c 'echo 0 > ${value['radio']['state_file']}'":

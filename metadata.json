@@ -1,6 +1,6 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -80,7 +80,7 @@
       "version_requirement": ">= 6.0.0 < 8.0.0"
     }
   ],
-  "pdk-version": "2.3.0",
-  "template-url": "pdk-default#2.3.0",
-  "template-ref": "tags/2.3.0-0-g8aaceff"
+  "pdk-version": "2.5.0",
+  "template-url": "pdk-default#2.5.0",
+  "template-ref": "tags/2.5.0-0-g369d483"
 }

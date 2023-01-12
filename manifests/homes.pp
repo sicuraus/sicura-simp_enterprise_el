@@ -18,7 +18,7 @@ class simp_enterprise_el::homes (
     default => $defaults + { 'noop' => true }
   }
 
-  $homes.lest || { {} }.each |$key, $value| {
+  $homes.lest || {{} }.each |$key, $value| {
     unless $value['owner'] < $uid_min {
       simp_enterprise_el::resource::file { $key:
         params => $_defaults + $value,

@@ -23,12 +23,14 @@ class simp_enterprise_el::groups (
   Boolean         $remove_dups      = false,
   String          $ruby             = $facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby'),
 ) {
-  $user = $users.lest || { [] }.reduce({}) |$memo, $value| {
+  # lint:ignore:manifest_whitespace_opening_brace_before
+  $user = $users.lest || {[] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
-  $group = $groups.lest || { [] }.reduce({}) |$memo, $value| {
+  $group = $groups.lest || {[] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
+  # lint:endignore
 
   unless $group['shadow'] =~ Undef or $group['shadow']['mem'].empty {
     $noop = $empty_shadow ? {
@@ -41,7 +43,7 @@ class simp_enterprise_el::groups (
     }
   }
 
-  $missing_groups.lest || { {} }.each |$key, $value| {
+  $missing_groups.lest || {{} }.each |$key, $value| {
     $noop = $add_missing ? {
       true    => {},
       default => { 'noop' => true },

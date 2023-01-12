@@ -20,6 +20,7 @@ class simp_enterprise_el::sshd (
   #
   # To iterate over `$env_exclude`, we convert it into a hash where each element is
   # the key and the value is set to `undef`.  That is merged with `$env`.
+  # lint:ignore:manifest_whitespace_opening_brace_before
   ($env_exclude.reduce({}) |$memo, $key| { $memo + { $key => undef } } + $env).each |$k, $v| {
     $ensure = $k in $env_exclude ? {
       true => 'absent',
@@ -35,4 +36,5 @@ class simp_enterprise_el::sshd (
       },
     }
   }
+  # lint:endignore
 }

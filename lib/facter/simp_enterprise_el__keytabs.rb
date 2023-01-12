@@ -6,11 +6,9 @@ Facter.add('simp_enterprise_el__keytabs') do
   confine kernel: 'Linux'
 
   setcode do
-    begin
-      Dir.glob('/etc/*.keytab')
-    rescue => e
-      Facter.warn(e)
-      nil
-    end
+    Dir.glob('/etc/*.keytab')
+  rescue => e
+    Facter.warn(e)
+    nil
   end
 end

@@ -39,12 +39,14 @@ class simp_enterprise_el::users (
   Optional[Hash]  $duplicate_uids   = $facts.dig('simp_enterprise_el__facts', 'dups', 'uid'),
   String          $ruby             = $facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby'),
 ) {
-  $user = $users.lest || { [] }.reduce({}) |$memo, $value| {
+  # lint:ignore:manifest_whitespace_opening_brace_before
+  $user = $users.lest || {[] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
-  $group = $groups.lest || { [] }.reduce({}) |$memo, $value| {
+  $group = $groups.lest || {[] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
+  # lint:endignore
 
   $shadow_options = $empty_shadow ? {
     true    => {},
@@ -192,7 +194,7 @@ class simp_enterprise_el::users (
     $value[1]['uid'] != 0 and $value[1]['uid'] < $uid_min and $value[1]['shell'] != $nologin_shell and !($value[0] in $sa_exclude)
   }.each |$key, $value| {
     unless defined(User[$key]) {
-      $user_params = $value.reduce({}) |$memo, $param| {
+      $user_params = $value.reduce({}) |$memo, $param| { # lint:ignore:manifest_whitespace_opening_brace_before
         $this_key = $param[0] ? {
           'gecos' => 'comment',
           'dir'   => 'home',
@@ -207,11 +209,11 @@ class simp_enterprise_el::users (
 
       $user_noop = $sa_nologin ? {
         true    => {},
-        default => { 'noop' => true }
+        default => { 'noop' => true },
       }
 
       user { $key:
-        * => $user_params + $user_noop + { 'shell' => $nologin_shell }
+        * => $user_params + $user_noop + { 'shell' => $nologin_shell },
       }
 
       unless $to_lock =~ Array and $key in $to_lock {
