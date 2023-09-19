@@ -1,11 +1,15 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.4.2",
+  "version": "1.4.4",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
   "source": "",
   "dependencies": [
+    {
+      "name": "puppet-firewalld",
+      "version_requirement": ">= 4.5.1 < 5.0.0"
+    },
     {
       "name": "puppetlabs-stdlib",
       "version_requirement": ">= 8.3.0 < 9.0.0"
@@ -13,6 +17,10 @@
     {
       "name": "simp-simplib",
       "version_requirement": ">= 4.10.4 < 5.0.0"
+    },
+    {
+      "name": "simp-simp_firewalld",
+      "version_requirement": ">= 0.4.0 < 1.0.0"
     },
     {
       "name": "puppetlabs-augeas_core",

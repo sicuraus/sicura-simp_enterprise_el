@@ -10,6 +10,11 @@
 # @param file_line_defaults Default attributes for managed `file_line` resources
 # @param file_line_overrides Attributes to override for all managed `file_line` resources
 #
+# @param firewalld_rich_rules
+#   `firewalld_rich_rules` resources to manage, will infer default_zone from simp_firewalld if not defined
+# @param firewalld_rich_rules_defaults Default attributes for managed `firewalld_rich_rule` resources
+# @param firewalld_rich_rules_overrides Attributes to override for all managed `firewalld_rich_rule` resources
+#
 # @param ini_settings
 #   `ini_setting` resources to manage.  See
 #   [the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
@@ -68,6 +73,9 @@ class simp_enterprise_el (
   Hash $file_lines,
   Hash $file_line_defaults,
   Hash $file_line_overrides,
+  Hash $firewalld_rich_rules,
+  Hash $firewalld_rich_rules_defaults,
+  Hash $firewalld_rich_rules_overrides,
   Hash $ini_settings,
   Hash $ini_setting_defaults,
   Hash $ini_setting_overrides,
@@ -96,6 +104,8 @@ class simp_enterprise_el (
   Hash $managed_user_defaults,
   Hash $managed_user_overrides,
 ) {
+  include simp_firewalld
+
   $kernel_parameters.each |$key, $value| {
     simp_enterprise_el::resource::kernel_parameter { $key:
       params => $kernel_parameter_defaults + $value + $kernel_parameter_overrides,
@@ -142,6 +152,14 @@ class simp_enterprise_el (
     simp_enterprise_el::resource::file_line { $key:
       params => $file_line_defaults + $value + $file_line_overrides,
     }
+  }
+
+  $firewalld_rich_rules.each |$key, $value| {
+    simp_enterprise_el::resource::firewalld_rich_rule { $key:
+      params => $firewalld_rich_rules_defaults + $value + $firewalld_rich_rules_overrides,
+    }
+
+    Class['simp_firewalld'] -> Simp_enterprise_el::Resource::Firewalld_rich_rule[$key]
   }
 
   $shellvars.each |$key, $value| {

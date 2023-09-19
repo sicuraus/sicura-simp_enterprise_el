@@ -33,6 +33,10 @@ simp_enterprise_el::file_lines: {}
 simp_enterprise_el::file_line_defaults: {}
 simp_enterprise_el::file_line_overrides: {}
 
+simp_enterprise_el::firewalld_rich_rules: {}
+simp_enterprise_el::firewalld_rich_rules_defaults: {}
+simp_enterprise_el::firewalld_rich_rules_overrides: {}
+
 simp_enterprise_el::ini_settings: {}
 simp_enterprise_el::ini_setting_defaults: {}
 simp_enterprise_el::ini_setting_overrides: {}

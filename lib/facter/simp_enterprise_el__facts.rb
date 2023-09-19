@@ -12,6 +12,7 @@ Facter.add('simp_enterprise_el__facts') do
     uids = {}
 
     retval['users'] = []
+    retval['non_system_users'] = []
     File.readlines('/etc/passwd').each do |u|
       user = [:name, :passwd, :uid, :gid, :gecos, :dir, :shell].zip(u.chomp.split(':')).to_h
 
@@ -23,6 +24,17 @@ Facter.add('simp_enterprise_el__facts') do
 
       user.delete(:passwd) unless user[:passwd] == 'x'
       retval['users'] << user
+      unless user[:uid] < 1000 || user[:shell] == '/sbin/nologin'
+        passwd_expire_string = "/usr/bin/chage -l #{user[:name]} | /usr/bin/grep 'Password expires' | /usr/bin/cut -d':' -f2 | /usr/bin/awk '{$1=$1};1'"
+        passwd_inactive_string = "/usr/bin/chage -l #{user[:name]} | /usr/bin/grep 'Password inactive' | /usr/bin/cut -d':' -f2 | /usr/bin/awk '{$1=$1};1'"
+        passwd_expire_date = Facter::Core::Execution.execute(passwd_expire_string)
+        passwd_inactive_date = Facter::Core::Execution.execute(passwd_inactive_string)
+        user[:password_expiration] = passwd_expire_date
+        user[:password_inactive] = passwd_inactive_date
+        user[:password_expiration_int] = passwd_expire_date == 'never' ? 'never' : (DateTime.parse(passwd_expire_date).to_time.to_i * 1000)
+        user[:password_inactive_int] = passwd_expire_date == 'never' ? 'never' : (DateTime.parse(passwd_inactive_date).to_time.to_i * 1000)
+        retval['non_system_users'] << user
+      end
 
       # Check for duplicate usernames
       if usernames.key?(user[:name])

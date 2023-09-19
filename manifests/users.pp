@@ -2,6 +2,7 @@
 #
 # @param uid_min For users under this number, any required group resources will be added with `system => true`
 # @param users List of local users
+# @param non_system_users List of users that have a login and are above uid 1000
 # @param groups List of local groups
 # @param empty_shadow Enforce group change for users with `shadow` as their primary group
 # @param to_lock List of local users that should be locked
@@ -17,33 +18,43 @@
 # @param nologin_shell Shell to use for accounts with no shell access
 # @param sa_nologin Enforce /sbin/nologin as the login shell for system accounts
 # @param sa_exclude List of system accounts allowed to have an login shell
+# @param pass_max_days The maximum number of days before a user's password must change
+# @param pass_min_days the minimum number of days a password must be active before it can be changed
+# @param inactive_days the number of days before an expired password becomes inactive
 #
 # @example
 #   include simp_enterprise_el::users
 class simp_enterprise_el::users (
-  Boolean         $empty_shadow,
-  Boolean         $lock,
-  Boolean         $expire,
-  Boolean         $remove_uid_0,
-  Boolean         $remove_dups,
-  Boolean         $force_shadow,
-  Boolean         $sa_nologin,
-  String          $nologin_shell,
-  Array           $sa_exclude,
-  Integer[0]      $uid_min          = Integer($facts['uid_min'].lest || { 1000 }),
-  Optional[Array] $users            = $facts.dig('simp_enterprise_el__facts', 'users'),
-  Optional[Array] $groups           = $facts.dig('simp_enterprise_el__facts', 'groups'),
-  Optional[Array] $to_lock          = $facts.dig('simp_enterprise_el__facts', 'lock'),
-  Optional[Array] $to_expire        = $facts.dig('simp_enterprise_el__facts', 'expire'),
-  Optional[Hash]  $duplicate_users  = $facts.dig('simp_enterprise_el__facts', 'dups', 'username'),
-  Optional[Hash]  $duplicate_uids   = $facts.dig('simp_enterprise_el__facts', 'dups', 'uid'),
-  String          $ruby             = $facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby'),
+  Boolean           $empty_shadow,
+  Boolean           $lock,
+  Boolean           $expire,
+  Boolean           $remove_uid_0,
+  Boolean           $remove_dups,
+  Boolean           $force_shadow,
+  Boolean           $sa_nologin,
+  String            $nologin_shell,
+  Array             $sa_exclude,
+  Integer[0]        $uid_min          = Integer($facts['uid_min'].lest || { 1000 }),
+  Optional[Array]   $users            = $facts.dig('simp_enterprise_el__facts', 'users'),
+  Optional[Array]   $non_system_users = $facts.dig('simp_enterprise_el__facts', 'non_system_users'),
+  Optional[Array]   $groups           = $facts.dig('simp_enterprise_el__facts', 'groups'),
+  Optional[Array]   $to_lock          = $facts.dig('simp_enterprise_el__facts', 'lock'),
+  Optional[Array]   $to_expire        = $facts.dig('simp_enterprise_el__facts', 'expire'),
+  Optional[Hash]    $duplicate_users  = $facts.dig('simp_enterprise_el__facts', 'dups', 'username'),
+  Optional[Hash]    $duplicate_uids   = $facts.dig('simp_enterprise_el__facts', 'dups', 'uid'),
+  Optional[Integer] $pass_max_days  = undef,
+  Optional[Integer] $pass_min_days  = undef,
+  Optional[Integer] $inactive_days  = undef,
+  String            $ruby             = $facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby'),
 ) {
   # lint:ignore:manifest_whitespace_opening_brace_before
-  $user = $users.lest || {[] }.reduce({}) |$memo, $value| {
+  $user = $users.lest || { [] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
-  $group = $groups.lest || {[] }.reduce({}) |$memo, $value| {
+  $non_system_user = $non_system_users.lest || { [] }.reduce({}) |$memo, $value| {
+    $memo + { $value['name'] => $value }
+  }
+  $group = $groups.lest || { [] }.reduce({}) |$memo, $value| {
     $memo + { $value['name'] => $value }
   }
   # lint:endignore
@@ -221,6 +232,45 @@ class simp_enterprise_el::users (
           * => $user_noop,
         }
       }
+    }
+  }
+
+  unless $pass_max_days =~ Undef {
+    $non_system_user.each |$u, $_value| {
+      exec { "/usr/bin/chage --maxdays ${pass_max_days} ${u}":
+        # lint:ignore:140chars
+        onlyif => "/usr/bin/test \"$(chage -l ${u} | grep 'Maximum number of days between password change' | cut -d':' -f 2 | cut -d' ' -f 2)\" != \"${pass_max_days}\"",
+        # lint:endignore
+      }
+    }
+  }
+
+  unless $pass_min_days =~ Undef {
+    $non_system_user.each |$u, $_value| {
+      exec { "/usr/bin/chage --mindays ${pass_min_days} ${u}":
+        # lint:ignore:140chars
+        onlyif => "/usr/bin/test \"$(chage -l ${u} | grep 'Minimum number of days between password change' | cut -d':' -f 2 | cut -d' ' -f 2)\" != \"${pass_min_days}\"",
+        # lint:endignore
+      }
+    }
+  }
+
+  unless $inactive_days =~ Undef {
+    $non_system_user.each |$u, $data| {
+      $pwd_expire_date = $data['password_expiration'] ? {
+        'never' => $data['password_expiration'],
+        default => Numeric($data['password_expiration_int'])/1000,
+      }
+      $pwd_inactive_date = $data['password_inactive'] ? {
+        'never' => $data['password_inactive'],
+        default => Numeric($data['password_inactive_int'])/1000,
+      }
+      # Convert number of seconds to number of days and see if the inactive time is correct, change it if it is not
+      # lint:ignore:140chars
+      if $pwd_expire_date == 'never' or $pwd_inactive_date == 'never' or (($pwd_inactive_date - $pwd_expire_date) / 86400) != $inactive_days {
+        exec { "/usr/bin/chage --inactive ${inactive_days} ${u}": }
+      }
+      # lint:endignore
     }
   }
 }

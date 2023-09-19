@@ -29,6 +29,7 @@
 
 * [`simp_enterprise_el::resource::file`](#simp_enterprise_elresourcefile): Optionally manage or override file resources
 * [`simp_enterprise_el::resource::file_line`](#simp_enterprise_elresourcefile_line): Optionally manage or override file_line resources
+* [`simp_enterprise_el::resource::firewalld_rich_rule`](#simp_enterprise_elresourcefirewalld_rich_rule): Optionally manage or override firewalld_rich_rules
 * [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_elresourceini_setting): Optionally manage or override ini_setting resources
 * [`simp_enterprise_el::resource::ini_subsetting`](#simp_enterprise_elresourceini_subsetting): Optionally manage or override ini_subsetting resources
 * [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_elresourcekernel_parameter): Optionally manage or override kernel_parameter resources
@@ -63,6 +64,9 @@ The following parameters are available in the `simp_enterprise_el` class:
 * [`file_lines`](#file_lines)
 * [`file_line_defaults`](#file_line_defaults)
 * [`file_line_overrides`](#file_line_overrides)
+* [`firewalld_rich_rules`](#firewalld_rich_rules)
+* [`firewalld_rich_rules_defaults`](#firewalld_rich_rules_defaults)
+* [`firewalld_rich_rules_overrides`](#firewalld_rich_rules_overrides)
 * [`ini_settings`](#ini_settings)
 * [`ini_setting_defaults`](#ini_setting_defaults)
 * [`ini_setting_overrides`](#ini_setting_overrides)
@@ -126,6 +130,24 @@ Default attributes for managed `file_line` resources
 Data type: `Hash`
 
 Attributes to override for all managed `file_line` resources
+
+##### <a name="firewalld_rich_rules"></a>`firewalld_rich_rules`
+
+Data type: `Hash`
+
+`firewalld_rich_rules` resources to manage, will infer default_zone from simp_firewalld if not defined
+
+##### <a name="firewalld_rich_rules_defaults"></a>`firewalld_rich_rules_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `firewalld_rich_rule` resources
+
+##### <a name="firewalld_rich_rules_overrides"></a>`firewalld_rich_rules_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `firewalld_rich_rule` resources
 
 ##### <a name="ini_settings"></a>`ini_settings`
 
@@ -1115,6 +1137,7 @@ The following parameters are available in the `simp_enterprise_el::users` class:
 
 * [`uid_min`](#uid_min)
 * [`users`](#users)
+* [`non_system_users`](#non_system_users)
 * [`groups`](#groups)
 * [`empty_shadow`](#empty_shadow)
 * [`to_lock`](#to_lock)
@@ -1130,6 +1153,9 @@ The following parameters are available in the `simp_enterprise_el::users` class:
 * [`nologin_shell`](#nologin_shell)
 * [`sa_nologin`](#sa_nologin)
 * [`sa_exclude`](#sa_exclude)
+* [`pass_max_days`](#pass_max_days)
+* [`pass_min_days`](#pass_min_days)
+* [`inactive_days`](#inactive_days)
 
 ##### <a name="uid_min"></a>`uid_min`
 
@@ -1146,6 +1172,14 @@ Data type: `Optional[Array]`
 List of local users
 
 Default value: `('simp_enterprise_el__facts', 'users')`
+
+##### <a name="non_system_users"></a>`non_system_users`
+
+Data type: `Optional[Array]`
+
+List of users that have a login and are above uid 1000
+
+Default value: `('simp_enterprise_el__facts', 'non_system_users')`
 
 ##### <a name="groups"></a>`groups`
 
@@ -1249,6 +1283,30 @@ Data type: `Array`
 
 List of system accounts allowed to have an login shell
 
+##### <a name="pass_max_days"></a>`pass_max_days`
+
+Data type: `Optional[Integer]`
+
+The maximum number of days before a user's password must change
+
+Default value: ``undef``
+
+##### <a name="pass_min_days"></a>`pass_min_days`
+
+Data type: `Optional[Integer]`
+
+the minimum number of days a password must be active before it can be changed
+
+Default value: ``undef``
+
+##### <a name="inactive_days"></a>`inactive_days`
+
+Data type: `Optional[Integer]`
+
+the number of days before an expired password becomes inactive
+
+Default value: ``undef``
+
 ## Defined types
 
 ### <a name="simp_enterprise_elresourcefile"></a>`simp_enterprise_el::resource::file`
@@ -1325,6 +1383,56 @@ simp_enterprise_el::resource::file_line { 'add_line_to_unamanaged_file':
 #### Parameters
 
 The following parameters are available in the `simp_enterprise_el::resource::file_line` defined type:
+
+* [`params`](#params)
+* [`override`](#override)
+* [`ignore`](#ignore)
+
+##### <a name="params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_elresourcefirewalld_rich_rule"></a>`simp_enterprise_el::resource::firewalld_rich_rule`
+
+Optionally manage or override firewalld_rich_rules
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::firewalld_rich_rule { 'accept_port_22':
+    ensure => present,
+    source => '192.168.1.2/32',
+    service => 'ssh',
+    action => 'accept',
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::firewalld_rich_rule` defined type:
 
 * [`params`](#params)
 * [`override`](#override)
