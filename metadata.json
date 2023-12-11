@@ -1,6 +1,6 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.4.4",
+  "version": "1.5.1",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -8,39 +8,39 @@
   "dependencies": [
     {
       "name": "puppet-firewalld",
-      "version_requirement": ">= 4.5.1 < 5.0.0"
+      "version_requirement": ">= 4.2.3 < 6.0.0"
     },
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 8.3.0 < 9.0.0"
+      "version_requirement": ">= 8.0.0 < 10.0.0"
     },
     {
       "name": "simp-simplib",
-      "version_requirement": ">= 4.10.4 < 5.0.0"
+      "version_requirement": ">= 4.9.0 < 5.0.0"
     },
     {
       "name": "simp-simp_firewalld",
-      "version_requirement": ">= 0.4.0 < 1.0.0"
+      "version_requirement": ">= 0.1.3 < 1.0.0"
     },
     {
       "name": "puppetlabs-augeas_core",
       "version_requirement": ">= 1.2.0 < 2.0.0"
     },
     {
-      "name": "herculesteam-augeasproviders_grub",
-      "version_requirement": ">= 3.0.0 < 4.0.0"
+      "name": "puppet-augeasproviders_grub",
+      "version_requirement": ">= 3.1.0 < 6.0.0"
     },
     {
-      "name": "herculesteam-augeasproviders_sysctl",
-      "version_requirement": ">= 2.0.0 < 3.0.0"
+      "name": "puppet-augeasproviders_sysctl",
+      "version_requirement": ">= 2.4.0 < 4.0.0"
     },
     {
-      "name": "herculesteam-augeasproviders_shellvar",
+      "name": "puppet-augeasproviders_shellvar",
       "version_requirement": ">= 1.0.0 < 5.0.0"
     },
     {
-      "name": "herculesteam-augeasproviders_ssh",
-      "version_requirement": ">= 3.0.0 < 5.0.0"
+      "name": "puppet-augeasproviders_ssh",
+      "version_requirement": ">= 2.5.0 < 7.0.0"
     },
     {
       "name": "puppetlabs-mount_core",
@@ -48,7 +48,7 @@
     },
     {
       "name": "simp-dconf",
-      "version_requirement": ">= 0.1.0 < 1.0.0"
+      "version_requirement": ">= 0.0.1 < 1.0.0"
     },
     {
       "name": "simp-nfs",
@@ -56,7 +56,7 @@
     },
     {
       "name": "puppetlabs-inifile",
-      "version_requirement": ">= 4.0.0 < 6.0.0"
+      "version_requirement": ">= 2.5.0 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -64,31 +64,48 @@
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
         "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "7",
-        "8"
+        "8",
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8",
+        "9"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.0.0 < 8.0.0"
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
-  "pdk-version": "2.5.0",
-  "template-url": "pdk-default#2.5.0",
-  "template-ref": "tags/2.5.0-0-g369d483"
+  "pdk-version": "3.0.0",
+  "template-url": "pdk-default#3.0.0",
+  "template-ref": "tags/3.0.0-0-g056e50d"
 }

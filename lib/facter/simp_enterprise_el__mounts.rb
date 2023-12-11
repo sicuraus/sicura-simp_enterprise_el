@@ -18,8 +18,8 @@ Facter.add('simp_enterprise_el__mounts') do
 
       next if target.nil?
 
-      retval['nfs_mount'] = {} if retval['bind'].nil?
-      retval['nfs_mount'][target] = options.split(',')
+      retval['nfs_mount'] = {} if retval['nfs_mount'].nil?
+      retval['nfs_mount'][target] = options.split(',').reject { |option| option.start_with?('vers=') }
     end
 
     mountpoints.each do |key, value|

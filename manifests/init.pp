@@ -104,8 +104,6 @@ class simp_enterprise_el (
   Hash $managed_user_defaults,
   Hash $managed_user_overrides,
 ) {
-  include simp_firewalld
-
   $kernel_parameters.each |$key, $value| {
     simp_enterprise_el::resource::kernel_parameter { $key:
       params => $kernel_parameter_defaults + $value + $kernel_parameter_overrides,

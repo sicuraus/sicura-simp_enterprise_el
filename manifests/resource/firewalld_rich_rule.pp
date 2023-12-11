@@ -27,6 +27,8 @@ define simp_enterprise_el::resource::firewalld_rich_rule (
   }
 
   unless $ignore {
+    include simp_firewalld
+
     if defined(Firewalld_rich_rule[$title]) {
       if $_override {
         Firewalld_rich_rule <| title == $title |> {

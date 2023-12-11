@@ -1,0 +1,135 @@
+---
+.rule_only_merge_requests: &rule_only_merge_requests
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - when: never
+
+stages:
+  - syntax
+  - unit
+  - beaker
+  - trigger
+
+default:
+  cache:
+    paths:
+      - vendor/bundle
+  before_script: &before_script
+    - rm Gemfile.lock || true
+    - "# Update system gems if requested. This is useful to temporarily workaround troubles in the test runner"
+    - "# Set `rubygems_version` in the .sync.yml to set a value"
+    - "# Ignore exit code of SIGPIPE'd yes to not fail with shell's pipefail set"
+    - '[ -z "$RUBYGEMS_VERSION" ] || (yes || true) | gem update --system $RUBYGEMS_VERSION'
+    - gem --version
+    - bundle -v
+    - bundle config path vendor/bundle
+    - bundle config without system_test
+    - bundle config jobs $(nproc)
+    - bundle install
+
+validate:
+  stage: syntax
+  <<: *rule_only_merge_requests
+  image: $RUBY_IMAGE
+  script:
+    - bundle exec rake validate lint check rubocop
+  tags:
+    - docker
+  parallel:
+    matrix:
+      - RUBY_IMAGE: docker.io/library/ruby:2.7
+        PUPPET_GEM_VERSION: '~> 7'
+      - RUBY_IMAGE: docker.io/library/ruby:3.2
+        PUPPET_GEM_VERSION: '~> 8'
+
+parallel_spec:
+  stage: unit
+  <<: *rule_only_merge_requests
+  image: $RUBY_IMAGE
+  script:
+    - bundle exec rake parallel_spec
+  tags:
+    - docker
+  parallel:
+    matrix:
+      - RUBY_IMAGE: docker.io/library/ruby:2.7
+        PUPPET_GEM_VERSION: '~> 7'
+      - RUBY_IMAGE: docker.io/library/ruby:3.2
+        PUPPET_GEM_VERSION: '~> 8'
+
+scelint:
+  stage: syntax
+  <<: *rule_only_merge_requests
+  image: docker.io/library/ruby:3.2
+  script:
+  - bundle config with system_tests
+  - bundle config jobs $(nproc)
+  - bundle install
+  - bundle exec rake spec_prep
+  - bundle exec scelint spec/fixtures/modules/*
+  before_script: []
+  cache:
+    paths: []
+  tags:
+  - docker
+
+yamllint:
+  stage: syntax
+  <<: *rule_only_merge_requests
+  image: "$CI_REGISTRY/$CI_PROJECT_ROOT_NAMESPACE/release-eng/ci-helpers/yamllint:latest"
+  script:
+  - yamllint .
+  before_script: []
+  cache:
+    paths: []
+  tags:
+  - docker
+
+beaker:
+  stage: beaker
+  image: ruby:2.7.2
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes: 
+      - manifests/**/*
+      - lib/**/*
+  before_script:
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keygen -f ~/.ssh/google_compute_engine < /dev/null
+  - |
+    cat > Gemfile.local <<EOF
+    gem "beaker-google", '>= 0.4.0', require: false
+    EOF
+  script:
+  - bundle config with system_tests
+  - bundle config jobs $(nproc)
+  - bundle install
+  - bundle exec rake beaker:$OS_NODESET
+  parallel:
+    matrix:
+      - OS_NODESET: ['default', 'centos-8', 'rhel-7', 'rhel-8', 'rhel-9']
+        BEAKER_PUPPET_COLLECTION: ['puppet7', 'puppet8']
+  tags:
+  - beaker-kubernetes
+
+trigger build:
+  rules:
+  - if: "$CI_COMMIT_TAG"
+  stage: trigger
+  variables:
+    COMPONENT_NAME: "$CI_PROJECT_NAME"
+    COMPONENT_TAG: "$CI_COMMIT_TAG"
+    COMPONENT_REF: "$CI_COMMIT_SHA"
+    COMPONENT_URL: git@$CI_SERVER_HOST:$CI_PROJECT_PATH
+  trigger: sicura/release-eng/sicura-enterprise-builder
+
+trigger simp_enterprise_compliance update:
+  stage: trigger
+  rules:
+    - if: "$CI_COMMIT_TAG"
+  variables:
+    MODULE_TAG: "$CI_COMMIT_TAG"
+    MODULE_NAME: "simp_enterprise_el"
+  trigger:
+    project: $CI_PROJECT_NAMESPACE/simp_enterprise_compliance

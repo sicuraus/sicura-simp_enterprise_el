@@ -31,8 +31,8 @@ Facter.add('simp_enterprise_el__facts') do
         passwd_inactive_date = Facter::Core::Execution.execute(passwd_inactive_string)
         user[:password_expiration] = passwd_expire_date
         user[:password_inactive] = passwd_inactive_date
-        user[:password_expiration_int] = passwd_expire_date == 'never' ? 'never' : (DateTime.parse(passwd_expire_date).to_time.to_i * 1000)
-        user[:password_inactive_int] = passwd_expire_date == 'never' ? 'never' : (DateTime.parse(passwd_inactive_date).to_time.to_i * 1000)
+        user[:password_expiration_int] = (passwd_expire_date == 'never') ? 'never' : (DateTime.parse(passwd_expire_date).to_time.to_i * 1000)
+        user[:password_inactive_int] = (passwd_expire_date == 'never') ? 'never' : (DateTime.parse(passwd_inactive_date).to_time.to_i * 1000)
         retval['non_system_users'] << user
       end
 

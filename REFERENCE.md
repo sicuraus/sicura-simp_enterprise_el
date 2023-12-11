@@ -7,38 +7,38 @@
 ### Classes
 
 * [`simp_enterprise_el`](#simp_enterprise_el): Helper profile class for simp_enterprise_el_* modules
-* [`simp_enterprise_el::cron`](#simp_enterprise_elcron): Manage permissions on cron files/directories
-* [`simp_enterprise_el::dconf`](#simp_enterprise_eldconf): Manage dconf settings
-* [`simp_enterprise_el::disable_wifi`](#simp_enterprise_eldisable_wifi): Disable wireless interfaces
-* [`simp_enterprise_el::dotfiles`](#simp_enterprise_eldotfiles): Manage problematic . files in users' home directories
-* [`simp_enterprise_el::groups`](#simp_enterprise_elgroups): Check for problems with local groups
-* [`simp_enterprise_el::grub`](#simp_enterprise_elgrub): Manage bootloader configuration file permissions
-* [`simp_enterprise_el::homes`](#simp_enterprise_elhomes): Manage users' home directories
-* [`simp_enterprise_el::keytabs`](#simp_enterprise_elkeytabs): Remove all keytab files under /etc
-* [`simp_enterprise_el::legacy`](#simp_enterprise_ellegacy): Remove legacy `+` entries in passwd, group, and shadow files
-* [`simp_enterprise_el::logfiles`](#simp_enterprise_ellogfiles): Manage permissions on log files
-* [`simp_enterprise_el::mountpoints`](#simp_enterprise_elmountpoints): Manage mount options
-* [`simp_enterprise_el::pam`](#simp_enterprise_elpam): Check for `nullok` in PAM stack
-* [`simp_enterprise_el::path`](#simp_enterprise_elpath): PATH validation
-* [`simp_enterprise_el::resolv`](#simp_enterprise_elresolv): resolv.conf validation
-* [`simp_enterprise_el::ssh_host_files`](#simp_enterprise_elssh_host_files): Manage ssh host key files
-* [`simp_enterprise_el::sshd`](#simp_enterprise_elsshd): Manage sshd environment file
-* [`simp_enterprise_el::users`](#simp_enterprise_elusers): Check for problems with local users
+* [`simp_enterprise_el::cron`](#simp_enterprise_el--cron): Manage permissions on cron files/directories
+* [`simp_enterprise_el::dconf`](#simp_enterprise_el--dconf): Manage dconf settings
+* [`simp_enterprise_el::disable_wifi`](#simp_enterprise_el--disable_wifi): Disable wireless interfaces
+* [`simp_enterprise_el::dotfiles`](#simp_enterprise_el--dotfiles): Manage problematic . files in users' home directories
+* [`simp_enterprise_el::groups`](#simp_enterprise_el--groups): Check for problems with local groups
+* [`simp_enterprise_el::grub`](#simp_enterprise_el--grub): Manage bootloader configuration file permissions
+* [`simp_enterprise_el::homes`](#simp_enterprise_el--homes): Manage users' home directories
+* [`simp_enterprise_el::keytabs`](#simp_enterprise_el--keytabs): Remove all keytab files under /etc
+* [`simp_enterprise_el::legacy`](#simp_enterprise_el--legacy): Remove legacy `+` entries in passwd, group, and shadow files
+* [`simp_enterprise_el::logfiles`](#simp_enterprise_el--logfiles): Manage permissions on log files
+* [`simp_enterprise_el::mountpoints`](#simp_enterprise_el--mountpoints): Manage mount options
+* [`simp_enterprise_el::pam`](#simp_enterprise_el--pam): Check for `nullok` in PAM stack
+* [`simp_enterprise_el::path`](#simp_enterprise_el--path): PATH validation
+* [`simp_enterprise_el::resolv`](#simp_enterprise_el--resolv): resolv.conf validation
+* [`simp_enterprise_el::ssh_host_files`](#simp_enterprise_el--ssh_host_files): Manage ssh host key files
+* [`simp_enterprise_el::sshd`](#simp_enterprise_el--sshd): Manage sshd environment file
+* [`simp_enterprise_el::users`](#simp_enterprise_el--users): Check for problems with local users
 
 ### Defined types
 
-* [`simp_enterprise_el::resource::file`](#simp_enterprise_elresourcefile): Optionally manage or override file resources
-* [`simp_enterprise_el::resource::file_line`](#simp_enterprise_elresourcefile_line): Optionally manage or override file_line resources
-* [`simp_enterprise_el::resource::firewalld_rich_rule`](#simp_enterprise_elresourcefirewalld_rich_rule): Optionally manage or override firewalld_rich_rules
-* [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_elresourceini_setting): Optionally manage or override ini_setting resources
-* [`simp_enterprise_el::resource::ini_subsetting`](#simp_enterprise_elresourceini_subsetting): Optionally manage or override ini_subsetting resources
-* [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_elresourcekernel_parameter): Optionally manage or override kernel_parameter resources
-* [`simp_enterprise_el::resource::package`](#simp_enterprise_elresourcepackage): Optionally manage or override package resources
-* [`simp_enterprise_el::resource::service`](#simp_enterprise_elresourceservice): Optionally manage or override service resources
-* [`simp_enterprise_el::resource::shellvars`](#simp_enterprise_elresourceshellvars): Optionally manage or override shellvar resources
-* [`simp_enterprise_el::resource::ssh_config`](#simp_enterprise_elresourcessh_config): Optionally manage or override ssh_config resources
-* [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_elresourcesysctl): Optionally manage or override sysctl resources
-* [`simp_enterprise_el::resource::user`](#simp_enterprise_elresourceuser): Optionally manage or override user resources
+* [`simp_enterprise_el::resource::file`](#simp_enterprise_el--resource--file): Optionally manage or override file resources
+* [`simp_enterprise_el::resource::file_line`](#simp_enterprise_el--resource--file_line): Optionally manage or override file_line resources
+* [`simp_enterprise_el::resource::firewalld_rich_rule`](#simp_enterprise_el--resource--firewalld_rich_rule): Optionally manage or override firewalld_rich_rules
+* [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_el--resource--ini_setting): Optionally manage or override ini_setting resources
+* [`simp_enterprise_el::resource::ini_subsetting`](#simp_enterprise_el--resource--ini_subsetting): Optionally manage or override ini_subsetting resources
+* [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_el--resource--kernel_parameter): Optionally manage or override kernel_parameter resources
+* [`simp_enterprise_el::resource::package`](#simp_enterprise_el--resource--package): Optionally manage or override package resources
+* [`simp_enterprise_el::resource::service`](#simp_enterprise_el--resource--service): Optionally manage or override service resources
+* [`simp_enterprise_el::resource::shellvars`](#simp_enterprise_el--resource--shellvars): Optionally manage or override shellvar resources
+* [`simp_enterprise_el::resource::ssh_config`](#simp_enterprise_el--resource--ssh_config): Optionally manage or override ssh_config resources
+* [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_el--resource--sysctl): Optionally manage or override sysctl resources
+* [`simp_enterprise_el::resource::user`](#simp_enterprise_el--resource--user): Optionally manage or override user resources
 
 ## Classes
 
@@ -58,264 +58,264 @@ include simp_enterprise_el
 
 The following parameters are available in the `simp_enterprise_el` class:
 
-* [`files`](#files)
-* [`file_defaults`](#file_defaults)
-* [`file_overrides`](#file_overrides)
-* [`file_lines`](#file_lines)
-* [`file_line_defaults`](#file_line_defaults)
-* [`file_line_overrides`](#file_line_overrides)
-* [`firewalld_rich_rules`](#firewalld_rich_rules)
-* [`firewalld_rich_rules_defaults`](#firewalld_rich_rules_defaults)
-* [`firewalld_rich_rules_overrides`](#firewalld_rich_rules_overrides)
-* [`ini_settings`](#ini_settings)
-* [`ini_setting_defaults`](#ini_setting_defaults)
-* [`ini_setting_overrides`](#ini_setting_overrides)
-* [`ini_subsettings`](#ini_subsettings)
-* [`ini_subsetting_defaults`](#ini_subsetting_defaults)
-* [`ini_subsetting_overrides`](#ini_subsetting_overrides)
-* [`kernel_parameters`](#kernel_parameters)
-* [`kernel_parameter_defaults`](#kernel_parameter_defaults)
-* [`kernel_parameter_overrides`](#kernel_parameter_overrides)
-* [`packages`](#packages)
-* [`package_defaults`](#package_defaults)
-* [`package_overrides`](#package_overrides)
-* [`services`](#services)
-* [`service_defaults`](#service_defaults)
-* [`service_overrides`](#service_overrides)
-* [`shellvars`](#shellvars)
-* [`shellvars_defaults`](#shellvars_defaults)
-* [`shellvars_overrides`](#shellvars_overrides)
-* [`ssh_configs`](#ssh_configs)
-* [`ssh_config_defaults`](#ssh_config_defaults)
-* [`ssh_config_overrides`](#ssh_config_overrides)
-* [`sysctl_flags`](#sysctl_flags)
-* [`sysctl_flag_defaults`](#sysctl_flag_defaults)
-* [`sysctl_flag_overrides`](#sysctl_flag_overrides)
-* [`managed_users`](#managed_users)
-* [`managed_user_defaults`](#managed_user_defaults)
-* [`managed_user_overrides`](#managed_user_overrides)
+* [`files`](#-simp_enterprise_el--files)
+* [`file_defaults`](#-simp_enterprise_el--file_defaults)
+* [`file_overrides`](#-simp_enterprise_el--file_overrides)
+* [`file_lines`](#-simp_enterprise_el--file_lines)
+* [`file_line_defaults`](#-simp_enterprise_el--file_line_defaults)
+* [`file_line_overrides`](#-simp_enterprise_el--file_line_overrides)
+* [`firewalld_rich_rules`](#-simp_enterprise_el--firewalld_rich_rules)
+* [`firewalld_rich_rules_defaults`](#-simp_enterprise_el--firewalld_rich_rules_defaults)
+* [`firewalld_rich_rules_overrides`](#-simp_enterprise_el--firewalld_rich_rules_overrides)
+* [`ini_settings`](#-simp_enterprise_el--ini_settings)
+* [`ini_setting_defaults`](#-simp_enterprise_el--ini_setting_defaults)
+* [`ini_setting_overrides`](#-simp_enterprise_el--ini_setting_overrides)
+* [`ini_subsettings`](#-simp_enterprise_el--ini_subsettings)
+* [`ini_subsetting_defaults`](#-simp_enterprise_el--ini_subsetting_defaults)
+* [`ini_subsetting_overrides`](#-simp_enterprise_el--ini_subsetting_overrides)
+* [`kernel_parameters`](#-simp_enterprise_el--kernel_parameters)
+* [`kernel_parameter_defaults`](#-simp_enterprise_el--kernel_parameter_defaults)
+* [`kernel_parameter_overrides`](#-simp_enterprise_el--kernel_parameter_overrides)
+* [`packages`](#-simp_enterprise_el--packages)
+* [`package_defaults`](#-simp_enterprise_el--package_defaults)
+* [`package_overrides`](#-simp_enterprise_el--package_overrides)
+* [`services`](#-simp_enterprise_el--services)
+* [`service_defaults`](#-simp_enterprise_el--service_defaults)
+* [`service_overrides`](#-simp_enterprise_el--service_overrides)
+* [`shellvars`](#-simp_enterprise_el--shellvars)
+* [`shellvars_defaults`](#-simp_enterprise_el--shellvars_defaults)
+* [`shellvars_overrides`](#-simp_enterprise_el--shellvars_overrides)
+* [`ssh_configs`](#-simp_enterprise_el--ssh_configs)
+* [`ssh_config_defaults`](#-simp_enterprise_el--ssh_config_defaults)
+* [`ssh_config_overrides`](#-simp_enterprise_el--ssh_config_overrides)
+* [`sysctl_flags`](#-simp_enterprise_el--sysctl_flags)
+* [`sysctl_flag_defaults`](#-simp_enterprise_el--sysctl_flag_defaults)
+* [`sysctl_flag_overrides`](#-simp_enterprise_el--sysctl_flag_overrides)
+* [`managed_users`](#-simp_enterprise_el--managed_users)
+* [`managed_user_defaults`](#-simp_enterprise_el--managed_user_defaults)
+* [`managed_user_overrides`](#-simp_enterprise_el--managed_user_overrides)
 
-##### <a name="files"></a>`files`
+##### <a name="-simp_enterprise_el--files"></a>`files`
 
 Data type: `Hash`
 
 `file` resources to manage.  See [the simp_enterprise_el::resource::file defined type](#simp_enterprise_elresourcefile).
 
-##### <a name="file_defaults"></a>`file_defaults`
+##### <a name="-simp_enterprise_el--file_defaults"></a>`file_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `file` resources
 
-##### <a name="file_overrides"></a>`file_overrides`
+##### <a name="-simp_enterprise_el--file_overrides"></a>`file_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `file` resources
 
-##### <a name="file_lines"></a>`file_lines`
+##### <a name="-simp_enterprise_el--file_lines"></a>`file_lines`
 
 Data type: `Hash`
 
 `file_line` resources to manage.  See [the simp_enterprise_el::resource::file_line defined type](#simp_enterprise_elresourcefile_line).
 
-##### <a name="file_line_defaults"></a>`file_line_defaults`
+##### <a name="-simp_enterprise_el--file_line_defaults"></a>`file_line_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `file_line` resources
 
-##### <a name="file_line_overrides"></a>`file_line_overrides`
+##### <a name="-simp_enterprise_el--file_line_overrides"></a>`file_line_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `file_line` resources
 
-##### <a name="firewalld_rich_rules"></a>`firewalld_rich_rules`
+##### <a name="-simp_enterprise_el--firewalld_rich_rules"></a>`firewalld_rich_rules`
 
 Data type: `Hash`
 
 `firewalld_rich_rules` resources to manage, will infer default_zone from simp_firewalld if not defined
 
-##### <a name="firewalld_rich_rules_defaults"></a>`firewalld_rich_rules_defaults`
+##### <a name="-simp_enterprise_el--firewalld_rich_rules_defaults"></a>`firewalld_rich_rules_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `firewalld_rich_rule` resources
 
-##### <a name="firewalld_rich_rules_overrides"></a>`firewalld_rich_rules_overrides`
+##### <a name="-simp_enterprise_el--firewalld_rich_rules_overrides"></a>`firewalld_rich_rules_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `firewalld_rich_rule` resources
 
-##### <a name="ini_settings"></a>`ini_settings`
+##### <a name="-simp_enterprise_el--ini_settings"></a>`ini_settings`
 
 Data type: `Hash`
 
 `ini_setting` resources to manage.  See
 [the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
 
-##### <a name="ini_setting_defaults"></a>`ini_setting_defaults`
+##### <a name="-simp_enterprise_el--ini_setting_defaults"></a>`ini_setting_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ini_setting` resources
 
-##### <a name="ini_setting_overrides"></a>`ini_setting_overrides`
+##### <a name="-simp_enterprise_el--ini_setting_overrides"></a>`ini_setting_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ini_setting` resources
 
-##### <a name="ini_subsettings"></a>`ini_subsettings`
+##### <a name="-simp_enterprise_el--ini_subsettings"></a>`ini_subsettings`
 
 Data type: `Hash`
 
 `ini_subsetting` resources to manage.  See
 [the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
 
-##### <a name="ini_subsetting_defaults"></a>`ini_subsetting_defaults`
+##### <a name="-simp_enterprise_el--ini_subsetting_defaults"></a>`ini_subsetting_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ini_subsetting` resources
 
-##### <a name="ini_subsetting_overrides"></a>`ini_subsetting_overrides`
+##### <a name="-simp_enterprise_el--ini_subsetting_overrides"></a>`ini_subsetting_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ini_subsetting` resources
 
-##### <a name="kernel_parameters"></a>`kernel_parameters`
+##### <a name="-simp_enterprise_el--kernel_parameters"></a>`kernel_parameters`
 
 Data type: `Hash`
 
 `kernel_parameter` resources to manage.  See
 [the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
 
-##### <a name="kernel_parameter_defaults"></a>`kernel_parameter_defaults`
+##### <a name="-simp_enterprise_el--kernel_parameter_defaults"></a>`kernel_parameter_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `kernel_parameter` resources
 
-##### <a name="kernel_parameter_overrides"></a>`kernel_parameter_overrides`
+##### <a name="-simp_enterprise_el--kernel_parameter_overrides"></a>`kernel_parameter_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `kernel_parameter` resources
 
-##### <a name="packages"></a>`packages`
+##### <a name="-simp_enterprise_el--packages"></a>`packages`
 
 Data type: `Hash`
 
 `package` resources to manage.  See [the simp_enterprise_el::resource::package defined type](#simp_enterprise_elresourcepackage).
 
-##### <a name="package_defaults"></a>`package_defaults`
+##### <a name="-simp_enterprise_el--package_defaults"></a>`package_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `package` resources
 
-##### <a name="package_overrides"></a>`package_overrides`
+##### <a name="-simp_enterprise_el--package_overrides"></a>`package_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `package` resources
 
-##### <a name="services"></a>`services`
+##### <a name="-simp_enterprise_el--services"></a>`services`
 
 Data type: `Hash`
 
 `service` resources to manage.  See [the simp_enterprise_el::resource::service defined type](#simp_enterprise_elresourceservice).
 
-##### <a name="service_defaults"></a>`service_defaults`
+##### <a name="-simp_enterprise_el--service_defaults"></a>`service_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `service` resources
 
-##### <a name="service_overrides"></a>`service_overrides`
+##### <a name="-simp_enterprise_el--service_overrides"></a>`service_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `service` resources
 
-##### <a name="shellvars"></a>`shellvars`
+##### <a name="-simp_enterprise_el--shellvars"></a>`shellvars`
 
 Data type: `Hash`
 
 `shellvar` resources to manage.  See [the simp_enterprise_el::resource::shellvars defined type](#simp_enterprise_elresourceshellvars).
 
-##### <a name="shellvars_defaults"></a>`shellvars_defaults`
+##### <a name="-simp_enterprise_el--shellvars_defaults"></a>`shellvars_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `shellvar` resources
 
-##### <a name="shellvars_overrides"></a>`shellvars_overrides`
+##### <a name="-simp_enterprise_el--shellvars_overrides"></a>`shellvars_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `shellvar` resources
 
-##### <a name="ssh_configs"></a>`ssh_configs`
+##### <a name="-simp_enterprise_el--ssh_configs"></a>`ssh_configs`
 
 Data type: `Hash`
 
 `ssh_config` resources to manage.  See
 [the simp_enterprise_el::resource::ssh_config defined type](#simp_enterprise_elresourcessh_config).
 
-##### <a name="ssh_config_defaults"></a>`ssh_config_defaults`
+##### <a name="-simp_enterprise_el--ssh_config_defaults"></a>`ssh_config_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ssh_config` resources
 
-##### <a name="ssh_config_overrides"></a>`ssh_config_overrides`
+##### <a name="-simp_enterprise_el--ssh_config_overrides"></a>`ssh_config_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ssh_config` resources
 
-##### <a name="sysctl_flags"></a>`sysctl_flags`
+##### <a name="-simp_enterprise_el--sysctl_flags"></a>`sysctl_flags`
 
 Data type: `Hash`
 
 `sysctl` resources to manage.  See [the simp_enterprise_el::resource::sysctl defined type](#simp_enterprise_elresourcesysctl).
 
-##### <a name="sysctl_flag_defaults"></a>`sysctl_flag_defaults`
+##### <a name="-simp_enterprise_el--sysctl_flag_defaults"></a>`sysctl_flag_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `sysctl` resources
 
-##### <a name="sysctl_flag_overrides"></a>`sysctl_flag_overrides`
+##### <a name="-simp_enterprise_el--sysctl_flag_overrides"></a>`sysctl_flag_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `sysctl` resources
 
-##### <a name="managed_users"></a>`managed_users`
+##### <a name="-simp_enterprise_el--managed_users"></a>`managed_users`
 
 Data type: `Hash`
 
 `user` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_elresourceuser).
 
-##### <a name="managed_user_defaults"></a>`managed_user_defaults`
+##### <a name="-simp_enterprise_el--managed_user_defaults"></a>`managed_user_defaults`
 
 Data type: `Hash`
 
 Default attributs for the managed `user` resources
 
-##### <a name="managed_user_overrides"></a>`managed_user_overrides`
+##### <a name="-simp_enterprise_el--managed_user_overrides"></a>`managed_user_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `user` resources
 
-### <a name="simp_enterprise_elcron"></a>`simp_enterprise_el::cron`
+### <a name="simp_enterprise_el--cron"></a>`simp_enterprise_el::cron`
 
 Manage permissions on cron files/directories
 
@@ -331,19 +331,19 @@ include simp_enterprise_el::cron
 
 The following parameters are available in the `simp_enterprise_el::cron` class:
 
-* [`enforce`](#enforce)
-* [`crontab`](#crontab)
-* [`cron_dirs`](#cron_dirs)
+* [`enforce`](#-simp_enterprise_el--cron--enforce)
+* [`crontab`](#-simp_enterprise_el--cron--crontab)
+* [`cron_dirs`](#-simp_enterprise_el--cron--cron_dirs)
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--cron--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 When `false`, resources are set to `noop` for reporting
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="crontab"></a>`crontab`
+##### <a name="-simp_enterprise_el--cron--crontab"></a>`crontab`
 
 Data type: `Stdlib::Unixpath`
 
@@ -351,21 +351,25 @@ Path to crontab file
 
 Default value: `'/etc/crontab'`
 
-##### <a name="cron_dirs"></a>`cron_dirs`
+##### <a name="-simp_enterprise_el--cron--cron_dirs"></a>`cron_dirs`
 
 Data type: `Array`
 
 Paths to cron directories
 
-Default value: `[
+Default value:
+
+```puppet
+[
     '/etc/cron.hourly',
     '/etc/cron.daily',
     '/etc/cron.weekly',
     '/etc/cron.monthly',
     '/etc/cron.d',
-  ]`
+  ]
+```
 
-### <a name="simp_enterprise_eldconf"></a>`simp_enterprise_el::dconf`
+### <a name="simp_enterprise_el--dconf"></a>`simp_enterprise_el::dconf`
 
 Manage dconf settings
 
@@ -393,9 +397,9 @@ include simp_enterprise_el::dconf
 
 The following parameters are available in the `simp_enterprise_el::dconf` class:
 
-* [`dconf_settings`](#dconf_settings)
+* [`dconf_settings`](#-simp_enterprise_el--dconf--dconf_settings)
 
-##### <a name="dconf_settings"></a>`dconf_settings`
+##### <a name="-simp_enterprise_el--dconf--dconf_settings"></a>`dconf_settings`
 
 Data type: `Hash`
 
@@ -403,7 +407,7 @@ a hash that will provide the necessary parameters to create a dconf_settings obj
 
 Default value: `{}`
 
-### <a name="simp_enterprise_eldisable_wifi"></a>`simp_enterprise_el::disable_wifi`
+### <a name="simp_enterprise_el--disable_wifi"></a>`simp_enterprise_el::disable_wifi`
 
 Disable wireless interfaces
 
@@ -419,10 +423,10 @@ include simp_enterprise_el::disable_wifi
 
 The following parameters are available in the `simp_enterprise_el::disable_wifi` class:
 
-* [`interfaces`](#interfaces)
-* [`enforce`](#enforce)
+* [`interfaces`](#-simp_enterprise_el--disable_wifi--interfaces)
+* [`enforce`](#-simp_enterprise_el--disable_wifi--enforce)
 
-##### <a name="interfaces"></a>`interfaces`
+##### <a name="-simp_enterprise_el--disable_wifi--interfaces"></a>`interfaces`
 
 Data type: `Optional[Hash]`
 
@@ -430,15 +434,15 @@ Wireless interfaces
 
 Default value: `$facts['simp_enterprise_el__wifi']`
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--disable_wifi--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce disabling wireless interfaces
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="simp_enterprise_eldotfiles"></a>`simp_enterprise_el::dotfiles`
+### <a name="simp_enterprise_el--dotfiles"></a>`simp_enterprise_el::dotfiles`
 
 Manage problematic . files in users' home directories
 
@@ -454,53 +458,53 @@ include simp_enterprise_el::dotfiles
 
 The following parameters are available in the `simp_enterprise_el::dotfiles` class:
 
-* [`remove_rhosts`](#remove_rhosts)
-* [`remove_netrc`](#remove_netrc)
-* [`remove_forward`](#remove_forward)
-* [`dotfiles`](#dotfiles)
-* [`enforce`](#enforce)
+* [`remove_rhosts`](#-simp_enterprise_el--dotfiles--remove_rhosts)
+* [`remove_netrc`](#-simp_enterprise_el--dotfiles--remove_netrc)
+* [`remove_forward`](#-simp_enterprise_el--dotfiles--remove_forward)
+* [`dotfiles`](#-simp_enterprise_el--dotfiles--dotfiles)
+* [`enforce`](#-simp_enterprise_el--dotfiles--enforce)
 
-##### <a name="remove_rhosts"></a>`remove_rhosts`
+##### <a name="-simp_enterprise_el--dotfiles--remove_rhosts"></a>`remove_rhosts`
 
 Data type: `Boolean`
 
 Remove users' .rhosts files
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_netrc"></a>`remove_netrc`
+##### <a name="-simp_enterprise_el--dotfiles--remove_netrc"></a>`remove_netrc`
 
 Data type: `Boolean`
 
 Remove users' .netrc files
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_forward"></a>`remove_forward`
+##### <a name="-simp_enterprise_el--dotfiles--remove_forward"></a>`remove_forward`
 
 Data type: `Boolean`
 
 Remove users' .forward files
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="dotfiles"></a>`dotfiles`
+##### <a name="-simp_enterprise_el--dotfiles--dotfiles"></a>`dotfiles`
 
 Data type: `Optional[Hash]`
 
 File resources to manage
 
-Default value: `('simp_enterprise_el__facts', 'dotfiles')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'dotfiles')`
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--dotfiles--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 When `false`, resources are set to `noop` for reporting
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="simp_enterprise_elgroups"></a>`simp_enterprise_el::groups`
+### <a name="simp_enterprise_el--groups"></a>`simp_enterprise_el::groups`
 
 Check for problems with local groups
 
@@ -516,89 +520,89 @@ include simp_enterprise_el::groups
 
 The following parameters are available in the `simp_enterprise_el::groups` class:
 
-* [`users`](#users)
-* [`groups`](#groups)
-* [`empty_shadow`](#empty_shadow)
-* [`missing_groups`](#missing_groups)
-* [`add_missing`](#add_missing)
-* [`duplicate_groups`](#duplicate_groups)
-* [`duplicate_gids`](#duplicate_gids)
-* [`remove_dups`](#remove_dups)
-* [`ruby`](#ruby)
+* [`users`](#-simp_enterprise_el--groups--users)
+* [`groups`](#-simp_enterprise_el--groups--groups)
+* [`empty_shadow`](#-simp_enterprise_el--groups--empty_shadow)
+* [`missing_groups`](#-simp_enterprise_el--groups--missing_groups)
+* [`add_missing`](#-simp_enterprise_el--groups--add_missing)
+* [`duplicate_groups`](#-simp_enterprise_el--groups--duplicate_groups)
+* [`duplicate_gids`](#-simp_enterprise_el--groups--duplicate_gids)
+* [`remove_dups`](#-simp_enterprise_el--groups--remove_dups)
+* [`ruby`](#-simp_enterprise_el--groups--ruby)
 
-##### <a name="users"></a>`users`
+##### <a name="-simp_enterprise_el--groups--users"></a>`users`
 
 Data type: `Optional[Array]`
 
 List of local users
 
-Default value: `('simp_enterprise_el__facts', 'users')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'users')`
 
-##### <a name="groups"></a>`groups`
+##### <a name="-simp_enterprise_el--groups--groups"></a>`groups`
 
 Data type: `Optional[Array]`
 
 List of local groups
 
-Default value: `('simp_enterprise_el__facts', 'groups')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'groups')`
 
-##### <a name="empty_shadow"></a>`empty_shadow`
+##### <a name="-simp_enterprise_el--groups--empty_shadow"></a>`empty_shadow`
 
 Data type: `Boolean`
 
 Enforce shadow group with empty member list
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="missing_groups"></a>`missing_groups`
+##### <a name="-simp_enterprise_el--groups--missing_groups"></a>`missing_groups`
 
 Data type: `Optional[Hash]`
 
 Missing group resource list
 
-Default value: `('simp_enterprise_el__facts', 'missing_groups')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'missing_groups')`
 
-##### <a name="add_missing"></a>`add_missing`
+##### <a name="-simp_enterprise_el--groups--add_missing"></a>`add_missing`
 
 Data type: `Boolean`
 
 Enforce missing group resources
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="duplicate_groups"></a>`duplicate_groups`
+##### <a name="-simp_enterprise_el--groups--duplicate_groups"></a>`duplicate_groups`
 
 Data type: `Optional[Hash]`
 
 List of duplicated groups
 
-Default value: `('simp_enterprise_el__facts', 'dups', 'groupname')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'dups', 'groupname')`
 
-##### <a name="duplicate_gids"></a>`duplicate_gids`
+##### <a name="-simp_enterprise_el--groups--duplicate_gids"></a>`duplicate_gids`
 
 Data type: `Optional[Hash]`
 
 List of duplicated gids
 
-Default value: `('simp_enterprise_el__facts', 'dups', 'gid')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'dups', 'gid')`
 
-##### <a name="remove_dups"></a>`remove_dups`
+##### <a name="-simp_enterprise_el--groups--remove_dups"></a>`remove_dups`
 
 Data type: `Boolean`
 
 Enforce removing duplicate groups or GIDs
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ruby"></a>`ruby`
+##### <a name="-simp_enterprise_el--groups--ruby"></a>`ruby`
 
 Data type: `String`
 
 Path to ruby executable
 
-Default value: `('/lib/.*$', '/bin/ruby')`
+Default value: `$facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby')`
 
-### <a name="simp_enterprise_elgrub"></a>`simp_enterprise_el::grub`
+### <a name="simp_enterprise_el--grub"></a>`simp_enterprise_el::grub`
 
 Manage bootloader configuration file permissions
 
@@ -614,11 +618,11 @@ include simp_enterprise_el::grub
 
 The following parameters are available in the `simp_enterprise_el::grub` class:
 
-* [`files`](#files)
-* [`enforce`](#enforce)
-* [`defaults`](#defaults)
+* [`files`](#-simp_enterprise_el--grub--files)
+* [`enforce`](#-simp_enterprise_el--grub--enforce)
+* [`defaults`](#-simp_enterprise_el--grub--defaults)
 
-##### <a name="files"></a>`files`
+##### <a name="-simp_enterprise_el--grub--files"></a>`files`
 
 Data type: `Optional[Hash[Stdlib::Unixpath, Hash]]`
 
@@ -626,19 +630,19 @@ Files to manage
 
 Default value: `$facts['simp_enterprise_el__grub']`
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--grub--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce file permissions
 
-##### <a name="defaults"></a>`defaults`
+##### <a name="-simp_enterprise_el--grub--defaults"></a>`defaults`
 
 Data type: `Hash`
 
 File permissions
 
-### <a name="simp_enterprise_elhomes"></a>`simp_enterprise_el::homes`
+### <a name="simp_enterprise_el--homes"></a>`simp_enterprise_el::homes`
 
 Manage users' home directories
 
@@ -654,12 +658,12 @@ include simp_enterprise_el::homes
 
 The following parameters are available in the `simp_enterprise_el::homes` class:
 
-* [`uid_min`](#uid_min)
-* [`homes`](#homes)
-* [`defaults`](#defaults)
-* [`enforce`](#enforce)
+* [`uid_min`](#-simp_enterprise_el--homes--uid_min)
+* [`homes`](#-simp_enterprise_el--homes--homes)
+* [`defaults`](#-simp_enterprise_el--homes--defaults)
+* [`enforce`](#-simp_enterprise_el--homes--enforce)
 
-##### <a name="uid_min"></a>`uid_min`
+##### <a name="-simp_enterprise_el--homes--uid_min"></a>`uid_min`
 
 Data type: `Integer[0]`
 
@@ -667,15 +671,15 @@ Don't manage home directory if the owner UID is below this number
 
 Default value: `Integer($facts['uid_min'].lest || { 1000 })`
 
-##### <a name="homes"></a>`homes`
+##### <a name="-simp_enterprise_el--homes--homes"></a>`homes`
 
 Data type: `Optional[Hash]`
 
 Home directories to manage
 
-Default value: `('simp_enterprise_el__facts', 'homes')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'homes')`
 
-##### <a name="defaults"></a>`defaults`
+##### <a name="-simp_enterprise_el--homes--defaults"></a>`defaults`
 
 Data type: `Hash`
 
@@ -683,15 +687,15 @@ Defaults for all home directories
 
 Default value: `{ 'mode' => '0700' }`
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--homes--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 When `false`, resources are set to `noop` for reporting
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="simp_enterprise_elkeytabs"></a>`simp_enterprise_el::keytabs`
+### <a name="simp_enterprise_el--keytabs"></a>`simp_enterprise_el::keytabs`
 
 Remove all keytab files under /etc
 
@@ -707,18 +711,18 @@ include simp_enterprise_el::keytabs
 
 The following parameters are available in the `simp_enterprise_el::keytabs` class:
 
-* [`enforce`](#enforce)
-* [`ignore`](#ignore)
-* [`defaults`](#defaults)
-* [`files`](#files)
+* [`enforce`](#-simp_enterprise_el--keytabs--enforce)
+* [`ignore`](#-simp_enterprise_el--keytabs--ignore)
+* [`defaults`](#-simp_enterprise_el--keytabs--defaults)
+* [`files`](#-simp_enterprise_el--keytabs--files)
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--keytabs--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce removal
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--keytabs--ignore"></a>`ignore`
 
 Data type: `Array[Stdlib::Unixpath]`
 
@@ -726,7 +730,7 @@ Array of keytab files
 
 Default value: `[]`
 
-##### <a name="defaults"></a>`defaults`
+##### <a name="-simp_enterprise_el--keytabs--defaults"></a>`defaults`
 
 Data type: `Hash`
 
@@ -734,7 +738,7 @@ Hash of default file parameters to perform on keytab files
 
 Default value: `{ ensure => 'absent' }`
 
-##### <a name="files"></a>`files`
+##### <a name="-simp_enterprise_el--keytabs--files"></a>`files`
 
 Data type: `Optional[Array[Stdlib::Unixpath]]`
 
@@ -742,7 +746,7 @@ List of keytabs files
 
 Default value: `$facts['simp_enterprise_el__keytabs']`
 
-### <a name="simp_enterprise_ellegacy"></a>`simp_enterprise_el::legacy`
+### <a name="simp_enterprise_el--legacy"></a>`simp_enterprise_el::legacy`
 
 Remove legacy `+` entries in passwd, group, and shadow files
 
@@ -758,35 +762,35 @@ include simp_enterprise_el::legacy
 
 The following parameters are available in the `simp_enterprise_el::legacy` class:
 
-* [`passwd`](#passwd)
-* [`group`](#group)
-* [`shadow`](#shadow)
+* [`passwd`](#-simp_enterprise_el--legacy--passwd)
+* [`group`](#-simp_enterprise_el--legacy--group)
+* [`shadow`](#-simp_enterprise_el--legacy--shadow)
 
-##### <a name="passwd"></a>`passwd`
+##### <a name="-simp_enterprise_el--legacy--passwd"></a>`passwd`
 
 Data type: `Boolean`
 
 Manage /etc/passwd
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="group"></a>`group`
+##### <a name="-simp_enterprise_el--legacy--group"></a>`group`
 
 Data type: `Boolean`
 
 Manage /etc/group
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="shadow"></a>`shadow`
+##### <a name="-simp_enterprise_el--legacy--shadow"></a>`shadow`
 
 Data type: `Boolean`
 
 Manage /etc/shadow
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="simp_enterprise_ellogfiles"></a>`simp_enterprise_el::logfiles`
+### <a name="simp_enterprise_el--logfiles"></a>`simp_enterprise_el::logfiles`
 
 Manage permissions on log files
 
@@ -802,30 +806,30 @@ include simp_enterprise_el::logfiles
 
 The following parameters are available in the `simp_enterprise_el::logfiles` class:
 
-* [`enforce`](#enforce)
-* [`ignore`](#ignore)
-* [`mode`](#mode)
-* [`files`](#files)
+* [`enforce`](#-simp_enterprise_el--logfiles--enforce)
+* [`ignore`](#-simp_enterprise_el--logfiles--ignore)
+* [`mode`](#-simp_enterprise_el--logfiles--mode)
+* [`files`](#-simp_enterprise_el--logfiles--files)
 
-##### <a name="enforce"></a>`enforce`
+##### <a name="-simp_enterprise_el--logfiles--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
 Enforce permissions
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--logfiles--ignore"></a>`ignore`
 
 Data type: `Array`
 
 Array of regular expressions to ignore
 
-##### <a name="mode"></a>`mode`
+##### <a name="-simp_enterprise_el--logfiles--mode"></a>`mode`
 
 Data type: `Pattern[/\A[0-7]{1,4}\z/]`
 
 Permissions for all files (as an octal string)
 
-##### <a name="files"></a>`files`
+##### <a name="-simp_enterprise_el--logfiles--files"></a>`files`
 
 Data type: `Optional[Hash[Stdlib::Unixpath, Hash[String, String]]]`
 
@@ -833,7 +837,7 @@ List of log files
 
 Default value: `$facts['simp_enterprise_el__logfiles']`
 
-### <a name="simp_enterprise_elmountpoints"></a>`simp_enterprise_el::mountpoints`
+### <a name="simp_enterprise_el--mountpoints"></a>`simp_enterprise_el::mountpoints`
 
 Manage mount options
 
@@ -849,41 +853,41 @@ include simp_enterprise_el::mountpoints
 
 The following parameters are available in the `simp_enterprise_el::mountpoints` class:
 
-* [`required_options`](#required_options)
-* [`removable_options`](#removable_options)
-* [`removable`](#removable)
-* [`nfs_mount`](#nfs_mount)
-* [`nfs_mount_options`](#nfs_mount_options)
+* [`required_options`](#-simp_enterprise_el--mountpoints--required_options)
+* [`removable_options`](#-simp_enterprise_el--mountpoints--removable_options)
+* [`removable`](#-simp_enterprise_el--mountpoints--removable)
+* [`nfs_mount`](#-simp_enterprise_el--mountpoints--nfs_mount)
+* [`nfs_mount_options`](#-simp_enterprise_el--mountpoints--nfs_mount_options)
 
-##### <a name="required_options"></a>`required_options`
+##### <a name="-simp_enterprise_el--mountpoints--required_options"></a>`required_options`
 
 Data type: `Hash[Stdlib::Unixpath, Array[String]]`
 
 Options to enforce on all mountpoints
 
-##### <a name="removable_options"></a>`removable_options`
+##### <a name="-simp_enterprise_el--mountpoints--removable_options"></a>`removable_options`
 
 Data type: `Array[String]`
 
 Options to enforce on removable media
 
-##### <a name="removable"></a>`removable`
+##### <a name="-simp_enterprise_el--mountpoints--removable"></a>`removable`
 
 Data type: `Optional[Hash[Stdlib::Unixpath, Boolean]]`
 
 Hash of mountpoints and whether or not they are removable
 
-Default value: `('simp_enterprise_el__mounts', 'removable')`
+Default value: `$facts.dig('simp_enterprise_el__mounts', 'removable')`
 
-##### <a name="nfs_mount"></a>`nfs_mount`
+##### <a name="-simp_enterprise_el--mountpoints--nfs_mount"></a>`nfs_mount`
 
 Data type: `Optional[Hash[Stdlib::Unixpath,Array[String]]]`
 
 Hash of NFS mountpoints
 
-Default value: `('simp_enterprise_el__mounts', 'nfs_mount')`
+Default value: `$facts.dig('simp_enterprise_el__mounts', 'nfs_mount')`
 
-##### <a name="nfs_mount_options"></a>`nfs_mount_options`
+##### <a name="-simp_enterprise_el--mountpoints--nfs_mount_options"></a>`nfs_mount_options`
 
 Data type: `Array[String]`
 
@@ -891,7 +895,7 @@ Options to enforce on NFS mountpoints
 
 Default value: `[]`
 
-### <a name="simp_enterprise_elpam"></a>`simp_enterprise_el::pam`
+### <a name="simp_enterprise_el--pam"></a>`simp_enterprise_el::pam`
 
 Check for `nullok` in PAM stack
 
@@ -907,26 +911,26 @@ include simp_enterprise_el::pam
 
 The following parameters are available in the `simp_enterprise_el::pam` class:
 
-* [`system_auth_nullok`](#system_auth_nullok)
-* [`password_auth_nullok`](#password_auth_nullok)
+* [`system_auth_nullok`](#-simp_enterprise_el--pam--system_auth_nullok)
+* [`password_auth_nullok`](#-simp_enterprise_el--pam--password_auth_nullok)
 
-##### <a name="system_auth_nullok"></a>`system_auth_nullok`
+##### <a name="-simp_enterprise_el--pam--system_auth_nullok"></a>`system_auth_nullok`
 
 Data type: `Optional[Boolean]`
 
 Check for `nullok` in `system-auth`
 
-Default value: `('simp_enterprise_el__pam', 'system-auth_nullok')`
+Default value: `$facts.dig('simp_enterprise_el__pam', 'system-auth_nullok')`
 
-##### <a name="password_auth_nullok"></a>`password_auth_nullok`
+##### <a name="-simp_enterprise_el--pam--password_auth_nullok"></a>`password_auth_nullok`
 
 Data type: `Optional[Boolean]`
 
 Check for `nullok` in `password-auth`
 
-Default value: `('simp_enterprise_el__pam', 'password-auth_nullok')`
+Default value: `$facts.dig('simp_enterprise_el__pam', 'password-auth_nullok')`
 
-### <a name="simp_enterprise_elpath"></a>`simp_enterprise_el::path`
+### <a name="simp_enterprise_el--path"></a>`simp_enterprise_el::path`
 
 PATH validation
 
@@ -942,22 +946,22 @@ include simp_enterprise_el::path
 
 The following parameters are available in the `simp_enterprise_el::path` class:
 
-* [`log_facility`](#log_facility)
-* [`warn_to_stderr`](#warn_to_stderr)
+* [`log_facility`](#-simp_enterprise_el--path--log_facility)
+* [`warn_to_stderr`](#-simp_enterprise_el--path--warn_to_stderr)
 
-##### <a name="log_facility"></a>`log_facility`
+##### <a name="-simp_enterprise_el--path--log_facility"></a>`log_facility`
 
 Data type: `Simplib::Syslog::LowerPriority`
 
 Log facility to use for PATH validation warnings
 
-##### <a name="warn_to_stderr"></a>`warn_to_stderr`
+##### <a name="-simp_enterprise_el--path--warn_to_stderr"></a>`warn_to_stderr`
 
 Data type: `Boolean`
 
 Also send warnings to STDERR
 
-### <a name="simp_enterprise_elresolv"></a>`simp_enterprise_el::resolv`
+### <a name="simp_enterprise_el--resolv"></a>`simp_enterprise_el::resolv`
 
 resolv.conf validation
 
@@ -973,10 +977,10 @@ include simp_enterprise_el::resolv
 
 The following parameters are available in the `simp_enterprise_el::resolv` class:
 
-* [`min_num_nameservers`](#min_num_nameservers)
-* [`nameservers`](#nameservers)
+* [`min_num_nameservers`](#-simp_enterprise_el--resolv--min_num_nameservers)
+* [`nameservers`](#-simp_enterprise_el--resolv--nameservers)
 
-##### <a name="min_num_nameservers"></a>`min_num_nameservers`
+##### <a name="-simp_enterprise_el--resolv--min_num_nameservers"></a>`min_num_nameservers`
 
 Data type: `Integer[0,3]`
 
@@ -984,15 +988,15 @@ If resolv.conf is configured with less nameservers than this parameter specifies
 
 Default value: `0`
 
-##### <a name="nameservers"></a>`nameservers`
+##### <a name="-simp_enterprise_el--resolv--nameservers"></a>`nameservers`
 
 Data type: `Optional[Array[String]]`
 
 System nameservers
 
-Default value: `('simp_enterprise_el__resolv', 'nameservers')`
+Default value: `$facts.dig('simp_enterprise_el__resolv', 'nameservers')`
 
-### <a name="simp_enterprise_elssh_host_files"></a>`simp_enterprise_el::ssh_host_files`
+### <a name="simp_enterprise_el--ssh_host_files"></a>`simp_enterprise_el::ssh_host_files`
 
 Manage ssh host key files
 
@@ -1008,24 +1012,24 @@ include simp_enterprise_el::ssh_host_files
 
 The following parameters are available in the `simp_enterprise_el::ssh_host_files` class:
 
-* [`ssh_host_keys`](#ssh_host_keys)
-* [`ssh_host_key_mode`](#ssh_host_key_mode)
-* [`ssh_host_key_owner`](#ssh_host_key_owner)
-* [`ssh_host_key_group`](#ssh_host_key_group)
-* [`ssh_host_pub_keys`](#ssh_host_pub_keys)
-* [`ssh_host_pub_key_mode`](#ssh_host_pub_key_mode)
-* [`ssh_host_pub_key_owner`](#ssh_host_pub_key_owner)
-* [`ssh_host_pub_key_group`](#ssh_host_pub_key_group)
+* [`ssh_host_keys`](#-simp_enterprise_el--ssh_host_files--ssh_host_keys)
+* [`ssh_host_key_mode`](#-simp_enterprise_el--ssh_host_files--ssh_host_key_mode)
+* [`ssh_host_key_owner`](#-simp_enterprise_el--ssh_host_files--ssh_host_key_owner)
+* [`ssh_host_key_group`](#-simp_enterprise_el--ssh_host_files--ssh_host_key_group)
+* [`ssh_host_pub_keys`](#-simp_enterprise_el--ssh_host_files--ssh_host_pub_keys)
+* [`ssh_host_pub_key_mode`](#-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_mode)
+* [`ssh_host_pub_key_owner`](#-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_owner)
+* [`ssh_host_pub_key_group`](#-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_group)
 
-##### <a name="ssh_host_keys"></a>`ssh_host_keys`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_keys"></a>`ssh_host_keys`
 
 Data type: `Optional[Array[Stdlib::Unixpath]]`
 
 Hash of system ssh private key files
 
-Default value: `('simp_enterprise_el__ssh_host_files', 'ssh_host_key_files')`
+Default value: `$facts.dig('simp_enterprise_el__ssh_host_files', 'ssh_host_key_files')`
 
-##### <a name="ssh_host_key_mode"></a>`ssh_host_key_mode`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_key_mode"></a>`ssh_host_key_mode`
 
 Data type: `Stdlib::Filemode`
 
@@ -1033,7 +1037,7 @@ the mode for all /etc/ssh/ssh_host_*_key files
 
 Default value: `'u-x,g-wx,o-rwx'`
 
-##### <a name="ssh_host_key_owner"></a>`ssh_host_key_owner`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_key_owner"></a>`ssh_host_key_owner`
 
 Data type: `String`
 
@@ -1041,7 +1045,7 @@ the owner for all /etc/ssh/ssh_host_*_key files
 
 Default value: `'root'`
 
-##### <a name="ssh_host_key_group"></a>`ssh_host_key_group`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_key_group"></a>`ssh_host_key_group`
 
 Data type: `String`
 
@@ -1049,15 +1053,15 @@ the group for all /etc/ssh/ssh_host_*_key files
 
 Default value: `'root'`
 
-##### <a name="ssh_host_pub_keys"></a>`ssh_host_pub_keys`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_pub_keys"></a>`ssh_host_pub_keys`
 
 Data type: `Optional[Array[Stdlib::Unixpath]]`
 
 Hash of system ssh pub key files
 
-Default value: `('simp_enterprise_el__ssh_host_files', 'ssh_host_pub_files')`
+Default value: `$facts.dig('simp_enterprise_el__ssh_host_files', 'ssh_host_pub_files')`
 
-##### <a name="ssh_host_pub_key_mode"></a>`ssh_host_pub_key_mode`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_mode"></a>`ssh_host_pub_key_mode`
 
 Data type: `Stdlib::Filemode`
 
@@ -1065,7 +1069,7 @@ the mode for all /etc/ssh/ssh_host_*_key.pub files
 
 Default value: `'u-x,go-wx'`
 
-##### <a name="ssh_host_pub_key_owner"></a>`ssh_host_pub_key_owner`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_owner"></a>`ssh_host_pub_key_owner`
 
 Data type: `String`
 
@@ -1073,7 +1077,7 @@ the owner for all /etc/ssh/ssh_host_*_key.pub files
 
 Default value: `'root'`
 
-##### <a name="ssh_host_pub_key_group"></a>`ssh_host_pub_key_group`
+##### <a name="-simp_enterprise_el--ssh_host_files--ssh_host_pub_key_group"></a>`ssh_host_pub_key_group`
 
 Data type: `String`
 
@@ -1081,7 +1085,7 @@ the group for all /etc/ssh/ssh_host_*_key.pub files
 
 Default value: `'root'`
 
-### <a name="simp_enterprise_elsshd"></a>`simp_enterprise_el::sshd`
+### <a name="simp_enterprise_el--sshd"></a>`simp_enterprise_el::sshd`
 
 Manage sshd environment file
 
@@ -1097,29 +1101,29 @@ include simp_enterprise_el::sshd
 
 The following parameters are available in the `simp_enterprise_el::sshd` class:
 
-* [`env_file`](#env_file)
-* [`env`](#env)
-* [`env_exclude`](#env_exclude)
+* [`env_file`](#-simp_enterprise_el--sshd--env_file)
+* [`env`](#-simp_enterprise_el--sshd--env)
+* [`env_exclude`](#-simp_enterprise_el--sshd--env_exclude)
 
-##### <a name="env_file"></a>`env_file`
+##### <a name="-simp_enterprise_el--sshd--env_file"></a>`env_file`
 
 Data type: `Stdlib::Unixpath`
 
 Path to environment file
 
-##### <a name="env"></a>`env`
+##### <a name="-simp_enterprise_el--sshd--env"></a>`env`
 
 Data type: `Hash[String[1], String]`
 
 Environment to include in environment file
 
-##### <a name="env_exclude"></a>`env_exclude`
+##### <a name="-simp_enterprise_el--sshd--env_exclude"></a>`env_exclude`
 
 Data type: `Array[String[1]]`
 
 Environment variables to exclude from environment file
 
-### <a name="simp_enterprise_elusers"></a>`simp_enterprise_el::users`
+### <a name="simp_enterprise_el--users"></a>`simp_enterprise_el::users`
 
 Check for problems with local users
 
@@ -1135,29 +1139,29 @@ include simp_enterprise_el::users
 
 The following parameters are available in the `simp_enterprise_el::users` class:
 
-* [`uid_min`](#uid_min)
-* [`users`](#users)
-* [`non_system_users`](#non_system_users)
-* [`groups`](#groups)
-* [`empty_shadow`](#empty_shadow)
-* [`to_lock`](#to_lock)
-* [`lock`](#lock)
-* [`to_expire`](#to_expire)
-* [`expire`](#expire)
-* [`remove_uid_0`](#remove_uid_0)
-* [`duplicate_users`](#duplicate_users)
-* [`duplicate_uids`](#duplicate_uids)
-* [`remove_dups`](#remove_dups)
-* [`ruby`](#ruby)
-* [`force_shadow`](#force_shadow)
-* [`nologin_shell`](#nologin_shell)
-* [`sa_nologin`](#sa_nologin)
-* [`sa_exclude`](#sa_exclude)
-* [`pass_max_days`](#pass_max_days)
-* [`pass_min_days`](#pass_min_days)
-* [`inactive_days`](#inactive_days)
+* [`uid_min`](#-simp_enterprise_el--users--uid_min)
+* [`users`](#-simp_enterprise_el--users--users)
+* [`non_system_users`](#-simp_enterprise_el--users--non_system_users)
+* [`groups`](#-simp_enterprise_el--users--groups)
+* [`empty_shadow`](#-simp_enterprise_el--users--empty_shadow)
+* [`to_lock`](#-simp_enterprise_el--users--to_lock)
+* [`lock`](#-simp_enterprise_el--users--lock)
+* [`to_expire`](#-simp_enterprise_el--users--to_expire)
+* [`expire`](#-simp_enterprise_el--users--expire)
+* [`remove_uid_0`](#-simp_enterprise_el--users--remove_uid_0)
+* [`duplicate_users`](#-simp_enterprise_el--users--duplicate_users)
+* [`duplicate_uids`](#-simp_enterprise_el--users--duplicate_uids)
+* [`remove_dups`](#-simp_enterprise_el--users--remove_dups)
+* [`ruby`](#-simp_enterprise_el--users--ruby)
+* [`force_shadow`](#-simp_enterprise_el--users--force_shadow)
+* [`nologin_shell`](#-simp_enterprise_el--users--nologin_shell)
+* [`sa_nologin`](#-simp_enterprise_el--users--sa_nologin)
+* [`sa_exclude`](#-simp_enterprise_el--users--sa_exclude)
+* [`pass_max_days`](#-simp_enterprise_el--users--pass_max_days)
+* [`pass_min_days`](#-simp_enterprise_el--users--pass_min_days)
+* [`inactive_days`](#-simp_enterprise_el--users--inactive_days)
 
-##### <a name="uid_min"></a>`uid_min`
+##### <a name="-simp_enterprise_el--users--uid_min"></a>`uid_min`
 
 Data type: `Integer[0]`
 
@@ -1165,151 +1169,151 @@ For users under this number, any required group resources will be added with `sy
 
 Default value: `Integer($facts['uid_min'].lest || { 1000 })`
 
-##### <a name="users"></a>`users`
+##### <a name="-simp_enterprise_el--users--users"></a>`users`
 
 Data type: `Optional[Array]`
 
 List of local users
 
-Default value: `('simp_enterprise_el__facts', 'users')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'users')`
 
-##### <a name="non_system_users"></a>`non_system_users`
+##### <a name="-simp_enterprise_el--users--non_system_users"></a>`non_system_users`
 
 Data type: `Optional[Array]`
 
 List of users that have a login and are above uid 1000
 
-Default value: `('simp_enterprise_el__facts', 'non_system_users')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'non_system_users')`
 
-##### <a name="groups"></a>`groups`
+##### <a name="-simp_enterprise_el--users--groups"></a>`groups`
 
 Data type: `Optional[Array]`
 
 List of local groups
 
-Default value: `('simp_enterprise_el__facts', 'groups')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'groups')`
 
-##### <a name="empty_shadow"></a>`empty_shadow`
+##### <a name="-simp_enterprise_el--users--empty_shadow"></a>`empty_shadow`
 
 Data type: `Boolean`
 
 Enforce group change for users with `shadow` as their primary group
 
-##### <a name="to_lock"></a>`to_lock`
+##### <a name="-simp_enterprise_el--users--to_lock"></a>`to_lock`
 
 Data type: `Optional[Array]`
 
 List of local users that should be locked
 
-Default value: `('simp_enterprise_el__facts', 'lock')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'lock')`
 
-##### <a name="lock"></a>`lock`
+##### <a name="-simp_enterprise_el--users--lock"></a>`lock`
 
 Data type: `Boolean`
 
 Enforce locking `to_lock` list
 
-##### <a name="to_expire"></a>`to_expire`
+##### <a name="-simp_enterprise_el--users--to_expire"></a>`to_expire`
 
 Data type: `Optional[Array]`
 
 List of local users that should have a password change forced
 
-Default value: `('simp_enterprise_el__facts', 'expire')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'expire')`
 
-##### <a name="expire"></a>`expire`
+##### <a name="-simp_enterprise_el--users--expire"></a>`expire`
 
 Data type: `Boolean`
 
 Enforce expiring passwords of users in the `to_expire` list
 
-##### <a name="remove_uid_0"></a>`remove_uid_0`
+##### <a name="-simp_enterprise_el--users--remove_uid_0"></a>`remove_uid_0`
 
 Data type: `Boolean`
 
 Remove any users other than `root` with UID 0
 
-##### <a name="duplicate_users"></a>`duplicate_users`
+##### <a name="-simp_enterprise_el--users--duplicate_users"></a>`duplicate_users`
 
 Data type: `Optional[Hash]`
 
 List of duplicated usernames
 
-Default value: `('simp_enterprise_el__facts', 'dups', 'username')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'dups', 'username')`
 
-##### <a name="duplicate_uids"></a>`duplicate_uids`
+##### <a name="-simp_enterprise_el--users--duplicate_uids"></a>`duplicate_uids`
 
 Data type: `Optional[Hash]`
 
 List of duplicated UIDs
 
-Default value: `('simp_enterprise_el__facts', 'dups', 'uid')`
+Default value: `$facts.dig('simp_enterprise_el__facts', 'dups', 'uid')`
 
-##### <a name="remove_dups"></a>`remove_dups`
+##### <a name="-simp_enterprise_el--users--remove_dups"></a>`remove_dups`
 
 Data type: `Boolean`
 
 Enforce removing duplicate usernames or UIDs
 
-##### <a name="ruby"></a>`ruby`
+##### <a name="-simp_enterprise_el--users--ruby"></a>`ruby`
 
 Data type: `String`
 
 Path to ruby executable
 
-Default value: `('/lib/.*$', '/bin/ruby')`
+Default value: `$facts['ruby']['sitedir'].regsubst('/lib/.*$', '/bin/ruby')`
 
-##### <a name="force_shadow"></a>`force_shadow`
+##### <a name="-simp_enterprise_el--users--force_shadow"></a>`force_shadow`
 
 Data type: `Boolean`
 
 Set any user with a password in `/etc/passwd` to `x`
 
-##### <a name="nologin_shell"></a>`nologin_shell`
+##### <a name="-simp_enterprise_el--users--nologin_shell"></a>`nologin_shell`
 
 Data type: `String`
 
 Shell to use for accounts with no shell access
 
-##### <a name="sa_nologin"></a>`sa_nologin`
+##### <a name="-simp_enterprise_el--users--sa_nologin"></a>`sa_nologin`
 
 Data type: `Boolean`
 
 Enforce /sbin/nologin as the login shell for system accounts
 
-##### <a name="sa_exclude"></a>`sa_exclude`
+##### <a name="-simp_enterprise_el--users--sa_exclude"></a>`sa_exclude`
 
 Data type: `Array`
 
 List of system accounts allowed to have an login shell
 
-##### <a name="pass_max_days"></a>`pass_max_days`
+##### <a name="-simp_enterprise_el--users--pass_max_days"></a>`pass_max_days`
 
 Data type: `Optional[Integer]`
 
 The maximum number of days before a user's password must change
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="pass_min_days"></a>`pass_min_days`
+##### <a name="-simp_enterprise_el--users--pass_min_days"></a>`pass_min_days`
 
 Data type: `Optional[Integer]`
 
 the minimum number of days a password must be active before it can be changed
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="inactive_days"></a>`inactive_days`
+##### <a name="-simp_enterprise_el--users--inactive_days"></a>`inactive_days`
 
 Data type: `Optional[Integer]`
 
 the number of days before an expired password becomes inactive
 
-Default value: ``undef``
+Default value: `undef`
 
 ## Defined types
 
-### <a name="simp_enterprise_elresourcefile"></a>`simp_enterprise_el::resource::file`
+### <a name="simp_enterprise_el--resource--file"></a>`simp_enterprise_el::resource::file`
 
 Optionally manage or override file resources
 
@@ -1332,11 +1336,11 @@ simp_enterprise_el::resource::file { '/etc/crontab':
 
 The following parameters are available in the `simp_enterprise_el::resource::file` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--file--params)
+* [`override`](#-simp_enterprise_el--resource--file--override)
+* [`ignore`](#-simp_enterprise_el--resource--file--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--file--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1344,7 +1348,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--file--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1353,7 +1357,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--file--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1361,7 +1365,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcefile_line"></a>`simp_enterprise_el::resource::file_line`
+### <a name="simp_enterprise_el--resource--file_line"></a>`simp_enterprise_el::resource::file_line`
 
 WARNING: Do not use this feature unless there is no other option
          For example, if you need to edit a line in a config file
@@ -1384,11 +1388,11 @@ simp_enterprise_el::resource::file_line { 'add_line_to_unamanaged_file':
 
 The following parameters are available in the `simp_enterprise_el::resource::file_line` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--file_line--params)
+* [`override`](#-simp_enterprise_el--resource--file_line--override)
+* [`ignore`](#-simp_enterprise_el--resource--file_line--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--file_line--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1396,7 +1400,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--file_line--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1405,7 +1409,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--file_line--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1413,7 +1417,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcefirewalld_rich_rule"></a>`simp_enterprise_el::resource::firewalld_rich_rule`
+### <a name="simp_enterprise_el--resource--firewalld_rich_rule"></a>`simp_enterprise_el::resource::firewalld_rich_rule`
 
 Optionally manage or override firewalld_rich_rules
 
@@ -1434,11 +1438,11 @@ simp_enterprise_el::resource::firewalld_rich_rule { 'accept_port_22':
 
 The following parameters are available in the `simp_enterprise_el::resource::firewalld_rich_rule` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--firewalld_rich_rule--params)
+* [`override`](#-simp_enterprise_el--resource--firewalld_rich_rule--override)
+* [`ignore`](#-simp_enterprise_el--resource--firewalld_rich_rule--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--firewalld_rich_rule--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1446,7 +1450,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--firewalld_rich_rule--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1455,7 +1459,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--firewalld_rich_rule--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1463,7 +1467,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourceini_setting"></a>`simp_enterprise_el::resource::ini_setting`
+### <a name="simp_enterprise_el--resource--ini_setting"></a>`simp_enterprise_el::resource::ini_setting`
 
 Optionally manage or override ini_setting resources
 
@@ -1488,11 +1492,11 @@ simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
 
 The following parameters are available in the `simp_enterprise_el::resource::ini_setting` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--ini_setting--params)
+* [`override`](#-simp_enterprise_el--resource--ini_setting--override)
+* [`ignore`](#-simp_enterprise_el--resource--ini_setting--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--ini_setting--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1500,7 +1504,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--ini_setting--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1509,7 +1513,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--ini_setting--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1517,7 +1521,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourceini_subsetting"></a>`simp_enterprise_el::resource::ini_subsetting`
+### <a name="simp_enterprise_el--resource--ini_subsetting"></a>`simp_enterprise_el::resource::ini_subsetting`
 
 Optionally manage or override ini_subsetting resources
 
@@ -1542,11 +1546,11 @@ simp_enterprise_el::resource::ini_subsetting { 'Coredump_Storage':
 
 The following parameters are available in the `simp_enterprise_el::resource::ini_subsetting` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--ini_subsetting--params)
+* [`override`](#-simp_enterprise_el--resource--ini_subsetting--override)
+* [`ignore`](#-simp_enterprise_el--resource--ini_subsetting--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--ini_subsetting--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1554,7 +1558,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--ini_subsetting--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1563,7 +1567,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--ini_subsetting--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1571,7 +1575,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcekernel_parameter"></a>`simp_enterprise_el::resource::kernel_parameter`
+### <a name="simp_enterprise_el--resource--kernel_parameter"></a>`simp_enterprise_el::resource::kernel_parameter`
 
 Optionally manage or override kernel_parameter resources
 
@@ -1592,11 +1596,11 @@ simp_enterprise_el::resource::kernel_parameter { 'consoleblank':
 
 The following parameters are available in the `simp_enterprise_el::resource::kernel_parameter` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--kernel_parameter--params)
+* [`override`](#-simp_enterprise_el--resource--kernel_parameter--override)
+* [`ignore`](#-simp_enterprise_el--resource--kernel_parameter--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--kernel_parameter--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1604,7 +1608,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--kernel_parameter--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1613,7 +1617,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--kernel_parameter--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1621,7 +1625,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcepackage"></a>`simp_enterprise_el::resource::package`
+### <a name="simp_enterprise_el--resource--package"></a>`simp_enterprise_el::resource::package`
 
 Optionally manage or override package resources
 
@@ -1641,11 +1645,11 @@ simp_enterprise_el::resource::package { 'telnet':
 
 The following parameters are available in the `simp_enterprise_el::resource::package` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--package--params)
+* [`override`](#-simp_enterprise_el--resource--package--override)
+* [`ignore`](#-simp_enterprise_el--resource--package--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--package--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1653,7 +1657,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--package--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1662,7 +1666,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--package--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1670,7 +1674,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourceservice"></a>`simp_enterprise_el::resource::service`
+### <a name="simp_enterprise_el--resource--service"></a>`simp_enterprise_el::resource::service`
 
 Optionally manage or override service resources
 
@@ -1691,11 +1695,11 @@ simp_enterprise_el::resource::service { 'rsyncd':
 
 The following parameters are available in the `simp_enterprise_el::resource::service` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--service--params)
+* [`override`](#-simp_enterprise_el--resource--service--override)
+* [`ignore`](#-simp_enterprise_el--resource--service--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--service--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1703,7 +1707,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--service--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1712,7 +1716,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--service--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1720,7 +1724,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourceshellvars"></a>`simp_enterprise_el::resource::shellvars`
+### <a name="simp_enterprise_el--resource--shellvars"></a>`simp_enterprise_el::resource::shellvars`
 
 Optionally manage or override shellvar resources
 
@@ -1743,11 +1747,11 @@ simp_enterprise_el::resource::shellvar { 'GRUB_CMDLINE_LINUX':
 
 The following parameters are available in the `simp_enterprise_el::resource::shellvars` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--shellvars--params)
+* [`override`](#-simp_enterprise_el--resource--shellvars--override)
+* [`ignore`](#-simp_enterprise_el--resource--shellvars--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--shellvars--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1755,7 +1759,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--shellvars--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1764,7 +1768,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--shellvars--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1772,7 +1776,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcessh_config"></a>`simp_enterprise_el::resource::ssh_config`
+### <a name="simp_enterprise_el--resource--ssh_config"></a>`simp_enterprise_el::resource::ssh_config`
 
 Optionally manage or override ssh_config resources
 
@@ -1793,11 +1797,11 @@ simp_enterprise_el::resource::ssh_config { 'ForwardAgent':
 
 The following parameters are available in the `simp_enterprise_el::resource::ssh_config` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--ssh_config--params)
+* [`override`](#-simp_enterprise_el--resource--ssh_config--override)
+* [`ignore`](#-simp_enterprise_el--resource--ssh_config--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--ssh_config--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1805,7 +1809,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--ssh_config--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1814,7 +1818,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--ssh_config--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1822,7 +1826,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourcesysctl"></a>`simp_enterprise_el::resource::sysctl`
+### <a name="simp_enterprise_el--resource--sysctl"></a>`simp_enterprise_el::resource::sysctl`
 
 Optionally manage or override sysctl resources
 
@@ -1843,11 +1847,11 @@ simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
 
 The following parameters are available in the `simp_enterprise_el::resource::sysctl` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--sysctl--params)
+* [`override`](#-simp_enterprise_el--resource--sysctl--override)
+* [`ignore`](#-simp_enterprise_el--resource--sysctl--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--sysctl--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1855,7 +1859,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--sysctl--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1864,7 +1868,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--sysctl--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
@@ -1872,7 +1876,7 @@ When `true`, skip this resource.
 
 Default value: `$params['ignore']`
 
-### <a name="simp_enterprise_elresourceuser"></a>`simp_enterprise_el::resource::user`
+### <a name="simp_enterprise_el--resource--user"></a>`simp_enterprise_el::resource::user`
 
 Optionally manage or override user resources
 
@@ -1894,11 +1898,11 @@ simp_enterprise_el::resource::user { 'foo':
 
 The following parameters are available in the `simp_enterprise_el::resource::user` defined type:
 
-* [`params`](#params)
-* [`override`](#override)
-* [`ignore`](#ignore)
+* [`params`](#-simp_enterprise_el--resource--user--params)
+* [`override`](#-simp_enterprise_el--resource--user--override)
+* [`ignore`](#-simp_enterprise_el--resource--user--ignore)
 
-##### <a name="params"></a>`params`
+##### <a name="-simp_enterprise_el--resource--user--params"></a>`params`
 
 Data type: `Hash`
 
@@ -1906,7 +1910,7 @@ Resource attributes
 
 Default value: `{}`
 
-##### <a name="override"></a>`override`
+##### <a name="-simp_enterprise_el--resource--user--override"></a>`override`
 
 Data type: `Optional[Boolean]`
 
@@ -1915,7 +1919,7 @@ the existing resource.
 
 Default value: `$params['override']`
 
-##### <a name="ignore"></a>`ignore`
+##### <a name="-simp_enterprise_el--resource--user--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 
