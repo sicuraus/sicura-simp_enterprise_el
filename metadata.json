@@ -1,6 +1,6 @@
 {
   "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "author": "Onyx Point",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -36,7 +36,7 @@
     },
     {
       "name": "puppet-augeasproviders_shellvar",
-      "version_requirement": ">= 1.0.0 < 5.0.0"
+      "version_requirement": ">= 1.0.0 < 7.0.0"
     },
     {
       "name": "puppet-augeasproviders_ssh",
