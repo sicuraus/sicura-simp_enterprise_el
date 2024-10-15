@@ -3,7 +3,9 @@
 # @summary Collect list of bootloader files
 
 Facter.add('simp_enterprise_el__grub') do
-  confine osfamily: 'RedHat'
+  confine :os do |os|
+    os['family'] == 'RedHat'
+  end
 
   setcode do
     retval = {}

@@ -10,16 +10,10 @@ Facter.add('simp_enterprise_el__mounts') do
     mountpoints = Facter.value('mountpoints')
 
     mountpoints.each do |key, value|
-      next unless value['filesystem'] == 'nfs4'
-
-      mount_info = Facter::Core::Execution.execute("findmnt -n -o target,options '#{key}'", on_fail: nil)&.chomp&.gsub(%r{\s+}m, ' ')&.strip&.split(' ')
-      target = mount_info[0]
-      options = mount_info[1]
-
-      next if target.nil?
+      next unless value['filesystem'].match?(%r{^nfs[34]?$})
 
       retval['nfs_mount'] = {} if retval['nfs_mount'].nil?
-      retval['nfs_mount'][target] = options.split(',').reject { |option| option.start_with?('vers=') }
+      retval['nfs_mount'][key] = value['options'].reject { |option| option.start_with?('vers=') }
     end
 
     mountpoints.each do |key, value|
@@ -36,9 +30,9 @@ Facter.add('simp_enterprise_el__mounts') do
 
     mountpoints.each do |key, value|
       next if value['device'].nil?
-      next unless %r{^/dev/}.match?(value['device'])
+      next unless value['device'].start_with?('/dev/')
 
-      device = value['device'].sub(%r{^/dev/}, '')
+      device = value['device'].delete_prefix('/dev/')
 
       def removable(path)
         File.read("#{path}/removable").chomp.to_i.positive?
@@ -52,7 +46,7 @@ Facter.add('simp_enterprise_el__mounts') do
 
       Dir.glob("/sys/block/*/#{device}").each do |p|
         retval['removable'] = {} if retval['removable'].nil?
-        retval['removable'][key] = removable(p.sub(%r{/#{device}$}, ''))
+        retval['removable'][key] = removable(p.delete_suffix("/#{device}"))
         break
       end
     end

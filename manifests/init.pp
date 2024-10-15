@@ -54,6 +54,12 @@
 # @param ssh_config_defaults Default attributes for managed `ssh_config` resources
 # @param ssh_config_overrides Attributes to override for all managed `ssh_config` resources
 #
+# @param sshd_configs
+#   `sshd_config` resources to manage.  See
+#   [the simp_enterprise_el::resource::sshd_config defined type](#simp_enterprise_elresourcesshd_config).
+# @param sshd_config_defaults Default attributes for managed `sshd_config` resources
+# @param sshd_config_overrides Attributes to override for all managed `sshd_config` resources
+#
 # @param sysctl_flags
 #   `sysctl` resources to manage.  See [the simp_enterprise_el::resource::sysctl defined type](#simp_enterprise_elresourcesysctl).
 # @param sysctl_flag_defaults Default attributes for managed `sysctl` resources
@@ -97,6 +103,9 @@ class simp_enterprise_el (
   Hash $ssh_configs,
   Hash $ssh_config_defaults,
   Hash $ssh_config_overrides,
+  Hash $sshd_configs,
+  Hash $sshd_config_defaults,
+  Hash $sshd_config_overrides,
   Hash $sysctl_flags,
   Hash $sysctl_flag_defaults,
   Hash $sysctl_flag_overrides,
@@ -169,6 +178,12 @@ class simp_enterprise_el (
   $ssh_configs.each |$key, $value| {
     simp_enterprise_el::resource::ssh_config { $key:
       params => $ssh_config_defaults + $value + $ssh_config_overrides,
+    }
+  }
+
+  $sshd_configs.each |$key, $value| {
+    simp_enterprise_el::resource::sshd_config { $key:
+      params => $sshd_config_defaults + $value + $sshd_config_overrides,
     }
   }
 

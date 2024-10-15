@@ -14,6 +14,7 @@
 * [`simp_enterprise_el::groups`](#simp_enterprise_el--groups): Check for problems with local groups
 * [`simp_enterprise_el::grub`](#simp_enterprise_el--grub): Manage bootloader configuration file permissions
 * [`simp_enterprise_el::homes`](#simp_enterprise_el--homes): Manage users' home directories
+* [`simp_enterprise_el::initialization_files`](#simp_enterprise_el--initialization_files): Manage problematic . files in users' home directories
 * [`simp_enterprise_el::keytabs`](#simp_enterprise_el--keytabs): Remove all keytab files under /etc
 * [`simp_enterprise_el::legacy`](#simp_enterprise_el--legacy): Remove legacy `+` entries in passwd, group, and shadow files
 * [`simp_enterprise_el::logfiles`](#simp_enterprise_el--logfiles): Manage permissions on log files
@@ -37,6 +38,7 @@
 * [`simp_enterprise_el::resource::service`](#simp_enterprise_el--resource--service): Optionally manage or override service resources
 * [`simp_enterprise_el::resource::shellvars`](#simp_enterprise_el--resource--shellvars): Optionally manage or override shellvar resources
 * [`simp_enterprise_el::resource::ssh_config`](#simp_enterprise_el--resource--ssh_config): Optionally manage or override ssh_config resources
+* [`simp_enterprise_el::resource::sshd_config`](#simp_enterprise_el--resource--sshd_config): Optionally manage or override sshd_config resources
 * [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_el--resource--sysctl): Optionally manage or override sysctl resources
 * [`simp_enterprise_el::resource::user`](#simp_enterprise_el--resource--user): Optionally manage or override user resources
 
@@ -88,6 +90,9 @@ The following parameters are available in the `simp_enterprise_el` class:
 * [`ssh_configs`](#-simp_enterprise_el--ssh_configs)
 * [`ssh_config_defaults`](#-simp_enterprise_el--ssh_config_defaults)
 * [`ssh_config_overrides`](#-simp_enterprise_el--ssh_config_overrides)
+* [`sshd_configs`](#-simp_enterprise_el--sshd_configs)
+* [`sshd_config_defaults`](#-simp_enterprise_el--sshd_config_defaults)
+* [`sshd_config_overrides`](#-simp_enterprise_el--sshd_config_overrides)
 * [`sysctl_flags`](#-simp_enterprise_el--sysctl_flags)
 * [`sysctl_flag_defaults`](#-simp_enterprise_el--sysctl_flag_defaults)
 * [`sysctl_flag_overrides`](#-simp_enterprise_el--sysctl_flag_overrides)
@@ -278,6 +283,25 @@ Default attributes for managed `ssh_config` resources
 Data type: `Hash`
 
 Attributes to override for all managed `ssh_config` resources
+
+##### <a name="-simp_enterprise_el--sshd_configs"></a>`sshd_configs`
+
+Data type: `Hash`
+
+`sshd_config` resources to manage.  See
+[the simp_enterprise_el::resource::sshd_config defined type](#simp_enterprise_elresourcesshd_config).
+
+##### <a name="-simp_enterprise_el--sshd_config_defaults"></a>`sshd_config_defaults`
+
+Data type: `Hash`
+
+Default attributes for managed `sshd_config` resources
+
+##### <a name="-simp_enterprise_el--sshd_config_overrides"></a>`sshd_config_overrides`
+
+Data type: `Hash`
+
+Attributes to override for all managed `sshd_config` resources
 
 ##### <a name="-simp_enterprise_el--sysctl_flags"></a>`sysctl_flags`
 
@@ -688,6 +712,41 @@ Defaults for all home directories
 Default value: `{ 'mode' => '0700' }`
 
 ##### <a name="-simp_enterprise_el--homes--enforce"></a>`enforce`
+
+Data type: `Boolean`
+
+When `false`, resources are set to `noop` for reporting
+
+Default value: `false`
+
+### <a name="simp_enterprise_el--initialization_files"></a>`simp_enterprise_el::initialization_files`
+
+Manage problematic . files in users' home directories
+
+#### Examples
+
+##### 
+
+```puppet
+include simp_enterprise_el::dotfiles
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::initialization_files` class:
+
+* [`initialization_files`](#-simp_enterprise_el--initialization_files--initialization_files)
+* [`enforce`](#-simp_enterprise_el--initialization_files--enforce)
+
+##### <a name="-simp_enterprise_el--initialization_files--initialization_files"></a>`initialization_files`
+
+Data type: `Optional[Hash]`
+
+File resources to manage
+
+Default value: `$facts.dig('simp_enterprise_el__facts', 'initialization_files')`
+
+##### <a name="-simp_enterprise_el--initialization_files--enforce"></a>`enforce`
 
 Data type: `Boolean`
 
@@ -1149,6 +1208,7 @@ The following parameters are available in the `simp_enterprise_el::users` class:
 * [`to_expire`](#-simp_enterprise_el--users--to_expire)
 * [`expire`](#-simp_enterprise_el--users--expire)
 * [`remove_uid_0`](#-simp_enterprise_el--users--remove_uid_0)
+* [`remove_gid_0`](#-simp_enterprise_el--users--remove_gid_0)
 * [`duplicate_users`](#-simp_enterprise_el--users--duplicate_users)
 * [`duplicate_uids`](#-simp_enterprise_el--users--duplicate_uids)
 * [`remove_dups`](#-simp_enterprise_el--users--remove_dups)
@@ -1232,6 +1292,12 @@ Enforce expiring passwords of users in the `to_expire` list
 Data type: `Boolean`
 
 Remove any users other than `root` with UID 0
+
+##### <a name="-simp_enterprise_el--users--remove_gid_0"></a>`remove_gid_0`
+
+Data type: `Boolean`
+
+Remove any groups other than `root` with GID 0
 
 ##### <a name="-simp_enterprise_el--users--duplicate_users"></a>`duplicate_users`
 
@@ -1427,10 +1493,10 @@ Optionally manage or override firewalld_rich_rules
 
 ```puppet
 simp_enterprise_el::resource::firewalld_rich_rule { 'accept_port_22':
-    ensure => present,
-    source => '192.168.1.2/32',
+    ensure  => present,
+    source  => '192.168.1.2/32',
     service => 'ssh',
-    action => 'accept',
+    action  => 'accept',
 }
 ```
 
@@ -1441,6 +1507,7 @@ The following parameters are available in the `simp_enterprise_el::resource::fir
 * [`params`](#-simp_enterprise_el--resource--firewalld_rich_rule--params)
 * [`override`](#-simp_enterprise_el--resource--firewalld_rich_rule--override)
 * [`ignore`](#-simp_enterprise_el--resource--firewalld_rich_rule--ignore)
+* [`default_zone`](#-simp_enterprise_el--resource--firewalld_rich_rule--default_zone)
 
 ##### <a name="-simp_enterprise_el--resource--firewalld_rich_rule--params"></a>`params`
 
@@ -1466,6 +1533,14 @@ Data type: `Optional[Boolean]`
 When `true`, skip this resource.
 
 Default value: `$params['ignore']`
+
+##### <a name="-simp_enterprise_el--resource--firewalld_rich_rule--default_zone"></a>`default_zone`
+
+Data type: `String[1]`
+
+Zone to add to resources if not otherwise defined
+
+Default value: `simplib::lookup('simp_firewalld::default_zone', { 'default_value' => '99_simp' })`
 
 ### <a name="simp_enterprise_el--resource--ini_setting"></a>`simp_enterprise_el::resource::ini_setting`
 
@@ -1819,6 +1894,56 @@ the existing resource.
 Default value: `$params['override']`
 
 ##### <a name="-simp_enterprise_el--resource--ssh_config--ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
+
+### <a name="simp_enterprise_el--resource--sshd_config"></a>`simp_enterprise_el::resource::sshd_config`
+
+Optionally manage or override sshd_config resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::sshd_config { 'PubkeyAuthentication':
+   params => {
+     ensure => present,
+     value  => 'yes'
+   }
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::sshd_config` defined type:
+
+* [`params`](#-simp_enterprise_el--resource--sshd_config--params)
+* [`override`](#-simp_enterprise_el--resource--sshd_config--override)
+* [`ignore`](#-simp_enterprise_el--resource--sshd_config--ignore)
+
+##### <a name="-simp_enterprise_el--resource--sshd_config--params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="-simp_enterprise_el--resource--sshd_config--override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="-simp_enterprise_el--resource--sshd_config--ignore"></a>`ignore`
 
 Data type: `Optional[Boolean]`
 

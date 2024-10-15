@@ -67,6 +67,10 @@ simp_enterprise_el::ssh_configs: {}
 simp_enterprise_el::ssh_config_defaults: {}
 simp_enterprise_el::ssh_config_overrides: {}
 
+simp_enterprise_el::sshd_configs: {}
+simp_enterprise_el::sshd_config_defaults: {}
+simp_enterprise_el::sshd_config_overrides: {}
+
 simp_enterprise_el::sysctl_flags: {}
 simp_enterprise_el::sysctl_flag_defaults: {}
 simp_enterprise_el::sysctl_flag_overrides: {}
@@ -83,6 +87,7 @@ simp_enterprise_el::users::empty_shadow: false
 simp_enterprise_el::users::lock: false
 simp_enterprise_el::users::expire: false
 simp_enterprise_el::users::remove_uid_0: false
+simp_enterprise_el::users::remove_gid_0: false
 simp_enterprise_el::users::remove_dups: false
 simp_enterprise_el::users::force_shadow: false
 simp_enterprise_el::users::sa_nologin: false

@@ -10,6 +10,7 @@
 # @param to_expire List of local users that should have a password change forced
 # @param expire Enforce expiring passwords of users in the `to_expire` list
 # @param remove_uid_0 Remove any users other than `root` with UID 0
+# @param remove_gid_0 Remove any groups other than `root` with GID 0
 # @param duplicate_users List of duplicated usernames
 # @param duplicate_uids List of duplicated UIDs
 # @param remove_dups Enforce removing duplicate usernames or UIDs
@@ -29,6 +30,7 @@ class simp_enterprise_el::users (
   Boolean           $lock,
   Boolean           $expire,
   Boolean           $remove_uid_0,
+  Boolean           $remove_gid_0,
   Boolean           $remove_dups,
   Boolean           $force_shadow,
   Boolean           $sa_nologin,
@@ -121,7 +123,7 @@ class simp_enterprise_el::users (
       default => { 'noop' => true },
     }
 
-    $today = Timestamp.new().strftime('%F')
+    $today = Timestamp.new().strftime('%F', $facts['timezone'])
     $to_expire.each |$u| {
       exec { "/usr/bin/chage -E ${today} ${u}":
         * => $chage_e_options,
@@ -143,6 +145,19 @@ class simp_enterprise_el::users (
 
     exec { "/sbin/userdel -f ${key}":
       * => $uid_0_options,
+    }
+  }
+
+  $group.filter |$value| {
+    $value[1]['gid'] == 0 and $value[0] != 'root'
+  }.each |$key, $value| {
+    $gid_0_options = $remove_gid_0 ? {
+      true    => {},
+      default => { 'noop' => true },
+    }
+
+    exec { "/sbin/groupdel -f ${key}":
+      * => $gid_0_options,
     }
   }
 
@@ -238,9 +253,12 @@ class simp_enterprise_el::users (
   unless $pass_max_days =~ Undef {
     $non_system_user.each |$u, $_value| {
       exec { "/usr/bin/chage --maxdays ${pass_max_days} ${u}":
-        # lint:ignore:140chars
-        onlyif => "/usr/bin/test \"$(chage -l ${u} | grep 'Maximum number of days between password change' | cut -d':' -f 2 | cut -d' ' -f 2)\" != \"${pass_max_days}\"",
-        # lint:endignore
+        onlyif => [
+          "/usr/bin/test \"$(chage -l ${u}",
+          "grep 'Maximum number of days between password change'",
+          "cut -d':' -f 2",
+          "cut -d' ' -f 2)\" != \"${pass_max_days}\"",
+        ].join(' | '),
       }
     }
   }
@@ -248,29 +266,22 @@ class simp_enterprise_el::users (
   unless $pass_min_days =~ Undef {
     $non_system_user.each |$u, $_value| {
       exec { "/usr/bin/chage --mindays ${pass_min_days} ${u}":
-        # lint:ignore:140chars
-        onlyif => "/usr/bin/test \"$(chage -l ${u} | grep 'Minimum number of days between password change' | cut -d':' -f 2 | cut -d' ' -f 2)\" != \"${pass_min_days}\"",
-        # lint:endignore
+        onlyif => [
+          "/usr/bin/test \"$(chage -l ${u}",
+          "grep 'Minimum number of days between password change'",
+          "cut -d':' -f 2",
+          "cut -d' ' -f 2)\" != \"${pass_min_days}\"",
+        ].join(' | '),
       }
     }
   }
 
   unless $inactive_days =~ Undef {
     $non_system_user.each |$u, $data| {
-      $pwd_expire_date = $data['password_expiration'] ? {
-        'never' => $data['password_expiration'],
-        default => Numeric($data['password_expiration_int'])/1000,
-      }
-      $pwd_inactive_date = $data['password_inactive'] ? {
-        'never' => $data['password_inactive'],
-        default => Numeric($data['password_inactive_int'])/1000,
-      }
-      # Convert number of seconds to number of days and see if the inactive time is correct, change it if it is not
-      # lint:ignore:140chars
-      if $pwd_expire_date == 'never' or $pwd_inactive_date == 'never' or (($pwd_inactive_date - $pwd_expire_date) / 86400) != $inactive_days {
+      # See if the inactive time is correct.  Change it if it is not.
+      unless $data['password_inactive'] == $inactive_days {
         exec { "/usr/bin/chage --inactive ${inactive_days} ${u}": }
       }
-      # lint:endignore
     }
   }
 }

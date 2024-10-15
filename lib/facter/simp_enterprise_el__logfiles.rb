@@ -3,7 +3,9 @@
 # @summary Collect list of log files
 
 Facter.add('simp_enterprise_el__logfiles') do
-  confine osfamily: 'RedHat'
+  confine :os do |os|
+    os['family'] == 'RedHat'
+  end
 
   setcode do
     require 'find'

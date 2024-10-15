@@ -3,7 +3,9 @@
 # @summary Collect list of bootloader files
 
 Facter.add('simp_enterprise_el__pam') do
-  confine osfamily: 'RedHat'
+  confine :os do |os|
+    os['family'] == 'RedHat'
+  end
 
   setcode do
     retval = {}
@@ -13,7 +15,7 @@ Facter.add('simp_enterprise_el__pam') do
       fact_name = "#{File.basename(target)}_nullok"
       retval[fact_name] = false
       if File.exist?(target)
-        retval[fact_name] = File.readlines(target).grep(%r{nullok}).any?
+        retval[fact_name] = File.readlines(target).grep(%r{\bnullok\b}).any?
       end
     end
 

@@ -1,7 +1,7 @@
 {
-  "name": "onyxpoint-simp_enterprise_el",
-  "version": "1.5.2",
-  "author": "Onyx Point",
+  "name": "sicura-simp_enterprise_el",
+  "version": "1.6.0",
+  "author": "Sicura",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
   "source": "",
@@ -40,7 +40,7 @@
     },
     {
       "name": "puppet-augeasproviders_ssh",
-      "version_requirement": ">= 2.5.0 < 7.0.0"
+      "version_requirement": ">= 2.5.0 < 8.0.0"
     },
     {
       "name": "puppetlabs-mount_core",
@@ -63,8 +63,6 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7",
-        "8",
         "9"
       ]
     },
@@ -79,7 +77,6 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]
@@ -105,7 +102,7 @@
       "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
-  "pdk-version": "3.0.0",
-  "template-url": "pdk-default#3.0.0",
-  "template-ref": "tags/3.0.0-0-g056e50d"
+  "pdk-version": "3.2.0",
+  "template-url": "pdk-default#3.2.0",
+  "template-ref": "tags/3.2.0-0-gb257ef1"
 }

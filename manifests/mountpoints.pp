@@ -47,7 +47,7 @@ class simp_enterprise_el::mountpoints (
     }
   }
 
-  $removable.lest || {{} }.reduce([]) |$memo, $value| {
+  $removable.lest || { {} }.reduce([]) |$memo, $value| { # lint:ignore:manifest_whitespace_opening_brace_before
     if $value[1] {
       $memo + [$value[0]]
     } else {
@@ -62,21 +62,19 @@ class simp_enterprise_el::mountpoints (
     }
   }
 
-  $_nfs_mount = $nfs_mount ? {
-    undef   => {},
-    default => $nfs_mount,
-  }
-
-  unless $nfs_mount_options == [] {
-    $_nfs_mount.each |$mountpoint, $options| {
+  unless $nfs_mount_options.empty {
+    $nfs_mount.lest || { {} }.each |$mountpoint, $options| { # lint:ignore:manifest_whitespace_opening_brace_before
       if defined(Nfs::Client::Mount[$mountpoint]) {
         $_new_options = unique($options + $nfs_mount_options)
         # We can only manage this resource safely if it is already defined in the catalog
         Nfs::Client::Mount <| title == $mountpoint |> {
           options => $_new_options.join(',')
         }
-      } elsif !member($options, $nfs_mount_options) {
-        exec { "/bin/mount -o remount,${nfs_mount_options.join(',')} '${mountpoint}'": }
+      } else {
+        $missing_options = $nfs_mount_options - $options
+        unless $missing_options.empty {
+          exec { "/bin/mount -o remount,${missing_options.join(',')} '${mountpoint}'": }
+        }
       }
     }
   }
