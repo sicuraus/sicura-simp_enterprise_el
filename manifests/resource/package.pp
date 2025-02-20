@@ -31,6 +31,7 @@ define simp_enterprise_el::resource::package (
         Package <| title == $title |> {
           * => $_params,
         }
+        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       package { $title:

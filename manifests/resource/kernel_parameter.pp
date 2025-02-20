@@ -32,6 +32,7 @@ define simp_enterprise_el::resource::kernel_parameter (
         Kernel_parameter <| title == $title |> {
           * => $_params,
         }
+        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       kernel_parameter { $title:

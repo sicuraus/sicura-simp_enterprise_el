@@ -83,6 +83,10 @@ simp_enterprise_el::managed_users: {}
 simp_enterprise_el::managed_user_defaults: {}
 simp_enterprise_el::managed_user_overrides: {}
 
+simp_enterprise_el::managed_groups: {}
+simp_enterprise_el::managed_groups_defaults: {}
+simp_enterprise_el::managed_groups_overrides: {}
+
 simp_enterprise_el::users::empty_shadow: false
 simp_enterprise_el::users::lock: false
 simp_enterprise_el::users::expire: false

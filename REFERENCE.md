@@ -31,6 +31,7 @@
 * [`simp_enterprise_el::resource::file`](#simp_enterprise_el--resource--file): Optionally manage or override file resources
 * [`simp_enterprise_el::resource::file_line`](#simp_enterprise_el--resource--file_line): Optionally manage or override file_line resources
 * [`simp_enterprise_el::resource::firewalld_rich_rule`](#simp_enterprise_el--resource--firewalld_rich_rule): Optionally manage or override firewalld_rich_rules
+* [`simp_enterprise_el::resource::group`](#simp_enterprise_el--resource--group): Optionally manage or override group resources
 * [`simp_enterprise_el::resource::ini_setting`](#simp_enterprise_el--resource--ini_setting): Optionally manage or override ini_setting resources
 * [`simp_enterprise_el::resource::ini_subsetting`](#simp_enterprise_el--resource--ini_subsetting): Optionally manage or override ini_subsetting resources
 * [`simp_enterprise_el::resource::kernel_parameter`](#simp_enterprise_el--resource--kernel_parameter): Optionally manage or override kernel_parameter resources
@@ -99,6 +100,9 @@ The following parameters are available in the `simp_enterprise_el` class:
 * [`managed_users`](#-simp_enterprise_el--managed_users)
 * [`managed_user_defaults`](#-simp_enterprise_el--managed_user_defaults)
 * [`managed_user_overrides`](#-simp_enterprise_el--managed_user_overrides)
+* [`managed_groups`](#-simp_enterprise_el--managed_groups)
+* [`managed_groups_defaults`](#-simp_enterprise_el--managed_groups_defaults)
+* [`managed_groups_overrides`](#-simp_enterprise_el--managed_groups_overrides)
 
 ##### <a name="-simp_enterprise_el--files"></a>`files`
 
@@ -338,6 +342,24 @@ Default attributs for the managed `user` resources
 Data type: `Hash`
 
 Attributes to override for all managed `user` resources
+
+##### <a name="-simp_enterprise_el--managed_groups"></a>`managed_groups`
+
+Data type: `Hash`
+
+`group` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_el_resourceuser).
+
+##### <a name="-simp_enterprise_el--managed_groups_defaults"></a>`managed_groups_defaults`
+
+Data type: `Hash`
+
+Default attributes for the managed `group` resource
+
+##### <a name="-simp_enterprise_el--managed_groups_overrides"></a>`managed_groups_overrides`
+
+Data type: `Hash`
+
+Attributes to overrride for all managed  `group` resources
 
 ### <a name="simp_enterprise_el--cron"></a>`simp_enterprise_el::cron`
 
@@ -1541,6 +1563,56 @@ Data type: `String[1]`
 Zone to add to resources if not otherwise defined
 
 Default value: `simplib::lookup('simp_firewalld::default_zone', { 'default_value' => '99_simp' })`
+
+### <a name="simp_enterprise_el--resource--group"></a>`simp_enterprise_el::resource::group`
+
+Optionally manage or override group resources
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::resource::group { 'foo':
+  params => {
+    ensure => 'present',
+    gid    => 1001,
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `simp_enterprise_el::resource::group` defined type:
+
+* [`params`](#-simp_enterprise_el--resource--group--params)
+* [`override`](#-simp_enterprise_el--resource--group--override)
+* [`ignore`](#-simp_enterprise_el--resource--group--ignore)
+
+##### <a name="-simp_enterprise_el--resource--group--params"></a>`params`
+
+Data type: `Hash`
+
+Resource attributes
+
+Default value: `{}`
+
+##### <a name="-simp_enterprise_el--resource--group--override"></a>`override`
+
+Data type: `Optional[Boolean]`
+
+Override existing resources.  When `undef` or `true`, add any attributes to
+the existing resource.
+
+Default value: `$params['override']`
+
+##### <a name="-simp_enterprise_el--resource--group--ignore"></a>`ignore`
+
+Data type: `Optional[Boolean]`
+
+When `true`, skip this resource.
+
+Default value: `$params['ignore']`
 
 ### <a name="simp_enterprise_el--resource--ini_setting"></a>`simp_enterprise_el::resource::ini_setting`
 

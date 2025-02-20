@@ -33,6 +33,7 @@ define simp_enterprise_el::resource::user (
         User <| title == $title |> {
           * => $_params,
         }
+        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       user { $title:

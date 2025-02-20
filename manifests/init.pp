@@ -70,6 +70,11 @@
 # @param managed_user_defaults Default attributs for the managed `user` resources
 # @param managed_user_overrides Attributes to override for all managed `user` resources
 #
+# @param managed_groups
+#   `group` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_el_resourceuser).
+# @param managed_groups_defaults Default attributes for the managed `group` resource
+# @param managed_groups_overrides Attributes to overrride for all managed  `group` resources
+#
 # @example
 #   include simp_enterprise_el
 class simp_enterprise_el (
@@ -112,6 +117,9 @@ class simp_enterprise_el (
   Hash $managed_users,
   Hash $managed_user_defaults,
   Hash $managed_user_overrides,
+  Hash $managed_groups,
+  Hash $managed_groups_defaults,
+  Hash $managed_groups_overrides
 ) {
   $kernel_parameters.each |$key, $value| {
     simp_enterprise_el::resource::kernel_parameter { $key:
@@ -190,6 +198,12 @@ class simp_enterprise_el (
   $managed_users.each |$key, $value| {
     simp_enterprise_el::resource::user { $key:
       params => $managed_user_defaults + $value + $managed_user_overrides,
+    }
+  }
+
+  $managed_groups.each |$key, $value| {
+    simp_enterprise_el::resource::group { $key:
+      params => $managed_groups_defaults + $value + $managed_groups_overrides,
     }
   }
 }

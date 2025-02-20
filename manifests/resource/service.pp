@@ -48,6 +48,7 @@ define simp_enterprise_el::resource::service (
         }
 
         $managed = true
+        notice("${title}, OVERRIDING Params = ${_params}")
       } else {
         $managed = false
       }

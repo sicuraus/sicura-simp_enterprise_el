@@ -1,6 +1,6 @@
 {
   "name": "sicura-simp_enterprise_el",
-  "version": "1.6.0",
+  "version": "1.8.0",
   "author": "Sicura",
   "summary": "Helper code for SIMP Enterprise compliance profiles",
   "license": "proprietary",
@@ -69,7 +69,6 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]

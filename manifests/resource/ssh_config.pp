@@ -32,6 +32,7 @@ define simp_enterprise_el::resource::ssh_config (
         Ssh_config <| title == $title |> {
           * => $_params,
         }
+        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       ssh_config { $title:

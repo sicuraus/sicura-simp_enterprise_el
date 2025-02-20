@@ -165,7 +165,7 @@ Facter.add('simp_enterprise_el__facts') do
             next if File.symlink?(fullpath)
             sb = File::Stat.new(fullpath)
             next unless sb.ftype == 'file' || sb.ftype == 'directory'
-            next unless dotfiles.include?(file) || (sb.mode & 0o22).positive?
+            next unless dotfiles.include?(file) || sb.mode.anybits?(0o22)
 
             mask = (file == '.netrc') ? 0o77 : 0o22
             target_mode = '0' + (sb.mode & (mask ^ 0o777)).to_s(8)

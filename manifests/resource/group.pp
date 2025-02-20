@@ -1,4 +1,4 @@
-# @summary Optionally manage or override sysctl resources
+# @summary Optionally manage or override group resources
 #
 # @param params Resource attributes
 # @param override
@@ -7,13 +7,13 @@
 # @param ignore When `true`, skip this resource.
 #
 # @example
-#   simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
+#   simp_enterprise_el::resource::group { 'foo':
 #     params => {
-#       'ensure' => 'present',
-#       'value'  => '1',
+#       ensure => 'present',
+#       gid    => 1001,
 #     },
 #   }
-define simp_enterprise_el::resource::sysctl (
+define simp_enterprise_el::resource::group (
   Hash              $params   = {},
   Optional[Boolean] $override = $params['override'],
   Optional[Boolean] $ignore   = $params['ignore'],
@@ -27,15 +27,15 @@ define simp_enterprise_el::resource::sysctl (
   }
 
   unless $ignore {
-    if defined(Sysctl[$title]) {
+    if defined(Group[$title]) {
       if $_override {
-        Sysctl <| title == $title |> {
+        Group <| title == $title |> {
           * => $_params,
         }
         notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
-      sysctl { $title:
+      group { $title:
         * => $_params,
       }
     }

@@ -38,10 +38,16 @@ define simp_enterprise_el::resource::file_line (
         File_line <| title == $title |> {
           * => $_params,
         }
+        notice("${title}, Overriding existing line in ${File_line[$title]['path']} - Line: ${File_line[$title]['line']}")
       }
     } else {
       file_line { $title:
         * => $_params,
+      }
+      if $params['ensure'] == 'absent' {
+        notice("${title}, Removing line in ${File_line[$title]['path']} - Line: ${File_line[$title]['match']}")
+      } else {
+        notice("${title}, Adding new line to ${File_line[$title]['path']} - Line: ${File_line[$title]['line']}")
       }
     }
   }
