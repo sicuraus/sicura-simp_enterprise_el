@@ -34,7 +34,6 @@ define simp_enterprise_el::resource::file (
         File <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       file { $title:

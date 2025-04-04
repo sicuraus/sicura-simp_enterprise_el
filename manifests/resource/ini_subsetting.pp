@@ -36,16 +36,10 @@ define simp_enterprise_el::resource::ini_subsetting (
         Ini_subsetting <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, Overriding setting in ${params['path']} - Setting: ${params['setting']} - Value: ${params['value']}")
       }
     } else {
       ini_subsetting { $title:
         * => $_params,
-      }
-      if $params['ensure'] == 'absent' {
-        notice("${title}, Removing sub_setting in ${params['path']} - Setting: ${params['setting']} - Matching value: ${params['match']}")
-      } else {
-        notice("${title}, Managing sub_setting in ${params['path']} - Setting: ${params['setting']} - Value: ${params['value']}")
       }
     }
   }

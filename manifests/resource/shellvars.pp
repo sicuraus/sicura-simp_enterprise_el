@@ -34,7 +34,6 @@ define simp_enterprise_el::resource::shellvars (
         Shellvar <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       shellvar { $title:

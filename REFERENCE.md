@@ -505,6 +505,7 @@ include simp_enterprise_el::dotfiles
 The following parameters are available in the `simp_enterprise_el::dotfiles` class:
 
 * [`remove_rhosts`](#-simp_enterprise_el--dotfiles--remove_rhosts)
+* [`remove_shosts`](#-simp_enterprise_el--dotfiles--remove_shosts)
 * [`remove_netrc`](#-simp_enterprise_el--dotfiles--remove_netrc)
 * [`remove_forward`](#-simp_enterprise_el--dotfiles--remove_forward)
 * [`dotfiles`](#-simp_enterprise_el--dotfiles--dotfiles)
@@ -515,6 +516,14 @@ The following parameters are available in the `simp_enterprise_el::dotfiles` cla
 Data type: `Boolean`
 
 Remove users' .rhosts files
+
+Default value: `false`
+
+##### <a name="-simp_enterprise_el--dotfiles--remove_shosts"></a>`remove_shosts`
+
+Data type: `Boolean`
+
+Remove users' .shosts files
 
 Default value: `false`
 

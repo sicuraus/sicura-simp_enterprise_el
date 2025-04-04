@@ -42,7 +42,6 @@ define simp_enterprise_el::resource::firewalld_rich_rule (
         Firewalld_rich_rule <| title == $title |> {
           * => $_params + $_default_zone,
         }
-        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       if $_params['zone'] =~ Undef {

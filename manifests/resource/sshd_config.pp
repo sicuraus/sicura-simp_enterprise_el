@@ -32,7 +32,6 @@ define simp_enterprise_el::resource::sshd_config (
         Sshd_config <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       sshd_config { $title:

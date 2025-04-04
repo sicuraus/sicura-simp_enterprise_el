@@ -164,7 +164,7 @@ Facter.add('simp_enterprise_el__facts') do
             fullpath = File.join(user[:dir], file)
             next if File.symlink?(fullpath)
             sb = File::Stat.new(fullpath)
-            next unless sb.ftype == 'file' || sb.ftype == 'directory'
+            next unless ['file', 'directory'].include?(sb.ftype)
             next unless dotfiles.include?(file) || sb.mode.anybits?(0o22)
 
             mask = (file == '.netrc') ? 0o77 : 0o22
@@ -187,7 +187,7 @@ Facter.add('simp_enterprise_el__facts') do
             fullpath = File.join(user[:dir], file)
             next if File.symlink?(fullpath)
             sb = File::Stat.new(fullpath)
-            next unless sb.ftype == 'file' || sb.ftype == 'directory'
+            next unless ['file', 'directory'].include?(sb.ftype)
             target_mode = '0' + (sb.mode & (0o27 ^ 0o777)).to_s(8)
 
             retval['initialization_files'] = {} if retval['initialization_files'].nil?

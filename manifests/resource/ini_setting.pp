@@ -36,16 +36,10 @@ define simp_enterprise_el::resource::ini_setting (
         Ini_setting <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, Overriding setting in ${Ini_setting[$title]['path']} - Setting: ${Ini_setting[$title]['setting']} - Value: ${Ini_setting[$title]['value']}")
       }
     } else {
       ini_setting { $title:
         * => $_params,
-      }
-      if $params['ensure'] == 'absent' {
-        notice("${title}, Removing setting in ${Ini_setting[$title]['path']} - Setting: ${Ini_setting[$title]['setting']} - Matching value: ${Ini_setting[$title]['match']}")
-      } else {
-        notice("${title}, Managing setting in ${Ini_setting[$title]['path']} - Setting: ${Ini_setting[$title]['setting']} - Value: ${Ini_setting[$title]['value']}")
       }
     }
   }

@@ -32,7 +32,6 @@ define simp_enterprise_el::resource::sysctl (
         Sysctl <| title == $title |> {
           * => $_params,
         }
-        notice("${title}, OVERRIDING Params = ${_params}")
       }
     } else {
       sysctl { $title:
