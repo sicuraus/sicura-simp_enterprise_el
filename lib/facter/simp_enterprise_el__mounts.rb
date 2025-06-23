@@ -2,6 +2,12 @@
 
 # @summary Collect information for compliance checks
 
+def removable?(path)
+  File.read("#{path}/removable").chomp.to_i.positive?
+rescue
+  nil
+end
+
 Facter.add('simp_enterprise_el__mounts') do
   confine kernel: 'Linux'
 
@@ -34,19 +40,15 @@ Facter.add('simp_enterprise_el__mounts') do
 
       device = value['device'].delete_prefix('/dev/')
 
-      def removable(path)
-        File.read("#{path}/removable").chomp.to_i.positive?
-      end
-
       if Dir.exist?("/sys/block/#{device}")
         retval['removable'] = {} if retval['removable'].nil?
-        retval['removable'][key] = removable("/sys/block/#{device}")
+        retval['removable'][key] = removable?("/sys/block/#{device}")
         next
       end
 
       Dir.glob("/sys/block/*/#{device}").each do |p|
         retval['removable'] = {} if retval['removable'].nil?
-        retval['removable'][key] = removable(p.delete_suffix("/#{device}"))
+        retval['removable'][key] = removable?(p.delete_suffix("/#{device}"))
         break
       end
     end
