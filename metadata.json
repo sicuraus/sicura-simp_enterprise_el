@@ -1,10 +1,12 @@
 {
   "name": "sicura-simp_enterprise_el",
-  "version": "1.9.2",
-  "author": "Sicura",
-  "summary": "Helper code for SIMP Enterprise compliance profiles",
-  "license": "proprietary",
-  "source": "",
+  "version": "2.0.0",
+  "author": "Sicura, Inc.",
+  "summary": "Helper code for Sicura compliance profiles",
+  "license": "AGPL-3.0-or-later",
+  "source": "https://github.com/sicuraus/sicura-simp_enterprise_el.git",
+  "project_page": "https://github.com/sicuraus/sicura-simp_enterprise_el",
+  "issues_url": "https://github.com/sicuraus/sicura-simp_enterprise_el/issues",
   "dependencies": [
     {
       "name": "puppet-firewalld",
@@ -20,11 +22,11 @@
     },
     {
       "name": "simp-simp_firewalld",
-      "version_requirement": ">= 0.1.3 < 1.0.0"
+      "version_requirement": ">= 0.1.3 < 2.0.0"
     },
     {
       "name": "puppetlabs-augeas_core",
-      "version_requirement": ">= 1.2.0 < 2.0.0"
+      "version_requirement": ">= 1.2.0 < 3.0.0"
     },
     {
       "name": "puppet-augeasproviders_grub",
@@ -44,11 +46,11 @@
     },
     {
       "name": "puppetlabs-mount_core",
-      "version_requirement": ">= 1.1.0 < 2.0.0"
+      "version_requirement": ">= 1.1.0 < 3.0.0"
     },
     {
       "name": "simp-dconf",
-      "version_requirement": ">= 0.0.1 < 1.0.0"
+      "version_requirement": ">= 0.0.1 < 2.0.0"
     },
     {
       "name": "simp-nfs",
@@ -63,35 +65,40 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "9"
+        "9",
+        "10"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
         "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
       "operatingsystem": "Rocky",
       "operatingsystemrelease": [
         "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
       "operatingsystem": "AlmaLinux",
       "operatingsystemrelease": [
         "8",
-        "9"
+        "9",
+        "10"
       ]
     }
   ],
