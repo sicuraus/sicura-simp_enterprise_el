@@ -411,6 +411,7 @@ Default value:
     '/etc/cron.daily',
     '/etc/cron.weekly',
     '/etc/cron.monthly',
+    '/etc/cron.yearly',
     '/etc/cron.d',
   ]
 ```

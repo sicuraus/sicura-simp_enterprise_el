@@ -1,6 +1,6 @@
 {
   "name": "sicura-simp_enterprise_el",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Sicura, Inc.",
   "summary": "Helper code for Sicura compliance profiles",
   "license": "AGPL-3.0-or-later",
@@ -47,6 +47,10 @@
     {
       "name": "puppetlabs-mount_core",
       "version_requirement": ">= 1.1.0 < 3.0.0"
+    },
+    {
+      "name": "simp-crypto_policy",
+      "version_requirement": ">= 2.0.0 < 3.0.0"
     },
     {
       "name": "simp-dconf",
