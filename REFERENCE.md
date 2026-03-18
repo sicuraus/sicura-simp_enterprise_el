@@ -110,11 +110,15 @@ Data type: `Hash`
 
 `file` resources to manage.  See [the simp_enterprise_el::resource::file defined type](#simp_enterprise_elresourcefile).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--file_defaults"></a>`file_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `file` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--file_overrides"></a>`file_overrides`
 
@@ -122,11 +126,15 @@ Data type: `Hash`
 
 Attributes to override for all managed `file` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--file_lines"></a>`file_lines`
 
 Data type: `Hash`
 
 `file_line` resources to manage.  See [the simp_enterprise_el::resource::file_line defined type](#simp_enterprise_elresourcefile_line).
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--file_line_defaults"></a>`file_line_defaults`
 
@@ -134,11 +142,15 @@ Data type: `Hash`
 
 Default attributes for managed `file_line` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--file_line_overrides"></a>`file_line_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `file_line` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--firewalld_rich_rules"></a>`firewalld_rich_rules`
 
@@ -146,17 +158,23 @@ Data type: `Hash`
 
 `firewalld_rich_rules` resources to manage, will infer default_zone from simp_firewalld if not defined
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--firewalld_rich_rules_defaults"></a>`firewalld_rich_rules_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `firewalld_rich_rule` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--firewalld_rich_rules_overrides"></a>`firewalld_rich_rules_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `firewalld_rich_rule` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--ini_settings"></a>`ini_settings`
 
@@ -165,17 +183,23 @@ Data type: `Hash`
 `ini_setting` resources to manage.  See
 [the simp_enterprise_el::resource::ini_setting defined type](#simp_enterprise_elresourceini_setting).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ini_setting_defaults"></a>`ini_setting_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ini_setting` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ini_setting_overrides"></a>`ini_setting_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ini_setting` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--ini_subsettings"></a>`ini_subsettings`
 
@@ -184,17 +208,23 @@ Data type: `Hash`
 `ini_subsetting` resources to manage.  See
 [the simp_enterprise_el::resource::ini_subsetting defined type](#simp_enterprise_elresourceini_subsetting).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ini_subsetting_defaults"></a>`ini_subsetting_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ini_subsetting` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ini_subsetting_overrides"></a>`ini_subsetting_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ini_subsetting` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--kernel_parameters"></a>`kernel_parameters`
 
@@ -203,11 +233,15 @@ Data type: `Hash`
 `kernel_parameter` resources to manage.  See
 [the simp_enterprise_el::resource::kernel_parameter defined type](#simp_enterprise_elresourcekernel_parameter).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--kernel_parameter_defaults"></a>`kernel_parameter_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `kernel_parameter` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--kernel_parameter_overrides"></a>`kernel_parameter_overrides`
 
@@ -215,11 +249,15 @@ Data type: `Hash`
 
 Attributes to override for all managed `kernel_parameter` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--packages"></a>`packages`
 
 Data type: `Hash`
 
 `package` resources to manage.  See [the simp_enterprise_el::resource::package defined type](#simp_enterprise_elresourcepackage).
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--package_defaults"></a>`package_defaults`
 
@@ -227,11 +265,15 @@ Data type: `Hash`
 
 Default attributes for managed `package` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--package_overrides"></a>`package_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `package` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--services"></a>`services`
 
@@ -239,11 +281,15 @@ Data type: `Hash`
 
 `service` resources to manage.  See [the simp_enterprise_el::resource::service defined type](#simp_enterprise_elresourceservice).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--service_defaults"></a>`service_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `service` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--service_overrides"></a>`service_overrides`
 
@@ -251,11 +297,15 @@ Data type: `Hash`
 
 Attributes to override for all managed `service` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--shellvars"></a>`shellvars`
 
 Data type: `Hash`
 
 `shellvar` resources to manage.  See [the simp_enterprise_el::resource::shellvars defined type](#simp_enterprise_elresourceshellvars).
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--shellvars_defaults"></a>`shellvars_defaults`
 
@@ -263,11 +313,15 @@ Data type: `Hash`
 
 Default attributes for managed `shellvar` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--shellvars_overrides"></a>`shellvars_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `shellvar` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--ssh_configs"></a>`ssh_configs`
 
@@ -276,17 +330,23 @@ Data type: `Hash`
 `ssh_config` resources to manage.  See
 [the simp_enterprise_el::resource::ssh_config defined type](#simp_enterprise_elresourcessh_config).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ssh_config_defaults"></a>`ssh_config_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `ssh_config` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--ssh_config_overrides"></a>`ssh_config_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `ssh_config` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--sshd_configs"></a>`sshd_configs`
 
@@ -295,11 +355,15 @@ Data type: `Hash`
 `sshd_config` resources to manage.  See
 [the simp_enterprise_el::resource::sshd_config defined type](#simp_enterprise_elresourcesshd_config).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--sshd_config_defaults"></a>`sshd_config_defaults`
 
 Data type: `Hash`
 
 Default attributes for managed `sshd_config` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--sshd_config_overrides"></a>`sshd_config_overrides`
 
@@ -307,11 +371,15 @@ Data type: `Hash`
 
 Attributes to override for all managed `sshd_config` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--sysctl_flags"></a>`sysctl_flags`
 
 Data type: `Hash`
 
 `sysctl` resources to manage.  See [the simp_enterprise_el::resource::sysctl defined type](#simp_enterprise_elresourcesysctl).
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--sysctl_flag_defaults"></a>`sysctl_flag_defaults`
 
@@ -319,11 +387,15 @@ Data type: `Hash`
 
 Default attributes for managed `sysctl` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--sysctl_flag_overrides"></a>`sysctl_flag_overrides`
 
 Data type: `Hash`
 
 Attributes to override for all managed `sysctl` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--managed_users"></a>`managed_users`
 
@@ -331,11 +403,15 @@ Data type: `Hash`
 
 `user` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_elresourceuser).
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--managed_user_defaults"></a>`managed_user_defaults`
 
 Data type: `Hash`
 
 Default attributs for the managed `user` resources
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--managed_user_overrides"></a>`managed_user_overrides`
 
@@ -343,11 +419,15 @@ Data type: `Hash`
 
 Attributes to override for all managed `user` resources
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--managed_groups"></a>`managed_groups`
 
 Data type: `Hash`
 
 `group` resources to manage. See [the simp_enterprise_el::resource::user defined type](#simp_enterprise_el_resourceuser).
+
+Default value: `{}`
 
 ##### <a name="-simp_enterprise_el--managed_groups_defaults"></a>`managed_groups_defaults`
 
@@ -355,11 +435,15 @@ Data type: `Hash`
 
 Default attributes for the managed `group` resource
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--managed_groups_overrides"></a>`managed_groups_overrides`
 
 Data type: `Hash`
 
 Attributes to overrride for all managed  `group` resources
+
+Default value: `{}`
 
 ### <a name="simp_enterprise_el--cron"></a>`simp_enterprise_el::cron`
 
@@ -692,11 +776,15 @@ Data type: `Boolean`
 
 Enforce file permissions
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--grub--defaults"></a>`defaults`
 
 Data type: `Hash`
 
 File permissions
+
+Default value: `{ 'owner' => 'root', 'group' => 'root', 'mode' => '0600' }`
 
 ### <a name="simp_enterprise_el--homes"></a>`simp_enterprise_el::homes`
 
@@ -813,6 +901,8 @@ Data type: `Boolean`
 
 Enforce removal
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--keytabs--ignore"></a>`ignore`
 
 Data type: `Array[Stdlib::Unixpath]`
@@ -908,17 +998,23 @@ Data type: `Boolean`
 
 Enforce permissions
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--logfiles--ignore"></a>`ignore`
 
 Data type: `Array`
 
 Array of regular expressions to ignore
 
+Default value: `['/lastlog$', '/[buw]tmp$']`
+
 ##### <a name="-simp_enterprise_el--logfiles--mode"></a>`mode`
 
 Data type: `Pattern[/\A[0-7]{1,4}\z/]`
 
 Permissions for all files (as an octal string)
+
+Default value: `'0600'`
 
 ##### <a name="-simp_enterprise_el--logfiles--files"></a>`files`
 
@@ -956,11 +1052,15 @@ Data type: `Hash[Stdlib::Unixpath, Array[String]]`
 
 Options to enforce on all mountpoints
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--mountpoints--removable_options"></a>`removable_options`
 
 Data type: `Array[String]`
 
 Options to enforce on removable media
+
+Default value: `[]`
 
 ##### <a name="-simp_enterprise_el--mountpoints--removable"></a>`removable`
 
@@ -1046,11 +1146,15 @@ Data type: `Simplib::Syslog::LowerPriority`
 
 Log facility to use for PATH validation warnings
 
+Default value: `'user.info'`
+
 ##### <a name="-simp_enterprise_el--path--warn_to_stderr"></a>`warn_to_stderr`
 
 Data type: `Boolean`
 
 Also send warnings to STDERR
+
+Default value: `false`
 
 ### <a name="simp_enterprise_el--resolv"></a>`simp_enterprise_el::resolv`
 
@@ -1202,17 +1306,23 @@ Data type: `Stdlib::Unixpath`
 
 Path to environment file
 
+Default value: `'/etc/sysconfig/sshd'`
+
 ##### <a name="-simp_enterprise_el--sshd--env"></a>`env`
 
 Data type: `Hash[String[1], String]`
 
 Environment to include in environment file
 
+Default value: `{}`
+
 ##### <a name="-simp_enterprise_el--sshd--env_exclude"></a>`env_exclude`
 
 Data type: `Array[String[1]]`
 
 Environment variables to exclude from environment file
+
+Default value: `[]`
 
 ### <a name="simp_enterprise_el--users"></a>`simp_enterprise_el::users`
 
@@ -1291,6 +1401,8 @@ Data type: `Boolean`
 
 Enforce group change for users with `shadow` as their primary group
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--to_lock"></a>`to_lock`
 
 Data type: `Optional[Array]`
@@ -1304,6 +1416,8 @@ Default value: `$facts.dig('simp_enterprise_el__facts', 'lock')`
 Data type: `Boolean`
 
 Enforce locking `to_lock` list
+
+Default value: `false`
 
 ##### <a name="-simp_enterprise_el--users--to_expire"></a>`to_expire`
 
@@ -1319,17 +1433,23 @@ Data type: `Boolean`
 
 Enforce expiring passwords of users in the `to_expire` list
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--remove_uid_0"></a>`remove_uid_0`
 
 Data type: `Boolean`
 
 Remove any users other than `root` with UID 0
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--remove_gid_0"></a>`remove_gid_0`
 
 Data type: `Boolean`
 
 Remove any groups other than `root` with GID 0
+
+Default value: `false`
 
 ##### <a name="-simp_enterprise_el--users--duplicate_users"></a>`duplicate_users`
 
@@ -1353,6 +1473,8 @@ Data type: `Boolean`
 
 Enforce removing duplicate usernames or UIDs
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--ruby"></a>`ruby`
 
 Data type: `String`
@@ -1367,11 +1489,15 @@ Data type: `Boolean`
 
 Set any user with a password in `/etc/passwd` to `x`
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--nologin_shell"></a>`nologin_shell`
 
 Data type: `String`
 
 Shell to use for accounts with no shell access
+
+Default value: `'/sbin/nologin'`
 
 ##### <a name="-simp_enterprise_el--users--sa_nologin"></a>`sa_nologin`
 
@@ -1379,11 +1505,15 @@ Data type: `Boolean`
 
 Enforce /sbin/nologin as the login shell for system accounts
 
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--users--sa_exclude"></a>`sa_exclude`
 
 Data type: `Array`
 
 List of system accounts allowed to have an login shell
+
+Default value: `['root', 'sync', 'shutdown', 'halt']`
 
 ##### <a name="-simp_enterprise_el--users--pass_max_days"></a>`pass_max_days`
 
