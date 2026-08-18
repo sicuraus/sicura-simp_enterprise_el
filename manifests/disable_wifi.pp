@@ -15,22 +15,22 @@ class simp_enterprise_el::disable_wifi (
   }
 
   # Try globally disabling wireless interfaces with nmcli
-  exec { '/usr/bin/nmcli radio all off':
+  exec { '/usr/bin/nmcli radio all off': # lint:ignore:exec_idempotency
     onlyif => '/bin/bash -c \'[ "$( /usr/bin/nmcli radio wifi )" = enabled ]\'',
     *      => $noop,
   }
 
-  $interfaces.lest || {{} }.each |$key, $value| {
+  $interfaces.lest || { {} }.each |$key, $value| {
     if $value.dig('radio', 'on') {
       # Disable the wireless radio
-      exec { "/bin/sh -c 'echo 0 > ${value['radio']['state_file']}'":
+      exec { "/bin/sh -c 'echo 0 > ${value['radio']['state_file']}'": # lint:ignore:exec_idempotency
         * => $noop,
       }
     }
 
     if $value['link_up'] {
       # Set the link down
-      exec { "/bin/sh -c 'echo 0x1002 > /sys/class/net/${key}/flags'":
+      exec { "/bin/sh -c 'echo 0x1002 > /sys/class/net/${key}/flags'": # lint:ignore:exec_idempotency
         * => $noop,
       }
     }

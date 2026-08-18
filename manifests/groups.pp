@@ -38,12 +38,12 @@ class simp_enterprise_el::groups (
       default => { 'noop' => true },
     }
 
-    exec { '/usr/bin/gpasswd -M "" shadow':
+    exec { '/usr/bin/gpasswd -M "" shadow': # lint:ignore:exec_idempotency
       * => $noop,
     }
   }
 
-  $missing_groups.lest || {{} }.each |$key, $value| {
+  $missing_groups.lest || { {} }.each |$key, $value| {
     $noop = $add_missing ? {
       true    => {},
       default => { 'noop' => true },
@@ -86,14 +86,14 @@ class simp_enterprise_el::groups (
   ]
 
   unless $duplicate_groups =~ Undef {
-    exec { 'Remove duplicate groups':
+    exec { 'Remove duplicate groups': # lint:ignore:exec_idempotency
       command => [$ruby, '-e', "'${$remove_duplicates_groups_script.join(' ')}'"].join(' '),
       *       => $dups_noop,
     }
   }
 
   unless $duplicate_gids =~ Undef {
-    exec { 'Remove duplicate GIDs':
+    exec { 'Remove duplicate GIDs': # lint:ignore:exec_idempotency
       command => [$ruby, '-e', "'${$remove_duplicates_gids_script.join(' ')}'"].join(' '),
       *       => $dups_noop,
     }

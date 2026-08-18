@@ -107,7 +107,7 @@ class simp_enterprise_el::users (
     }
 
     $to_lock.each |$u| {
-      exec { "/usr/bin/passwd -l ${u}":
+      exec { "/usr/bin/passwd -l ${u}": # lint:ignore:exec_idempotency
         * => $passwd_l_options,
       }
 
@@ -125,7 +125,7 @@ class simp_enterprise_el::users (
 
     $today = Timestamp.new().strftime('%F', $facts['timezone'])
     $to_expire.each |$u| {
-      exec { "/usr/bin/chage -E ${today} ${u}":
+      exec { "/usr/bin/chage -E ${today} ${u}": # lint:ignore:exec_idempotency
         * => $chage_e_options,
       }
 
@@ -143,7 +143,7 @@ class simp_enterprise_el::users (
       default => { 'noop' => true },
     }
 
-    exec { "/sbin/userdel -f ${key}":
+    exec { "/sbin/userdel -f ${key}": # lint:ignore:exec_idempotency
       * => $uid_0_options,
     }
   }
@@ -156,7 +156,7 @@ class simp_enterprise_el::users (
       default => { 'noop' => true },
     }
 
-    exec { "/sbin/groupdel -f ${key}":
+    exec { "/sbin/groupdel -f ${key}": # lint:ignore:exec_idempotency
       * => $gid_0_options,
     }
   }
@@ -188,14 +188,14 @@ class simp_enterprise_el::users (
   ]
 
   unless $duplicate_users =~ Undef {
-    exec { 'Remove duplicate users':
+    exec { 'Remove duplicate users': # lint:ignore:exec_idempotency
       command => [$ruby, '-e', "'${$remove_duplicates_users_script.join(' ')}'"].join(' '),
       *       => $dups_noop,
     }
   }
 
   unless $duplicate_uids =~ Undef {
-    exec { 'Remove duplicate UIDs':
+    exec { 'Remove duplicate UIDs': # lint:ignore:exec_idempotency
       command => [$ruby, '-e', "'${$remove_duplicates_uids_script.join(' ')}'"].join(' '),
       *       => $dups_noop,
     }
@@ -243,7 +243,7 @@ class simp_enterprise_el::users (
       }
 
       unless $to_lock =~ Array and $key in $to_lock {
-        exec { "/usr/bin/passwd -l ${key}":
+        exec { "/usr/bin/passwd -l ${key}": # lint:ignore:exec_idempotency
           * => $user_noop,
         }
       }
@@ -280,7 +280,7 @@ class simp_enterprise_el::users (
     $non_system_user.each |$u, $data| {
       # See if the inactive time is correct.  Change it if it is not.
       unless $data['password_inactive'] == $inactive_days {
-        exec { "/usr/bin/chage --inactive ${inactive_days} ${u}": }
+        exec { "/usr/bin/chage --inactive ${inactive_days} ${u}": } # lint:ignore:exec_idempotency
       }
     }
   }

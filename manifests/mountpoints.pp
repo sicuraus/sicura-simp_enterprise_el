@@ -22,7 +22,7 @@ class simp_enterprise_el::mountpoints (
       # We can't detect bind mounts on btrfs.
       $options.each |$option| {
         unless $option in $facts['mountpoints'][$fs]['options'] {
-          exec { "/bin/mount -o remount,${option} '${fs}'": }
+          exec { "/bin/mount -o remount,${option} '${fs}'": } # lint:ignore:exec_idempotency
         }
       }
     } else {
@@ -57,7 +57,7 @@ class simp_enterprise_el::mountpoints (
     $removable_options.each |$option| {
       unless $option in $facts['mountpoints'][$mountpoint]['options'] {
         # We don't want to assume that these have entries in /etc/fstab.
-        exec { "/bin/mount -o remount,${option} '${mountpoint}'": }
+        exec { "/bin/mount -o remount,${option} '${mountpoint}'": } # lint:ignore:exec_idempotency
       }
     }
   }
@@ -73,7 +73,7 @@ class simp_enterprise_el::mountpoints (
       } else {
         $missing_options = $nfs_mount_options - $options
         unless $missing_options.empty {
-          exec { "/bin/mount -o remount,${missing_options.join(',')} '${mountpoint}'": }
+          exec { "/bin/mount -o remount,${missing_options.join(',')} '${mountpoint}'": } # lint:ignore:exec_idempotency
         }
       }
     }

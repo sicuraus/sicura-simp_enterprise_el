@@ -17,7 +17,7 @@ class simp_enterprise_el::dotfiles (
   Optional[Hash] $dotfiles       = $facts.dig('simp_enterprise_el__facts', 'dotfiles'),
   Boolean        $enforce        = false,
 ) {
-  $dotfiles.lest || {{} }.each |$key, $value| {
+  $dotfiles.lest || { {} }.each |$key, $value| {
     $absent = { 'ensure' => 'absent' }
     $noop = { 'noop' => 'true' }
 

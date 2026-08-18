@@ -9,7 +9,7 @@ class simp_enterprise_el::initialization_files (
   Optional[Hash] $initialization_files       = $facts.dig('simp_enterprise_el__facts', 'initialization_files'),
   Boolean        $enforce        = false,
 ) {
-  $initialization_files.lest || {{} }.each |$key, $value| {
+  $initialization_files.lest || { {} }.each |$key, $value| {
     $noop = { 'noop' => 'true' }
 
     $defaults = $enforce ? {
