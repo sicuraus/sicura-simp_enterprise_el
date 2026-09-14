@@ -89,6 +89,7 @@ simp_enterprise_el::managed_groups_overrides: {}
 
 simp_enterprise_el::users::empty_shadow: false
 simp_enterprise_el::users::lock: false
+simp_enterprise_el::users::lock_invalid_shell: false
 simp_enterprise_el::users::expire: false
 simp_enterprise_el::users::remove_uid_0: false
 simp_enterprise_el::users::remove_gid_0: false

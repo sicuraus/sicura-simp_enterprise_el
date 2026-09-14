@@ -48,6 +48,14 @@ rescue => e
   []
 end
 
+# Shadow entries keyed by name.  A duplicated name keeps the *first* entry,
+# which is the one getspnam(3) and the shadow tools (`passwd -l`) act on.
+def shadow_by_name
+  return @shadow_by_name unless @shadow_by_name.nil?
+
+  @shadow_by_name = shadow.each_with_object({}) { |sp, h| h[sp[:name]] ||= sp }
+end
+
 def group
   return @group unless @group.nil?
 
@@ -68,6 +76,35 @@ def group
   @group
 end
 
+# Login shells that count as valid for the "accounts without a valid login
+# shell are locked" checks (CIS EL8/EL9/EL10 5.4.2.8).  Those build the set
+# from /etc/shells with the `*/nologin` entries filtered out, so an account
+# sitting on /sbin/nologin counts as having no valid login shell.
+def valid_login_shells
+  return @valid_login_shells unless @valid_login_shells.nil?
+
+  @valid_login_shells = File.readlines('/etc/shells', chomp: true).map(&:strip).select do |line|
+    line.start_with?('/') && File.basename(line) != 'nologin'
+  end
+rescue => e
+  # An unreadable or missing /etc/shells leaves the set empty, which the
+  # callers treat as "do not lock anything" rather than "nothing is valid".
+  Facter.warn(e)
+  @valid_login_shells = []
+end
+
+# Whether an account can log in interactively.  CIS scopes its home directory
+# and dot file rules to "local interactive users", and a shared home (stock EL
+# ships `operator` at /root and `nobody` at /) must only ever be judged
+# against the account that can actually use it.  Falls back to a basename
+# check when /etc/shells could not be read.
+def login_shell?(shell)
+  return false if shell.nil? || shell.empty?
+  return valid_login_shells.include?(shell) unless valid_login_shells.empty?
+
+  File.basename(shell) != 'nologin'
+end
+
 Facter.add('simp_enterprise_el__facts') do
   confine kernel: 'Linux'
 
@@ -82,7 +119,7 @@ Facter.add('simp_enterprise_el__facts') do
     passwd.each do |user|
       retval['users'] << user
       unless user[:uid] < 1000 || user[:shell] == '/sbin/nologin'
-        sp = shadow.find { |entry| entry[:name] == user[:name] }
+        sp = shadow_by_name[user[:name]]
         next if sp.nil?
         user[:password_expiration] = sp[:expire]
         user[:password_inactive] = sp[:inact]
@@ -155,47 +192,58 @@ Facter.add('simp_enterprise_el__facts') do
             }
           end
 
-          # Enforce permissions on dot files
-          dotfiles = ['.rhosts', '.netrc', '.forward']
+          # Dot files are only judged against accounts that can log in: a
+          # nologin account sharing a home (operator at /root, nobody at /)
+          # would otherwise claim ownership of every file in it.
+          if login_shell?(user[:shell])
+            # Report every dot file and dot directory at the top level of the
+            # home.  This is state only: which files are out of policy, and
+            # what their mode should become, is decided by
+            # simp_enterprise_el::dotfiles from its parameters, so that a
+            # benchmark's mask and ownership rules apply only where its data
+            # turns them on.  `owner` and `group` are the values the class
+            # will set (the user and the user's primary group); `current` is
+            # what is on disk.
+            (Dir.entries(user[:dir]) - ['.', '..']).each do |file|
+              next unless %r{^\.}.match?(file)
 
-          (Dir.entries(user[:dir]) - ['.', '..']).each do |file|
-            next unless %r{^\.}.match?(file)
+              fullpath = File.join(user[:dir], file)
+              next if File.symlink?(fullpath)
+              sb = File::Stat.new(fullpath)
+              next unless ['file', 'directory'].include?(sb.ftype)
 
-            fullpath = File.join(user[:dir], file)
-            next if File.symlink?(fullpath)
-            sb = File::Stat.new(fullpath)
-            next unless ['file', 'directory'].include?(sb.ftype)
-            next unless dotfiles.include?(file) || sb.mode.anybits?(0o22)
+              retval['dotfiles'] = {} if retval['dotfiles'].nil?
+              retval['dotfiles'][fullpath] = {
+                'ensure'  => sb.ftype,
+                'owner'   => user[:uid],
+                'group'   => user[:gid],
+                'current' => {
+                  'owner' => sb.uid,
+                  'group' => sb.gid,
+                  'mode'  => '%04o' % (sb.mode & 0o7777),
+                },
+              }
+            end
 
-            mask = (file == '.netrc') ? 0o77 : 0o22
-            target_mode = '0' + (sb.mode & (mask ^ 0o777)).to_s(8)
+            # Enforce permissions on initialization files
+            initialization_files = ['.cshrc', '.tcshrc', '.bashrc', '.bash_profile', '.bash_login', '.bash_logout', '.profile']
 
-            retval['dotfiles'] = {} if retval['dotfiles'].nil?
-            retval['dotfiles'][fullpath] = {
-              'ensure' => sb.ftype,
-              'owner'  => user[:uid],
-              'mode'   => target_mode,
-            }
-          end
+            (Dir.entries(user[:dir]) - ['.', '..']).each do |file|
+              next unless initialization_files.include?(file)
 
-          # Enforce permissions on initialization files
-          initialization_files = ['.cshrc', '.tcshrc', '.bashrc', '.bash_profile', '.bash_login', '.bash_logout', '.profile']
+              fullpath = File.join(user[:dir], file)
+              next if File.symlink?(fullpath)
+              sb = File::Stat.new(fullpath)
+              next unless ['file', 'directory'].include?(sb.ftype)
+              target_mode = '0' + (sb.mode & (0o27 ^ 0o777)).to_s(8)
 
-          (Dir.entries(user[:dir]) - ['.', '..']).each do |file|
-            next unless initialization_files.include?(file)
-
-            fullpath = File.join(user[:dir], file)
-            next if File.symlink?(fullpath)
-            sb = File::Stat.new(fullpath)
-            next unless ['file', 'directory'].include?(sb.ftype)
-            target_mode = '0' + (sb.mode & (0o27 ^ 0o777)).to_s(8)
-
-            retval['initialization_files'] = {} if retval['initialization_files'].nil?
-            retval['initialization_files'][fullpath] = {
-              'ensure' => sb.ftype,
-              'owner'  => user[:uid],
-              'mode'   => target_mode,
-            }
+              retval['initialization_files'] = {} if retval['initialization_files'].nil?
+              retval['initialization_files'][fullpath] = {
+                'ensure' => sb.ftype,
+                'owner'  => user[:uid],
+                'mode'   => target_mode,
+              }
+            end
           end
         rescue => e
           # Expected failure for non-root users
@@ -240,6 +288,35 @@ Facter.add('simp_enterprise_el__facts') do
       # we're probably seeing a timezone-related problem.
       elsif sp[:lstchg] == today + 1
         Facter.warn("User #{sp[:name]} password last set tomorrow.  Time zone issue?")
+      end
+    end
+
+    # Accounts that have no valid login shell but still have a usable
+    # password (CIS 5.4.2.8).  This is kept apart from `lock`, which lists
+    # empty-password accounts: the two are different rules, and
+    # simp_enterprise_el::users enforces each behind its own parameter so
+    # that enabling one never locks accounts on behalf of the other.
+    #
+    # Only accounts that are *currently* unlocked belong on this list:
+    # simp_enterprise_el::users turns each entry into a bare
+    # `exec { "/usr/bin/passwd -l <user>" }` with no guard, so an account that
+    # stays listed after it has been locked makes every subsequent Puppet run
+    # report a change.
+    unless valid_login_shells.empty?
+      passwd.each do |user|
+        # The audit exempts root by name, and locking it is an outage.
+        next if user[:name] == 'root'
+        next if valid_login_shells.include?(user[:shell])
+
+        sp = shadow_by_name[user[:name]]
+        next if sp.nil?
+        # Empty is 'NP', which the empty-password branch above already owns.
+        next if sp[:passwd].empty?
+        # '!' and '*' both report as 'L' from `passwd -S`.
+        next if sp[:passwd].start_with?('!', '*')
+
+        retval['lock_invalid_shell'] = [] if retval['lock_invalid_shell'].nil?
+        retval['lock_invalid_shell'] << user[:name] unless retval['lock_invalid_shell'].include?(user[:name])
       end
     end
 

@@ -17,8 +17,12 @@ class simp_enterprise_el::initialization_files (
       default => $noop,
     }
 
-    simp_enterprise_el::resource::file { $key:
-      params => $value + $defaults,
+    # simp_enterprise_el::dotfiles manages the same files from its own fact
+    # entry; whichever class is evaluated first owns the resource.
+    unless defined(Simp_enterprise_el::Resource::File[$key]) {
+      simp_enterprise_el::resource::file { $key:
+        params => $value + $defaults,
+      }
     }
   }
 }

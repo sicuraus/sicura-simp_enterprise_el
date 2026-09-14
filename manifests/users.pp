@@ -5,8 +5,12 @@
 # @param non_system_users List of users that have a login and are above uid 1000
 # @param groups List of local groups
 # @param empty_shadow Enforce group change for users with `shadow` as their primary group
-# @param to_lock List of local users that should be locked
+# @param to_lock List of local users that should be locked because their password is empty
 # @param lock Enforce locking `to_lock` list
+# @param to_lock_invalid_shell
+#   List of local users that should be locked because their login shell is not
+#   a valid login shell and their password is still usable
+# @param lock_invalid_shell Enforce locking `to_lock_invalid_shell` list
 # @param to_expire List of local users that should have a password change forced
 # @param expire Enforce expiring passwords of users in the `to_expire` list
 # @param remove_uid_0 Remove any users other than `root` with UID 0
@@ -28,6 +32,7 @@
 class simp_enterprise_el::users (
   Boolean           $empty_shadow,
   Boolean           $lock,
+  Boolean           $lock_invalid_shell,
   Boolean           $expire,
   Boolean           $remove_uid_0,
   Boolean           $remove_gid_0,
@@ -41,6 +46,7 @@ class simp_enterprise_el::users (
   Optional[Array]   $non_system_users = $facts.dig('simp_enterprise_el__facts', 'non_system_users'),
   Optional[Array]   $groups           = $facts.dig('simp_enterprise_el__facts', 'groups'),
   Optional[Array]   $to_lock          = $facts.dig('simp_enterprise_el__facts', 'lock'),
+  Optional[Array]   $to_lock_invalid_shell = $facts.dig('simp_enterprise_el__facts', 'lock_invalid_shell'),
   Optional[Array]   $to_expire        = $facts.dig('simp_enterprise_el__facts', 'expire'),
   Optional[Hash]    $duplicate_users  = $facts.dig('simp_enterprise_el__facts', 'dups', 'username'),
   Optional[Hash]    $duplicate_uids   = $facts.dig('simp_enterprise_el__facts', 'dups', 'uid'),
@@ -100,6 +106,12 @@ class simp_enterprise_el::users (
     }
   }
 
+  # System accounts that still have a login shell.  `sa_nologin` moves them to
+  # `nologin_shell` and locks them.
+  $sa_login_users = $user.filter |$value| {
+    $value[1]['uid'] != 0 and $value[1]['uid'] < $uid_min and $value[1]['shell'] != $nologin_shell and !($value[0] in $sa_exclude)
+  }
+
   if $to_lock =~ Array {
     $passwd_l_options = $lock ? {
       true    => {},
@@ -113,6 +125,31 @@ class simp_enterprise_el::users (
 
       if defined(Exec["/sbin/userdel -f ${u}"]) {
         Exec["/usr/bin/passwd -l ${u}"] -> Exec["/sbin/userdel -f ${u}"]
+      }
+    }
+  }
+
+  # Accounts without a valid login shell are a separate rule from accounts
+  # with an empty password, so they are locked behind their own switch.  An
+  # account on both lists is already handled above.
+  if $to_lock_invalid_shell =~ Array {
+    $to_lock_invalid_shell.each |$u| {
+      unless $to_lock =~ Array and $u in $to_lock {
+        # `sa_nologin` locks the system accounts it moves to `nologin_shell`,
+        # so when an account falls under both rules either switch enforces
+        # the lock.
+        $lock_invalid_shell_options = ($lock_invalid_shell or ($sa_nologin and $u in $sa_login_users)) ? {
+          true    => {},
+          default => { 'noop' => true },
+        }
+
+        exec { "/usr/bin/passwd -l ${u}": # lint:ignore:exec_idempotency
+          * => $lock_invalid_shell_options,
+        }
+
+        if defined(Exec["/sbin/userdel -f ${u}"]) {
+          Exec["/usr/bin/passwd -l ${u}"] -> Exec["/sbin/userdel -f ${u}"]
+        }
       }
     }
   }
@@ -216,9 +253,7 @@ class simp_enterprise_el::users (
     }
   }
 
-  $user.filter |$value| {
-    $value[1]['uid'] != 0 and $value[1]['uid'] < $uid_min and $value[1]['shell'] != $nologin_shell and !($value[0] in $sa_exclude)
-  }.each |$key, $value| {
+  $sa_login_users.each |$key, $value| {
     unless defined(User[$key]) {
       $user_params = $value.reduce({}) |$memo, $param| { # lint:ignore:manifest_whitespace_opening_brace_before
         $this_key = $param[0] ? {
@@ -242,7 +277,8 @@ class simp_enterprise_el::users (
         * => $user_params + $user_noop + { 'shell' => $nologin_shell },
       }
 
-      unless $to_lock =~ Array and $key in $to_lock {
+      # Skip accounts the lock lists above have already declared.
+      unless ($to_lock =~ Array and $key in $to_lock) or ($to_lock_invalid_shell =~ Array and $key in $to_lock_invalid_shell) {
         exec { "/usr/bin/passwd -l ${key}": # lint:ignore:exec_idempotency
           * => $user_noop,
         }

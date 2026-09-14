@@ -43,6 +43,14 @@
 * [`simp_enterprise_el::resource::sysctl`](#simp_enterprise_el--resource--sysctl): Optionally manage or override sysctl resources
 * [`simp_enterprise_el::resource::user`](#simp_enterprise_el--resource--user): Optionally manage or override user resources
 
+### Functions
+
+* [`simp_enterprise_el::apply_mask`](#simp_enterprise_el--apply_mask): Strip the bits in `mask` from a file mode
+
+### Data types
+
+* [`Simp_enterprise_el::Mask`](#Simp_enterprise_el--Mask): Permission bits to strip from a file mode, as an octal string (e.g. `'0022'`, `'0133'`)
+
 ## Classes
 
 ### <a name="simp_enterprise_el"></a>`simp_enterprise_el`
@@ -575,7 +583,16 @@ Default value: `false`
 
 ### <a name="simp_enterprise_el--dotfiles"></a>`simp_enterprise_el::dotfiles`
 
-Manage problematic . files in users' home directories
+The `simp_enterprise_el__facts` fact reports every dot file at the top level
+of each interactive user's home directory along with its current owner,
+group and mode.  Which of those files are out of policy, and what to do
+about them, is decided here from the class parameters, so that each
+benchmark rule turns on only the behaviour it asks for.
+
+With the defaults, a dot file is managed only when its mode has bits set in
+`mask` (or the matching entry in `masks`), and only its owner and mode are
+set.  A file listed by one of the `remove_*` parameters is always managed so
+that it can be removed.
 
 #### Examples
 
@@ -583,6 +600,17 @@ Manage problematic . files in users' home directories
 
 ```puppet
 include simp_enterprise_el::dotfiles
+```
+
+##### CIS "local interactive user dot files access"
+
+```puppet
+class { 'simp_enterprise_el::dotfiles':
+  mask             => '0133',
+  masks            => { '.netrc' => '0177', '.bash_history' => '0177' },
+  manage_ownership => true,
+  enforce          => true,
+}
 ```
 
 #### Parameters
@@ -593,6 +621,10 @@ The following parameters are available in the `simp_enterprise_el::dotfiles` cla
 * [`remove_shosts`](#-simp_enterprise_el--dotfiles--remove_shosts)
 * [`remove_netrc`](#-simp_enterprise_el--dotfiles--remove_netrc)
 * [`remove_forward`](#-simp_enterprise_el--dotfiles--remove_forward)
+* [`mask`](#-simp_enterprise_el--dotfiles--mask)
+* [`directory_mask`](#-simp_enterprise_el--dotfiles--directory_mask)
+* [`masks`](#-simp_enterprise_el--dotfiles--masks)
+* [`manage_ownership`](#-simp_enterprise_el--dotfiles--manage_ownership)
 * [`dotfiles`](#-simp_enterprise_el--dotfiles--dotfiles)
 * [`enforce`](#-simp_enterprise_el--dotfiles--enforce)
 
@@ -628,11 +660,46 @@ Remove users' .forward files
 
 Default value: `false`
 
+##### <a name="-simp_enterprise_el--dotfiles--mask"></a>`mask`
+
+Data type: `Simp_enterprise_el::Mask`
+
+Permission bits to strip from dot files
+
+Default value: `'0022'`
+
+##### <a name="-simp_enterprise_el--dotfiles--directory_mask"></a>`directory_mask`
+
+Data type: `Simp_enterprise_el::Mask`
+
+Permission bits to strip from dot directories
+
+Default value: `'0022'`
+
+##### <a name="-simp_enterprise_el--dotfiles--masks"></a>`masks`
+
+Data type: `Hash[String[1], Simp_enterprise_el::Mask]`
+
+Per-file overrides of `mask`, keyed by file name
+
+Default value: `{ '.netrc' => '0077' }`
+
+##### <a name="-simp_enterprise_el--dotfiles--manage_ownership"></a>`manage_ownership`
+
+Data type: `Boolean`
+
+When `true`, also manage a dot file whose owner is not the user or whose
+group is not the user's primary group, and set both on every managed file.
+When `false`, only the owner is set, and only on files whose mode is out
+of policy.
+
+Default value: `false`
+
 ##### <a name="-simp_enterprise_el--dotfiles--dotfiles"></a>`dotfiles`
 
 Data type: `Optional[Hash]`
 
-File resources to manage
+Dot files reported by the fact
 
 Default value: `$facts.dig('simp_enterprise_el__facts', 'dotfiles')`
 
@@ -1347,6 +1414,8 @@ The following parameters are available in the `simp_enterprise_el::users` class:
 * [`empty_shadow`](#-simp_enterprise_el--users--empty_shadow)
 * [`to_lock`](#-simp_enterprise_el--users--to_lock)
 * [`lock`](#-simp_enterprise_el--users--lock)
+* [`to_lock_invalid_shell`](#-simp_enterprise_el--users--to_lock_invalid_shell)
+* [`lock_invalid_shell`](#-simp_enterprise_el--users--lock_invalid_shell)
 * [`to_expire`](#-simp_enterprise_el--users--to_expire)
 * [`expire`](#-simp_enterprise_el--users--expire)
 * [`remove_uid_0`](#-simp_enterprise_el--users--remove_uid_0)
@@ -1407,7 +1476,7 @@ Default value: `false`
 
 Data type: `Optional[Array]`
 
-List of local users that should be locked
+List of local users that should be locked because their password is empty
 
 Default value: `$facts.dig('simp_enterprise_el__facts', 'lock')`
 
@@ -1416,6 +1485,23 @@ Default value: `$facts.dig('simp_enterprise_el__facts', 'lock')`
 Data type: `Boolean`
 
 Enforce locking `to_lock` list
+
+Default value: `false`
+
+##### <a name="-simp_enterprise_el--users--to_lock_invalid_shell"></a>`to_lock_invalid_shell`
+
+Data type: `Optional[Array]`
+
+List of local users that should be locked because their login shell is not
+a valid login shell and their password is still usable
+
+Default value: `$facts.dig('simp_enterprise_el__facts', 'lock_invalid_shell')`
+
+##### <a name="-simp_enterprise_el--users--lock_invalid_shell"></a>`lock_invalid_shell`
+
+Data type: `Boolean`
+
+Enforce locking `to_lock_invalid_shell` list
 
 Default value: `false`
 
@@ -2263,4 +2349,60 @@ Data type: `Optional[Boolean]`
 When `true`, skip this resource.
 
 Default value: `$params['ignore']`
+
+## Functions
+
+### <a name="simp_enterprise_el--apply_mask"></a>`simp_enterprise_el::apply_mask`
+
+Type: Ruby 4.x API
+
+Both arguments are octal strings, as reported by `simp_enterprise_el__facts`
+and as set in compliance data.  The result is limited to the permission
+bits: setuid, setgid and sticky are always cleared, matching what the
+`dotfiles` fact did when it computed the target mode itself.
+
+#### Examples
+
+##### 
+
+```puppet
+simp_enterprise_el::apply_mask('0777', '0133') # => '0644'
+```
+
+#### `simp_enterprise_el::apply_mask(Pattern[/\A[0-7]{3,4}\z/] $mode, Simp_enterprise_el::Mask $mask)`
+
+Both arguments are octal strings, as reported by `simp_enterprise_el__facts`
+and as set in compliance data.  The result is limited to the permission
+bits: setuid, setgid and sticky are always cleared, matching what the
+`dotfiles` fact did when it computed the target mode itself.
+
+Returns: `String` `mode` with the `mask` bits cleared, as a four digit octal string
+
+##### Examples
+
+###### 
+
+```puppet
+simp_enterprise_el::apply_mask('0777', '0133') # => '0644'
+```
+
+##### `mode`
+
+Data type: `Pattern[/\A[0-7]{3,4}\z/]`
+
+The current mode, e.g. `'0755'` or `'1777'`
+
+##### `mask`
+
+Data type: `Simp_enterprise_el::Mask`
+
+The bits to clear, e.g. `'0022'`
+
+## Data types
+
+### <a name="Simp_enterprise_el--Mask"></a>`Simp_enterprise_el::Mask`
+
+Permission bits to strip from a file mode, as an octal string (e.g. `'0022'`, `'0133'`)
+
+Alias of `Pattern[/\A0?[0-7]{3}\z/]`
 
