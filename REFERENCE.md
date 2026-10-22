@@ -59,7 +59,7 @@ Helper profile class for simp_enterprise_el_* modules
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el
@@ -459,7 +459,7 @@ Manage permissions on cron files/directories
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::cron
@@ -514,7 +514,7 @@ Manage dconf settings
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::dconf::dconf_settings:
@@ -526,7 +526,7 @@ simp_enterprise_el::dconf::dconf_settings:
           lock: true
 ```
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::dconf
@@ -552,7 +552,7 @@ Disable wireless interfaces
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::disable_wifi
@@ -596,7 +596,7 @@ that it can be removed.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::dotfiles
@@ -717,7 +717,7 @@ Check for problems with local groups
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::groups
@@ -815,7 +815,7 @@ Manage bootloader configuration file permissions
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::grub
@@ -859,7 +859,7 @@ Manage users' home directories
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::homes
@@ -912,7 +912,7 @@ Manage problematic . files in users' home directories
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::dotfiles
@@ -947,7 +947,7 @@ Remove all keytab files under /etc
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::keytabs
@@ -1000,7 +1000,7 @@ Remove legacy `+` entries in passwd, group, and shadow files
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::legacy
@@ -1044,7 +1044,7 @@ Manage permissions on log files
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::logfiles
@@ -1097,7 +1097,7 @@ Manage mount options
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::mountpoints
@@ -1159,7 +1159,7 @@ Check for `nullok` in PAM stack
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::pam
@@ -1194,7 +1194,7 @@ PATH validation
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::path
@@ -1229,7 +1229,7 @@ resolv.conf validation
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::resolv
@@ -1264,7 +1264,7 @@ Manage ssh host key files
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::ssh_host_files
@@ -1353,7 +1353,7 @@ Manage sshd environment file
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::sshd
@@ -1397,7 +1397,7 @@ Check for problems with local users
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include simp_enterprise_el::users
@@ -1633,7 +1633,7 @@ Optionally manage or override file resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::file { '/etc/crontab':
@@ -1687,7 +1687,7 @@ WARNING: Do not use this feature unless there is no other option
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::file_line { 'add_line_to_unamanaged_file':
@@ -1737,7 +1737,7 @@ Optionally manage or override firewalld_rich_rules
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::firewalld_rich_rule { 'accept_port_22':
@@ -1796,7 +1796,7 @@ Optionally manage or override group resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::group { 'foo':
@@ -1846,7 +1846,7 @@ Optionally manage or override ini_setting resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::ini_setting { 'Coredump_Storage':
@@ -1900,7 +1900,7 @@ Optionally manage or override ini_subsetting resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::ini_subsetting { 'Coredump_Storage':
@@ -1954,7 +1954,7 @@ Optionally manage or override kernel_parameter resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::kernel_parameter { 'consoleblank':
@@ -2004,7 +2004,7 @@ Optionally manage or override package resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::package { 'telnet':
@@ -2053,7 +2053,7 @@ Optionally manage or override service resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::service { 'rsyncd':
@@ -2103,7 +2103,7 @@ Optionally manage or override shellvar resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::shellvar { 'GRUB_CMDLINE_LINUX':
@@ -2155,7 +2155,7 @@ Optionally manage or override ssh_config resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::ssh_config { 'ForwardAgent':
@@ -2205,7 +2205,7 @@ Optionally manage or override sshd_config resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::sshd_config { 'PubkeyAuthentication':
@@ -2255,7 +2255,7 @@ Optionally manage or override sysctl resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::sysctl { 'kernel.sysrq':
@@ -2305,7 +2305,7 @@ Optionally manage or override user resources
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::resource::user { 'foo':
@@ -2363,7 +2363,7 @@ bits: setuid, setgid and sticky are always cleared, matching what the
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 simp_enterprise_el::apply_mask('0777', '0133') # => '0644'
@@ -2380,7 +2380,7 @@ Returns: `String` `mode` with the `mask` bits cleared, as a four digit octal str
 
 ##### Examples
 
-###### 
+######
 
 ```puppet
 simp_enterprise_el::apply_mask('0777', '0133') # => '0644'
@@ -2405,4 +2405,3 @@ The bits to clear, e.g. `'0022'`
 Permission bits to strip from a file mode, as an octal string (e.g. `'0022'`, `'0133'`)
 
 Alias of `Pattern[/\A0?[0-7]{3}\z/]`
-
