@@ -24,6 +24,9 @@ lookup_options:
   simp_enterprise_el::grub::defaults:
     merge:
       strategy: deep
+  simp_enterprise_el::grub::file_params:
+    merge:
+      strategy: deep
 
 simp_enterprise_el::files: {}
 simp_enterprise_el::file_defaults: {}
@@ -119,6 +122,10 @@ simp_enterprise_el::grub::defaults:
   group: 'root'
   mode: '0600'
 simp_enterprise_el::grub::enforce: false
+simp_enterprise_el::grub::file_params:
+  '/boot/grub2/grubenv':
+    selinux_ignore_defaults: true
+    seltype: 'boot_t'
 
 simp_enterprise_el::path::warn_to_stderr: false
 simp_enterprise_el::path::log_facility: user.info

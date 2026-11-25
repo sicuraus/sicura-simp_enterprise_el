@@ -828,6 +828,7 @@ The following parameters are available in the `simp_enterprise_el::grub` class:
 * [`files`](#-simp_enterprise_el--grub--files)
 * [`enforce`](#-simp_enterprise_el--grub--enforce)
 * [`defaults`](#-simp_enterprise_el--grub--defaults)
+* [`file_params`](#-simp_enterprise_el--grub--file_params)
 
 ##### <a name="-simp_enterprise_el--grub--files"></a>`files`
 
@@ -852,6 +853,27 @@ Data type: `Hash`
 File permissions
 
 Default value: `{ 'owner' => 'root', 'group' => 'root', 'mode' => '0600' }`
+
+##### <a name="-simp_enterprise_el--grub--file_params"></a>`file_params`
+
+Data type: `Hash[Stdlib::Unixpath, Hash]`
+
+Extra attributes for individual files, keyed by path.  Applied on top of
+`defaults` and the fact's attributes (`ensure` included), and only to files
+listed in `files`.  Set it through Hiera, which deep-merges it with the
+module's default; a value passed in a resource-like class declaration
+replaces that default.
+
+`/boot/grub2/grubenv` ignores the SELinux defaults: GRUB replaces the file
+after each boot (`grub2-set-bootflag` runs from a systemd user unit), so it
+takes the logged-in session's SELinux user, and Puppet would otherwise set
+it back to `system_u` after every reboot.  Ignoring the defaults leaves the
+whole label unmanaged, so the type is pinned back to `boot_t`; only the
+user, role and range go unmanaged.  Owner, group and mode are still
+managed.  The pin also overrides a local `semanage fcontext` rule for
+`grubenv`; a site with one sets `seltype` here to match it.
+
+Default value: `{ '/boot/grub2/grubenv' => { 'selinux_ignore_defaults' => true, 'seltype' => 'boot_t' } }`
 
 ### <a name="simp_enterprise_el--homes"></a>`simp_enterprise_el::homes`
 
@@ -1349,7 +1371,14 @@ Default value: `'root'`
 
 ### <a name="simp_enterprise_el--sshd"></a>`simp_enterprise_el::sshd`
 
-Manage sshd environment file
+sshd reads the environment file only when it starts, so every `shellvar`
+targeting `$env_file` and every `file_line` whose path is `$env_file`
+refreshes `Service['sshd']` when that service is in the catalog.  The
+relationship is made through collectors, so it is a no-op (and the catalog
+still compiles) when nothing manages the sshd service; this class never
+declares `Service['sshd']` itself.  The `Service <| title == 'sshd' |>`
+collector would also realize a virtual `Service['sshd']` if one were ever
+declared.
 
 #### Examples
 

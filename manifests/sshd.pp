@@ -1,5 +1,14 @@
 # @summary Manage sshd environment file
 #
+# sshd reads the environment file only when it starts, so every `shellvar`
+# targeting `$env_file` and every `file_line` whose path is `$env_file`
+# refreshes `Service['sshd']` when that service is in the catalog.  The
+# relationship is made through collectors, so it is a no-op (and the catalog
+# still compiles) when nothing manages the sshd service; this class never
+# declares `Service['sshd']` itself.  The `Service <| title == 'sshd' |>`
+# collector would also realize a virtual `Service['sshd']` if one were ever
+# declared.
+#
 # @param env_file Path to environment file
 # @param env Environment to include in environment file
 # @param env_exclude Environment variables to exclude from environment file
@@ -37,4 +46,9 @@ class simp_enterprise_el::sshd (
     }
   }
   # lint:endignore
+
+  # sshd only picks up environment changes on restart.  Collectors keep this
+  # safe when `Service['sshd']` is not managed: they then match nothing.
+  Shellvar <| target == $env_file |> ~> Service <| title == 'sshd' |>
+  File_line <| path == $env_file |> ~> Service <| title == 'sshd' |>
 }
